@@ -1,3 +1,2 @@
 # JustShoes
-io
 Solo Scarpe 
