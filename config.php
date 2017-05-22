@@ -4,9 +4,18 @@
 
 
 <?php 
-	$HOST = "127.0.0.1";
+	$HOST = "localhost";
 	$USER = "root";
-	$PASS = "PASSWORD_HERE";
-	$DB = "ecommerceDB";
+	$PASS = "root";
+	$DB   = "JustShoes";
 
+	$var = 4;
+
+	$con = mysql_connect($HOST, $USER, $PASS) or die("Connessione a mysql non riuscita\n");
+	$db = mysql_select_db($DB, $con) or die("Impossibile selezionare il database\n");
+
+	if($db) echo "<h1>Connessione al DB riuscita!".$var."</h1>";
+
+	//Session started
+	session_start();
 ?>
