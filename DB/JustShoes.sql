@@ -41,13 +41,18 @@ ALTER TABLE Marca ADD CONSTRAINT PK_Marca PRIMARY KEY (id_marca);
 
 CREATE TABLE Scarpa (
  id_scarpa NUMERIC(10) NOT NULL,
- id_categoria NUMERIC(10),
  sesso CHAR(1),
  prezzo NUMERIC(10),
  id_marca NUMERIC(10)
 );
 
 ALTER TABLE Scarpa ADD CONSTRAINT PK_Scarpa PRIMARY KEY (id_scarpa);
+
+
+CREATE TABLE Scarpa_Categoria (
+ id_scarpa NUMERIC(10),
+ id_categoria NUMERIC(10)
+);
 
 
 CREATE TABLE Taglia (
@@ -87,8 +92,11 @@ CREATE TABLE Stock_Scarpe (
 );
 
 
-ALTER TABLE Scarpa ADD CONSTRAINT FK_Scarpa_0 FOREIGN KEY (id_categoria) REFERENCES Categoria (id_categoria);
-ALTER TABLE Scarpa ADD CONSTRAINT FK_Scarpa_1 FOREIGN KEY (id_marca) REFERENCES Marca (id_marca);
+ALTER TABLE Scarpa ADD CONSTRAINT FK_Scarpa_0 FOREIGN KEY (id_marca) REFERENCES Marca (id_marca);
+
+
+ALTER TABLE Scarpa_Categoria ADD CONSTRAINT FK_Scarpa_Categoria_0 FOREIGN KEY (id_scarpa) REFERENCES Scarpa (id_scarpa);
+ALTER TABLE Scarpa_Categoria ADD CONSTRAINT FK_Scarpa_Categoria_1 FOREIGN KEY (id_categoria) REFERENCES Categoria (id_categoria);
 
 
 ALTER TABLE Utente ADD CONSTRAINT FK_Utente_0 FOREIGN KEY (id_gruppo_applicativo) REFERENCES Gruppo_Applicativo (id_gruppo_applicativo);
