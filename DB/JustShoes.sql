@@ -1,8 +1,8 @@
 CREATE TABLE Acquisto (
  id_acquisto NUMERIC(10) NOT NULL,
- data CHAR(10),
+ data DATE,
  totale NUMERIC(10),
- id_indirizzo CHAR(10),
+ id_indirizzo NUMERIC(10),
  id_utente NUMERIC(10)
 );
 
@@ -35,12 +35,12 @@ ALTER TABLE Gruppo_Applicativo ADD CONSTRAINT PK_Gruppo_Applicativo PRIMARY KEY 
 
 
 CREATE TABLE Indirizzo (
- id_indirizzo CHAR(10) NOT NULL,
+ id_indirizzo NUMERIC(10) NOT NULL,
  id_utente NUMERIC(10),
- citta CHAR(10),
- via CHAR(10),
- CAP CHAR(10),
- altro CHAR(10)
+ citta VARCHAR(50),
+ via VARCHAR(50),
+ CAP CHAR(5),
+ altro VARCHAR(100)
 );
 
 ALTER TABLE Indirizzo ADD CONSTRAINT PK_Indirizzo PRIMARY KEY (id_indirizzo);
@@ -58,7 +58,8 @@ CREATE TABLE Scarpa (
  id_scarpa NUMERIC(10) NOT NULL,
  sesso CHAR(1),
  prezzo NUMERIC(10),
- id_marca NUMERIC(10)
+ id_marca NUMERIC(10),
+ foto CHAR(10)
 );
 
 ALTER TABLE Scarpa ADD CONSTRAINT PK_Scarpa PRIMARY KEY (id_scarpa);
