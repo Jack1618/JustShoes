@@ -1,9 +1,6 @@
 CREATE TABLE Acquisto (
  id_acquisto NUMERIC(10) NOT NULL,
- data CHAR(10),
- totale NUMERIC(10),
- id_indirizzo CHAR(10),
- id_utente NUMERIC(10)
+ totale NUMERIC(10)
 );
 
 ALTER TABLE Acquisto ADD CONSTRAINT PK_Acquisto PRIMARY KEY (id_acquisto);
@@ -34,18 +31,6 @@ CREATE TABLE Gruppo_Applicativo (
 ALTER TABLE Gruppo_Applicativo ADD CONSTRAINT PK_Gruppo_Applicativo PRIMARY KEY (id_gruppo_applicativo);
 
 
-CREATE TABLE Indirizzo (
- id_indirizzo CHAR(10) NOT NULL,
- id_utente NUMERIC(10),
- citta CHAR(10),
- via CHAR(10),
- CAP CHAR(10),
- altro CHAR(10)
-);
-
-ALTER TABLE Indirizzo ADD CONSTRAINT PK_Indirizzo PRIMARY KEY (id_indirizzo);
-
-
 CREATE TABLE Marca (
  id_marca NUMERIC(10) NOT NULL,
  nome VARCHAR(50)
@@ -67,11 +52,6 @@ ALTER TABLE Scarpa ADD CONSTRAINT PK_Scarpa PRIMARY KEY (id_scarpa);
 CREATE TABLE Scarpa_Categoria (
  id_scarpa NUMERIC(10),
  id_categoria NUMERIC(10)
-);
-
-
-CREATE TABLE Spedizione (
- id_acquisto NUMERIC(10)
 );
 
 
@@ -97,15 +77,11 @@ CREATE TABLE Utente (
 ALTER TABLE Utente ADD CONSTRAINT PK_Utente PRIMARY KEY (id_utente);
 
 
-CREATE TABLE Wishlist (
+CREATE TABLE Cronologia_Acquisti (
+ id_utente NUMERIC(10),
  id_scarpa NUMERIC(10),
- id_utente NUMERIC(10)
-);
-
-
-CREATE TABLE Dettagli_Acquisto (
- id_scarpa NUMERIC(10),
- id_acquisto NUMERIC(10)
+ id_acquisto NUMERIC(10),
+ data DATE
 );
 
 
@@ -116,13 +92,6 @@ CREATE TABLE Stock_Scarpe (
 );
 
 
-ALTER TABLE Acquisto ADD CONSTRAINT FK_Acquisto_0 FOREIGN KEY (id_indirizzo) REFERENCES Indirizzo (id_indirizzo);
-ALTER TABLE Acquisto ADD CONSTRAINT FK_Acquisto_1 FOREIGN KEY (id_utente) REFERENCES Utente (id_utente);
-
-
-ALTER TABLE Indirizzo ADD CONSTRAINT FK_Indirizzo_0 FOREIGN KEY (id_utente) REFERENCES Utente (id_utente);
-
-
 ALTER TABLE Scarpa ADD CONSTRAINT FK_Scarpa_0 FOREIGN KEY (id_marca) REFERENCES Marca (id_marca);
 
 
@@ -130,19 +99,13 @@ ALTER TABLE Scarpa_Categoria ADD CONSTRAINT FK_Scarpa_Categoria_0 FOREIGN KEY (i
 ALTER TABLE Scarpa_Categoria ADD CONSTRAINT FK_Scarpa_Categoria_1 FOREIGN KEY (id_categoria) REFERENCES Categoria (id_categoria);
 
 
-ALTER TABLE Spedizione ADD CONSTRAINT FK_Spedizione_0 FOREIGN KEY (id_acquisto) REFERENCES Acquisto (id_acquisto);
-
-
 ALTER TABLE Utente ADD CONSTRAINT FK_Utente_0 FOREIGN KEY (id_gruppo_applicativo) REFERENCES Gruppo_Applicativo (id_gruppo_applicativo);
 ALTER TABLE Utente ADD CONSTRAINT FK_Utente_1 FOREIGN KEY (id_carta) REFERENCES Carta_Di_Credito (id_carta);
 
 
-ALTER TABLE Wishlist ADD CONSTRAINT FK_Wishlist_0 FOREIGN KEY (id_scarpa) REFERENCES Scarpa (id_scarpa);
-ALTER TABLE Wishlist ADD CONSTRAINT FK_Wishlist_1 FOREIGN KEY (id_utente) REFERENCES Utente (id_utente);
-
-
-ALTER TABLE Dettagli_Acquisto ADD CONSTRAINT FK_Dettagli_Acquisto_0 FOREIGN KEY (id_scarpa) REFERENCES Scarpa (id_scarpa);
-ALTER TABLE Dettagli_Acquisto ADD CONSTRAINT FK_Dettagli_Acquisto_1 FOREIGN KEY (id_acquisto) REFERENCES Acquisto (id_acquisto);
+ALTER TABLE Cronologia_Acquisti ADD CONSTRAINT FK_Cronologia_Acquisti_0 FOREIGN KEY (id_utente) REFERENCES Utente (id_utente);
+ALTER TABLE Cronologia_Acquisti ADD CONSTRAINT FK_Cronologia_Acquisti_1 FOREIGN KEY (id_scarpa) REFERENCES Scarpa (id_scarpa);
+ALTER TABLE Cronologia_Acquisti ADD CONSTRAINT FK_Cronologia_Acquisti_2 FOREIGN KEY (id_acquisto) REFERENCES Acquisto (id_acquisto);
 
 
 ALTER TABLE Stock_Scarpe ADD CONSTRAINT FK_Stock_Scarpe_0 FOREIGN KEY (id_scarpa) REFERENCES Scarpa (id_scarpa);
