@@ -26,7 +26,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Accedi</a></li>
+            <li id="accedi"><a href="./login.php" >Accedi</a></li>
+            <li  id="esci"><a href="./logout.php">Esci</a></li>
             <li><a href="#">Crea Account</a></li>
           </ul>
         </li>
@@ -34,3 +35,13 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+  <?php
+    if(isset($_SESSION['logged']) && $_SESSION['logged']==false){
+      echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();</script>';
+  }
+
+  else{
+    echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();</script>';
+  }
+  ?>

@@ -3,10 +3,10 @@ include_once("./config.php");
 include_once("./header.php");
 
 
-if(isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
-    header("Location: index.php");
-    EXIT;
-}
+//if(isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
+  //  header("Location: index.php");
+    //EXIT;
+//}
 
 if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) && $_POST['password'] != "") {
     $email = htmlspecialchars(mysql_escape_string(trim($_POST['email'])));
@@ -16,10 +16,9 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
     $query = mysql_query($sql) or die("Impossibile effettuare il login\n");
     if(mysql_num_rows($query) > 0) { //Login completato
         $ris = mysql_fetch_assoc($query);
-        echo var_dump($ris);
-        //$_SESSION['error'] = false;
-        //$_SESSION['logged'] = true;
-        //$_SESSION['nameComplete'] = $ris['name']." ".$ris['surname'];
+        $_SESSION['errore'] = false;
+        $_SESSION['logged'] = true;
+        $_SESSION['nome'] = $ris['name']." ".$ris['surname'];
         //$_SESSION['id'] = $ris['id'];
         //$_SESSION['admin'] = $ris['admin'];
         header("Location: index.php");
@@ -48,7 +47,7 @@ if(isset($_SESSION['error']) && $_SESSION['error'] == true) {?>
 
 <div >
     <div >
-        <h1 class="text-center">Login</h1>
+        <h1 class="text-center">Accedi</h1>
         <form action="login.php" method="POST">
             <div >
                 <div >
@@ -72,9 +71,8 @@ if(isset($_SESSION['error']) && $_SESSION['error'] == true) {?>
 include_once("./footer.php");
 ?>
 <script type="text/javascript">
+console.log("ciao");
   $(".close-button").click(function() {
       $(".avvisoErrore").hide();
   });
 </script>
-</body>
-</html>

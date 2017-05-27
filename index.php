@@ -6,6 +6,6 @@
 <h1>cacca</h1>
 
 <?php
-
+	echo $_SESSION['logged'] + 3;
 
 ?>

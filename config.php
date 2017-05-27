@@ -8,12 +8,13 @@
 	$USER = "root";
 	$PASS = "root";
 	$DB   = "JustShoes";
+	$SAFEWORD = "JuS75h03$";
 
 	$var = 4;
 
 	$con = mysql_connect($HOST, $USER, $PASS) or die("Connessione a mysql non riuscita\n");
 	$db = mysql_select_db($DB, $con) or die("Impossibile selezionare il database\n");
-
+	
 
 
 	//Session started
