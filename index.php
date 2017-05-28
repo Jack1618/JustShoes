@@ -3,9 +3,9 @@
 	include_once("./header.php");
 	include_once("./footer.php");
 ?>
-<h1>cacca</h1>
+
 
 <?php
-	echo $_SESSION['logged'] + 3;
+	echo "<h1>Benvenuto ".$_SESSION['email']."</h1>";
 
 ?>

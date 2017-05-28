@@ -31,6 +31,14 @@
             <li><a href="#">Crea Account</a></li>
           </ul>
         </li>
+        <li class="dropdown">
+          <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li id="accedi"><a href="./login.php" >Accedi</a></li>
+            <li  id="esci"><a href="./logout.php">Esci</a></li>
+            <li><a href="#">Crea Account</a></li>
+          </ul>
+        </li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -39,9 +47,15 @@
   <?php
     if(isset($_SESSION['logged']) && $_SESSION['logged']==false){
       echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();</script>';
-  }
+    }
+    else{
+      echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();</script>';
+    }
 
-  else{
-    echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();</script>';
-  }
+    if(isset($_SESSION['admin']) && $_SESSION['admin']==true){
+      echo '<script type="text/javascript">$("#admin-panel").show();</script>';
+    }
+    else{
+      echo '<script type="text/javascript">$("#admin-panel").hide();</script>';
+    }
   ?>

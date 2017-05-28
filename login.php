@@ -9,8 +9,8 @@ include_once("./header.php");
 //}
 
 if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) && $_POST['password'] != "") {
-    $email = htmlspecialchars(mysql_escape_string(trim($_POST['email'])));
-    $password = htmlspecialchars(mysql_escape_string(trim($_POST['password'])));
+    $email = trim($_POST['email']);
+    $password = md5(trim($_POST['password']).$SAFEWORD);
 
     $sql = "SELECT * FROM Utente WHERE email = '$email' AND password = '$password'";
     $query = mysql_query($sql) or die("Impossibile effettuare il login\n");
@@ -18,9 +18,14 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
         $ris = mysql_fetch_assoc($query);
         $_SESSION['errore'] = false;
         $_SESSION['logged'] = true;
-        $_SESSION['nome'] = $ris['name']." ".$ris['surname'];
-        //$_SESSION['id'] = $ris['id'];
-        //$_SESSION['admin'] = $ris['admin'];
+        $_SESSION['id'] = $ris['id_utente'];
+        $_SESSION['email'] = $ris['email'];
+        if($ris['id_gruppo_applicativo'] === "1"){
+          $_SESSION['admin'] = true;
+        }
+        else{
+          $_SESSION['admin'] = false;
+        }
         header("Location: index.php");
         EXIT;
     } else {
