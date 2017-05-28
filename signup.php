@@ -1,7 +1,7 @@
 <?php
   include_once("./config.php");
   include_once("./header.php");
-
+  echo $_POST['email'];
   if(isset($_POST["email"]) && isset($_POST["password"])){
     $email = trim($_POST["email"]);
     $password = md5(trim($_POST["password"]).$SAFEWORD);
@@ -11,6 +11,9 @@
 
     //echo $sql;
     mysql_query($sql) or die ("Inserimento in DB non riuscito");
+
+    header("Location: signup.php");
+    EXIT;
   }
 
 ?>
@@ -31,7 +34,9 @@
     <button onclick="checkPwd()">Registrati</button>
   </div>
 </form>
+
 <script type="text/javascript">
+  $("#signup").reset();
   checkPwd = function(){
     if($("#pwd").val().trim() !== $("#r-pwd").val().trim()){
       alert("Le Password non corrispondono");

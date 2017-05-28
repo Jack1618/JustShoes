@@ -7,7 +7,7 @@ include_once("./header.php");
   //  header("Location: index.php");
     //EXIT;
 //}
-
+echo $_POST['email'];
 if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) && $_POST['password'] != "") {
     $email = trim($_POST['email']);
     $password = md5(trim($_POST['password']).$SAFEWORD);
