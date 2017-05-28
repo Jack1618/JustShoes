@@ -7,5 +7,4 @@
 
 <?php
 	echo "<h1>Benvenuto ".$_SESSION['email']."</h1>";
-
 ?>

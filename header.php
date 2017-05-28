@@ -34,8 +34,8 @@
         <li class="dropdown">
           <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li id="accedi"><a href="./login.php" >Accedi</a></li>
-            <li  id="esci"><a href="./logout.php">Esci</a></li>
+            <li ><a href="./admin/gestione-categorie.php" >Categorie</a></li>
+            <li ><a href="./logout.php">Esci</a></li>
             <li><a href="#">Crea Account</a></li>
           </ul>
         </li>
