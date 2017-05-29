@@ -26,16 +26,16 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li id="accedi"><a href="./login.php" >Accedi</a></li>
-            <li  id="esci"><a href="./logout.php">Esci</a></li>
+            <li id="accedi"><a href="http://localhost/JustShoes/login.php" >Accedi</a></li>
+            <li  id="esci"><a href="http://localhost/JustShoes/logout.php">Esci</a></li>
             <li><a href="#">Crea Account</a></li>
           </ul>
         </li>
         <li class="dropdown">
           <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li ><a href="./admin/gestione-categorie.php" >Categorie</a></li>
-            <li ><a href="./logout.php">Esci</a></li>
+            <li ><a href="http://localhost/JustShoes/admin/gestione-categorie.php" >Categorie</a></li>
+            <li ><a href="http://localhost/JustShoes/admin/gestione-marche.php">Marche</a></li>
             <li><a href="#">Crea Account</a></li>
           </ul>
         </li>
