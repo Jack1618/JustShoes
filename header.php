@@ -36,7 +36,7 @@
           <ul class="dropdown-menu">
             <li ><a href="http://localhost/JustShoes/admin/gestione-categorie.php" >Categorie</a></li>
             <li ><a href="http://localhost/JustShoes/admin/gestione-marche.php">Marche</a></li>
-            <li><a href="#">Crea Account</a></li>
+            <li ><a href="http://localhost/JustShoes/admin/gestione-scarpe.php">Scarpe</a></li>
           </ul>
         </li>
       </ul>
