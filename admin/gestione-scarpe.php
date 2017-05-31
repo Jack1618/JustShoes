@@ -21,6 +21,17 @@
     header("Location: gestione-scarpe.php");
     EXIT;
   }
+  //RICERCA SCARPA
+  if(isset($_POST['ricerca_codice']) && $_POST['ricerca_codice']!=""){
+    $codice = $_POST['ricerca_codice'];
+    $sql_fetch = "SELECT * FROM Scarpa WHERE Scarpa.codice LIKE '%".$codice."%'";
+    echo "auhasdikbndsaiuhasduihdsiauk";
+  }
+  else{
+    $codice="";
+    echo "vnmvbnmvbvnmbvnmbvmnvb";
+    $sql_fetch ="SELECT * FROM Scarpa";
+  }
 
 ?>
 <div class="container">
@@ -68,59 +79,26 @@
     <button class="btn btn-default" onclick="submit()">Inserisci</button>
   </form>
 </div>
+<div class="container">
+  <h1 align="center">Ricerca Codice Scarpa</h1>
+  <form id="ricerca-scarpa" method="post" action="gestione-scarpe.php">
+    <div class="form-group">
+      <label for="codice">Codice</label>
+      <input type="text" name="ricerca_codice" id="ricerca-codice" class="form-control"></input>
+    </div>
+    <button class="btn btn-default" onclick="search('')">Ricerca</button>
+  </form>
+</div>
 <script type="text/javascript">
   submit = function(){
     $("#inserimento-scarpa").submit();
   }
-</script>
-<?php
-  $sql_fetch = "SELECT * FROM Scarpa";
-  $query = mysql_query($sql_fetch) or die("meh");
-  if(mysql_num_rows($query) > 0) { //Login completato
-      $ris = mysql_fetch_assoc($query);
-      echo "<div class='container'>".
-            "<h2>Scarpe</h2>".
-            "<table class='table'>".
-            "<thead>".
-              "<tr>";
-      foreach ($ris as $key => $value) {
-        if($key == "id_marca"){
-          echo "<th>MARCA</th>";
-        }
-        else{
-          echo "<th>".strtoupper($key)."</th>";
-        }
-
-      }
-      echo "    </tr>".
-              "</thead>".
-              "";
-      while($ris){
-
-        echo "<tr>";
-        foreach ($ris as $key => $value) {
-
-
-            if($key == "id_marca"){
-              $exec = mysql_query("SELECT nome FROM Marca WHERE id_marca=".$ris["".$key]);
-              $marca = mysql_fetch_assoc($exec);
-              $ris["".$key] = $marca["nome"];
-            }
-            echo "<td>".$ris["".$key]."</td>";
-
-
-
-        }
-        echo "<td><button class='btn btn-default' onclick='elimina_scarpa(".$ris["id_scarpa"].")'>Elimina</button></td>";
-        echo "</tr>";
-        $ris = mysql_fetch_assoc($query);
-      }
-              "</table>".
-            "</div>";
+  search = function(check){
+    if(check == "reset")
+      $("#ricerca-codice").val('');
+    $("#ricerca-scarpa").submit();
   }
-
-
-?>
+</script>
 <form id="elimina_scarpa" method="post" action="gestione-scarpe.php" class="hidden" >
   <input type="text" name="id_scarpa" id="id_scarpa" class="hidden"></input>
 </form>
@@ -130,4 +108,68 @@
     $("#id_scarpa").val(id);
     $("#elimina_scarpa").submit();
   }
+
+  toggleTabella = function(){
+
+    $("#mostra-txt").toggle();
+    $("#nascondi-txt").toggle();
+    $("#tabella-scarpe").toggle();
+  }
+  <?php
+  if($codice!=="")
+    echo "$(document).ready(function() {toggleTabella()})";
+  ?>
 </script>
+<?php
+
+$query = mysql_query($sql_fetch) or die("meh");
+if(mysql_num_rows($query) > 0) { //Login completato
+    $ris = mysql_fetch_assoc($query);
+    echo  "<div class='container'><button class='btn btn-default' onclick='toggleTabella()'><span id='mostra-txt' >Mostra Tabella</span><span id='nascondi-txt' style='display: none'>Nascondi Tabella</span></button></div>".
+          "<div class='container' id='tabella-scarpe' style='display: none'>".
+          "<h2>Scarpe</h2>".
+          "<table class='table'>".
+          "<thead>".
+            "<tr>";
+    foreach ($ris as $key => $value) {
+      if($key == "id_marca"){
+        echo "<th>MARCA</th>";
+      }
+      else{
+        echo "<th>".strtoupper($key)."</th>";
+      }
+
+    }
+    echo "    </tr>".
+            "</thead>".
+            "";
+    while($ris){
+
+      echo "<tr>";
+      foreach ($ris as $key => $value) {
+
+
+          if($key == "id_marca"){
+            $exec = mysql_query("SELECT nome FROM Marca WHERE id_marca=".$ris["".$key]);
+            $marca = mysql_fetch_assoc($exec);
+            $ris["".$key] = $marca["nome"];
+          }
+          echo "<td>".$ris["".$key]."</td>";
+
+
+
+      }
+      echo "<td><button class='btn btn-default' onclick='elimina_scarpa(".$ris["id_scarpa"].")'>Elimina</button></td>";
+      echo "</tr>";
+      $ris = mysql_fetch_assoc($query);
+    }
+            "</table>".
+          "</div>";
+
+  }
+  if($codice != ""){
+    echo "<button class='btn btn-default' onclick=search('reset')>Torna a Tabella Completa</button>";
+  }
+
+
+?>
