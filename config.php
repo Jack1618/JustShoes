@@ -15,7 +15,7 @@
 
 	$con = mysql_connect($HOST, $USER, $PASS) or die("Connessione a mysql non riuscita\n");
 	$db = mysql_select_db($DB, $con) or die("Impossibile selezionare il database\n");
-
+	$mysqli = new mysqli("localhost", "root", "root", "JustShoes");
 
 
 	//Session started

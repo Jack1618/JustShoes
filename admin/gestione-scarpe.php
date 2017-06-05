@@ -10,7 +10,13 @@
     $foto = $_POST['foto'];
     $sql_ins = "INSERT INTO Scarpa (id_scarpa, codice, nome, prezzo, id_marca, foto) VALUES (NULL, '".$codice."','".$nome."','".$prezzo."', '".$marca."','ok.png')";
     mysql_query($sql_ins) or die("Ops");
-    header("Location: gestione-scarpe.php");
+    $id_scarpa = mysql_insert_id();
+    $categorie = $_POST['categorie'];
+    foreach ($categorie as $key => $value) {
+      $sql_ins_cat = "INSERT INTO Scarpa_Categoria (id_scarpa, id_categoria) VALUES ('".$id_scarpa."', '".$value."')";
+      mysql_query($sql_ins_cat) or die("Ops");
+    }
+    header("Location: inserimento-scarpe.php?id=".$id_scarpa);
     EXIT;
   }
   //RIMOZIONE SCARPA
@@ -25,17 +31,15 @@
   if(isset($_POST['ricerca_codice']) && $_POST['ricerca_codice']!=""){
     $codice = $_POST['ricerca_codice'];
     $sql_fetch = "SELECT * FROM Scarpa WHERE Scarpa.codice LIKE '%".$codice."%'";
-    echo "auhasdikbndsaiuhasduihdsiauk";
   }
   else{
     $codice="";
-    echo "vnmvbnmvbvnmbvnmbvmnvb";
     $sql_fetch ="SELECT * FROM Scarpa";
   }
 
 ?>
 <div class="container">
-  <h1 align="center">Inserimento Scarpa</h1>
+  <h1 align="center">Inserimento Modello Scarpa</h1>
   <form id="inserimento-scarpa" method="post" action="gestione-scarpe.php">
     <div class="form-group">
       <label for="codice">Codice</label>
@@ -65,8 +69,7 @@
       <?php
         $exec = mysql_query("SELECT * FROM Categoria");
         while($categoria = mysql_fetch_assoc($exec)) {
-          //  echo "<input class='form-check-input' type='checkbox' name='categorie[]' value='{$categoria['id_categoria']} style='{margin: 20px; display:block!important;}'>{$categoria['nome']}</input>";
-            echo "<label class='checkbox-inline'><input type='checkbox' value={$categoria['id_categoria']}></input>{$categoria['nome']}</label>";
+            echo "<label class='checkbox-inline'><input type='checkbox' name='categorie[]' value={$categoria['id_categoria']}></input>{$categoria['nome']}</label>";
         }
       ?>
     </div>
@@ -115,6 +118,16 @@
     $("#nascondi-txt").toggle();
     $("#tabella-scarpe").toggle();
   }
+
+  mostraDettagli = function(id){
+    $("#r1" + id).toggle();
+    $("#r2" + id).toggle();
+  }
+
+  modificaScarpa = function(id){
+    window.open("http://localhost/JustShoes/admin/modifica-scarpe.php?id="+id,'_self');
+  }
+
   <?php
   if($codice!=="")
     echo "$(document).ready(function() {toggleTabella()})";
@@ -128,7 +141,7 @@ if(mysql_num_rows($query) > 0) { //Login completato
     echo  "<div class='container'><button class='btn btn-default' onclick='toggleTabella()'><span id='mostra-txt' >Mostra Tabella</span><span id='nascondi-txt' style='display: none'>Nascondi Tabella</span></button></div>".
           "<div class='container' id='tabella-scarpe' style='display: none'>".
           "<h2>Scarpe</h2>".
-          "<table class='table'>".
+          "<table class='table table-striped'>".
           "<thead>".
             "<tr>";
     foreach ($ris as $key => $value) {
@@ -160,7 +173,15 @@ if(mysql_num_rows($query) > 0) { //Login completato
 
       }
       echo "<td><button class='btn btn-default' onclick='elimina_scarpa(".$ris["id_scarpa"].")'>Elimina</button></td>";
+      echo "<td><button class='btn btn-default' onclick='mostraDettagli(".$ris["id_scarpa"].")'>Dettagli</button></td>";
       echo "</tr>";
+      echo "<tr id='r1".$ris["id_scarpa"]."' style='display : none'>";
+      $sql_categorie = mysql_query("SELECT nome FROM Scarpa_Categoria JOIN Categoria ON Scarpa_Categoria.id_categoria = Categoria.id_categoria WHERE id_scarpa = ".$ris["id_scarpa"]) or die;
+      while($categoria = mysql_fetch_assoc($sql_categorie)){
+        echo "<td>".$categoria["nome"]."</td>";
+      }
+      echo "</tr>";
+      echo "<tr  style='display : none' id='r2".$ris["id_scarpa"]."'><td></td><td></td><td></td><td></td><td></td><td></td><td><button class='btn btn-default' onclick='modificaScarpa(".$ris["id_scarpa"].")'>Modifica Scarpa</button></td><td><button class='btn btn-default'>Modifica Q.ta</button></td></tr>";
       $ris = mysql_fetch_assoc($query);
     }
             "</table>".
