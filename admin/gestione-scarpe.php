@@ -1,6 +1,11 @@
 <?php
   include_once("../config.php");
   include_once("../header.php");
+  //PROTEZIONE ADMIN
+  if(isset($_SESSION['admin']) && $_SESSION['admin'] == false){
+    header("Location: localhost://JustShoes/index.php");
+    EXIT;
+  }
   //INSERIMENTO SCARPA
   if(isset($_POST['nome']) && $_POST['nome']!=""){
     $codice = $_POST['codice'];
@@ -51,7 +56,7 @@
     </div>
     <div class="form-group">
       <label for="prezzo">Prezzo</label>
-      <input type="number" name="prezzo" class="form-control"></input>
+      <input type="text" name="prezzo" class="form-control"></input>
     </div>
     <div class="form-group">
       <label>Marca
@@ -128,6 +133,10 @@
     window.open("http://localhost/JustShoes/admin/modifica-scarpe.php?id="+id,'_self');
   }
 
+  modificaQta = function(id){
+    window.open("http://localhost/JustShoes/admin/inserimento-scarpe.php?id="+id,'_self');
+  }
+
   <?php
   if($codice!=="")
     echo "$(document).ready(function() {toggleTabella()})";
@@ -181,7 +190,7 @@ if(mysql_num_rows($query) > 0) { //Login completato
         echo "<td>".$categoria["nome"]."</td>";
       }
       echo "</tr>";
-      echo "<tr  style='display : none' id='r2".$ris["id_scarpa"]."'><td></td><td></td><td></td><td></td><td></td><td></td><td><button class='btn btn-default' onclick='modificaScarpa(".$ris["id_scarpa"].")'>Modifica Scarpa</button></td><td><button class='btn btn-default'>Modifica Q.ta</button></td></tr>";
+      echo "<tr  style='display : none' id='r2".$ris["id_scarpa"]."'><td></td><td></td><td></td><td></td><td></td><td></td><td><button class='btn btn-default' onclick='modificaScarpa(".$ris["id_scarpa"].")'>Modifica Scarpa</button></td><td><button class='btn btn-default' onclick='modificaQta(".$ris["id_scarpa"].")'>Modifica Q.ta</button></td></tr>";
       $ris = mysql_fetch_assoc($query);
     }
             "</table>".

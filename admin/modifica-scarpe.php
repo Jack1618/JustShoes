@@ -1,6 +1,11 @@
 <?php
   include_once("../config.php");
   include_once("../header.php");
+  //PROTEZIONE ADMIN
+  if(isset($_SESSION['admin']) && $_SESSION['admin'] == false){
+    header("Location: localhost://JustShoes/index.php");
+    EXIT;
+  }
   //INSERIMENTO SCARPA
   $id_scarpa = $_GET["id"];
 
@@ -45,7 +50,7 @@
     </div>
     <div class="form-group">
       <label for="prezzo">Prezzo</label>
-      <input type="number" name="prezzo" class="form-control" value=<?php echo '"'.$scarpa["prezzo"].'"'; ?>></input>
+      <input type="text" name="prezzo" class="form-control" value=<?php echo '"'.$scarpa["prezzo"].'"'; ?>></input>
     </div>
     <div class="form-group">
       <label>Marca

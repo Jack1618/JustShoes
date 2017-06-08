@@ -1,6 +1,11 @@
 <?php
   include_once("../config.php");
   include_once("../header.php");
+  //PROTEZIONE ADMIN
+  if(isset($_SESSION['admin']) && $_SESSION['admin'] == false){
+    header("Location: localhost://JustShoes/index.php");
+    EXIT;
+  }
   //INSERIMENTO CATEGORIA
   if(isset($_POST['nome']) && $_POST['nome']!=""){
     $nome = $_POST['nome'];

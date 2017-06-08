@@ -13,16 +13,16 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Catalogo <span class="sr-only">(current)</span></a></li>
+        <li class="cliente"><a href="http://localhost/JustShoes/catalogo.php">Catalogo <span class="sr-only">(current)</span></a></li>
       </ul>
-      <form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left cliente">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Ricerca Rapida">
         </div>
         <button type="submit" class="btn btn-default">Cerca</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-      <li><a href="#">Carrello</a></li>
+      <li class="cliente"><a href="#">Carrello</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -45,17 +45,17 @@
 </nav>
 
   <?php
-    if(isset($_SESSION['logged']) && $_SESSION['logged']==false){
-      echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();</script>';
+    if(isset($_SESSION['logged']) && $_SESSION['logged']==true){
+      echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();</script>';
     }
     else{
-      echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();</script>';
+      echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();</script>';
     }
 
     if(isset($_SESSION['admin']) && $_SESSION['admin']==true){
-      echo '<script type="text/javascript">$("#admin-panel").show();</script>';
+      echo '<script type="text/javascript">$("#admin-panel").show();$(".cliente").hide();</script>';
     }
     else{
-      echo '<script type="text/javascript">$("#admin-panel").hide();</script>';
+      echo '<script type="text/javascript">$("#admin-panel").hide();$(".cliente").show();</script>';
     }
   ?>

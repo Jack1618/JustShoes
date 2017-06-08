@@ -2,6 +2,12 @@
   include_once("../config.php");
   include_once("../header.php");
 
+  //PROTEZIONE ADMIN
+  if(isset($_SESSION['admin']) && $_SESSION['admin'] == false){
+    header("Location: localhost://JustShoes/index.php");
+    EXIT;
+  }
+
   $id_scarpa = $_GET["id"];
 
   if((isset($_POST["num1"]) && $_POST["num1"] != NULL) &&
@@ -69,12 +75,17 @@
               "<form id='quantita-scarpe' method='post' action='inserimento-scarpe.php?id=".$id_scarpa."'>";
           while($taglie = mysql_fetch_assoc($query)){
               echo  "<tr>".
-                      "<td class='eu'>".$taglie['taglia_eu']."</td>".
-                      "<td class='uk-m' style='display: none'>".$taglie['taglia_uk_m']."</td>".
-                      "<td class='uk-f' style='display: none'>".$taglie['taglia_uk_f']."</td>".
-                      "<td class='us-m' style='display: none'>".$taglie['taglia_us_m']."</td>".
-                      "<td class='us-f' style='display: none'>".$taglie['taglia_us_f']."</td>".
-                      "<td><input form='quantita-scarpe' type='number' name='num".$taglie['id_taglia']."' value='0'></input></td>".
+                      "<td>".$taglie['taglia_eu']."</td>".
+
+                      "<td><input form='quantita-scarpe' type='number' name='num".$taglie['id_taglia']."' value=";
+                      $quantita = $mysqli->query("SELECT quantita FROM Stock_Scarpe JOIN Scarpa ON Scarpa.id_scarpa = Stock_Scarpe.id_scarpa WHERE id_taglia = ".$taglie['id_taglia']." AND Stock_Scarpe.id_scarpa = ".$_GET["id"])->fetch_array(MYSQLI_ASSOC);
+                      if($quantita != null){
+                        echo "'".$quantita["quantita"]."'";
+                      }
+                      else {
+                        echo "'0'";
+                      }
+                      echo "></input></td>".
                     "</tr>";
           }
         echo      "<td><button class='btn btn-default' onclick='inserisci()'>Inserisci</button></td>".

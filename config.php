@@ -2,6 +2,7 @@
 <link href="http://localhost/JustShoes/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="http://localhost/JustShoes/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://localhost/JustShoes/lib/javascript/paging.js"></script>
+<link href="http://localhost/JustShoes/css/main.css" rel="stylesheet"/>
 
 
 <?php
@@ -20,5 +21,9 @@
 
 	//Session started
 	session_start();
+
+	if(!isset($_SESSION['admin'])){
+		$_SESSION['admin'] = false;
+	}
 ?>
 <script type="text/javascript"></script>
