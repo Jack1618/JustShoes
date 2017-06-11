@@ -3,11 +3,15 @@ include_once("./config.php");
 include_once("./header.php");
 
 
-//if(isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
-  //  header("Location: index.php");
-    //EXIT;
-//}
-echo $_POST['email'];
+if(isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
+    header("Location: index.php");
+    EXIT;
+}
+
+if(isset($_GET["option"])){
+  $option = $_GET["option"];
+}
+
 if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) && $_POST['password'] != "") {
     $email = trim($_POST['email']);
     $password = md5(trim($_POST['password']).$SAFEWORD);
@@ -18,7 +22,7 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
         $ris = mysql_fetch_assoc($query);
         $_SESSION['errore'] = false;
         $_SESSION['logged'] = true;
-        $_SESSION['id'] = $ris['id_utente'];
+        $_SESSION['id_utente'] = $ris['id_utente'];
         $_SESSION['email'] = $ris['email'];
         if($ris['id_gruppo_applicativo'] === "1"){
           $_SESSION['admin'] = true;
@@ -26,7 +30,15 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
         else{
           $_SESSION['admin'] = false;
         }
-        header("Location: index.php");
+        if($option == "default"){
+          header("Location: http://localhost/JustShoes/index.php");
+        }
+        if($option == "wishlist"){
+          header("Location: http://localhost/JustShoes/cliente/wishlist-add.php?id=".$_GET["id"]);
+        }
+        if($option == "acquisto"){
+          header("Location: http://localhost/JustShoes/cliente/add-wishlist.php?id=".$_GET["id"]);
+        }
         EXIT;
     } else {
         $_SESSION['error'] = true;
@@ -53,7 +65,7 @@ if(isset($_SESSION['error']) && $_SESSION['error'] == true) {?>
 <div >
     <div >
         <h1 class="text-center">Accedi</h1>
-        <form action="login.php" method="POST">
+        <form action=<?php echo "'login.php?option=".$option."&id=".$_GET["id"]."'";?> method="POST">
             <div >
                 <div >
                     <label>Email:

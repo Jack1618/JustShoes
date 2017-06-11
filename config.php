@@ -2,7 +2,7 @@
 <link href="http://localhost/JustShoes/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="http://localhost/JustShoes/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://localhost/JustShoes/lib/javascript/paging.js"></script>
-<link href="http://localhost/JustShoes/css/main.css" rel="stylesheet"/>
+<link href="/JustShoes/css/main.css" rel="stylesheet" type="text/css"/>
 
 
 <?php

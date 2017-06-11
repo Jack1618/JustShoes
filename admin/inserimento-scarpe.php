@@ -26,6 +26,7 @@
       (isset($_POST["num14"]) && $_POST["num14"] != NULL) &&
       (isset($_POST["num15"]) && $_POST["num15"] != NULL) &&
       (isset($_POST["num16"]) && $_POST["num16"] != NULL)) {
+        $mysqli->query("DELETE FROM Stock_Scarpe WHERE id_scarpa = ".$id_scarpa);
         $query = "INSERT INTO Stock_Scarpe (quantita, id_taglia, id_scarpa) VALUES (".$_POST['num1'].",'1','".$id_scarpa."');";
         mysql_query($query) or die(mysql_error());
         $query =  " INSERT INTO Stock_Scarpe (quantita, id_taglia, id_scarpa) VALUES (".$_POST['num2'].",'2','".$id_scarpa."');";
@@ -78,9 +79,9 @@
                       "<td>".$taglie['taglia_eu']."</td>".
 
                       "<td><input form='quantita-scarpe' type='number' name='num".$taglie['id_taglia']."' value=";
-                      $quantita = $mysqli->query("SELECT quantita FROM Stock_Scarpe JOIN Scarpa ON Scarpa.id_scarpa = Stock_Scarpe.id_scarpa WHERE id_taglia = ".$taglie['id_taglia']." AND Stock_Scarpe.id_scarpa = ".$_GET["id"])->fetch_array(MYSQLI_ASSOC);
-                      if($quantita != null){
-                        echo "'".$quantita["quantita"]."'";
+                      $taglia_scarpa = $mysqli->query("SELECT quantita FROM Stock_Scarpe JOIN Scarpa ON Scarpa.id_scarpa = Stock_Scarpe.id_scarpa WHERE id_taglia = ".$taglie['id_taglia']." AND Stock_Scarpe.id_scarpa = ".$_GET["id"])->fetch_array(MYSQLI_ASSOC);
+                      if($taglia_scarpa != null){
+                        echo "'".$taglia_scarpa["quantita"]."'";
                       }
                       else {
                         echo "'0'";
@@ -93,6 +94,7 @@
               "</tbody>".
             "</table>".
           "</div>";
+
 
 
 

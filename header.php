@@ -1,14 +1,14 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="navbar-header ">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Just Shoes</a>
+      <a class="navbar-brand" href="http://localhost/JustShoes/index.php">Just Shoes</a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -26,9 +26,11 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li id="accedi"><a href="http://localhost/JustShoes/login.php" >Accedi</a></li>
-            <li  id="esci"><a href="http://localhost/JustShoes/logout.php">Esci</a></li>
-            <li><a href="#">Crea Account</a></li>
+            <li id="profilo" class="cliente"><a href="http://localhost/JustShoes/cliente/profilo.php" >Profilo</a></li>
+
+            <li id="accedi"><a href="http://localhost/JustShoes/login.php?option=default&id=0" >Accedi</a></li>
+            <li id="esci"><a href="http://localhost/JustShoes/logout.php">Esci</a></li>
+            <li id="registrati"><a href="http://localhost/JustShoes/signup.php">Crea Account</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -45,17 +47,18 @@
 </nav>
 
   <?php
-    if(isset($_SESSION['logged']) && $_SESSION['logged']==true){
-      echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();</script>';
-    }
-    else{
-      echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();</script>';
-    }
 
     if(isset($_SESSION['admin']) && $_SESSION['admin']==true){
       echo '<script type="text/javascript">$("#admin-panel").show();$(".cliente").hide();</script>';
     }
     else{
       echo '<script type="text/javascript">$("#admin-panel").hide();$(".cliente").show();</script>';
+    }
+
+    if(isset($_SESSION['logged']) && $_SESSION['logged']==true){
+      echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();$("#registrati").hide();$("#profilo").show();</script>';
+    }
+    else{
+      echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();$("#registrati").show();$("#profilo").hide();</script>';
     }
   ?>
