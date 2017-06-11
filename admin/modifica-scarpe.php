@@ -13,10 +13,11 @@
     $codice = $_POST['codice'];
     $nome = $_POST['nome'];
     $prezzo = $_POST['prezzo'];
+    $sconto = $_POST['sconto'];
     $marca = $_POST['marca'];
     $foto = $_POST['foto'];
 
-    $sql_ins = "UPDATE Scarpa SET id_scarpa = '".$id_scarpa."', codice = '".$codice."', nome = '".$nome."', prezzo = '".$prezzo."', id_marca = '".$marca."', foto = '".$foto."' WHERE id_scarpa = ".$id_scarpa;
+    $sql_ins = "UPDATE Scarpa SET id_scarpa = '".$id_scarpa."', codice = '".$codice."', nome = '".$nome."', prezzo = '".$prezzo."', sconto = '".$sconto."', id_marca = '".$marca."', foto = '".$foto."' WHERE id_scarpa = ".$id_scarpa;
 
     $mysqli->query($sql_ins) or die(mysql_error());
 
@@ -51,6 +52,10 @@
     <div class="form-group">
       <label for="prezzo">Prezzo</label>
       <input type="text" name="prezzo" class="form-control" value=<?php echo '"'.$scarpa["prezzo"].'"'; ?>></input>
+    </div>
+     <div class="form-group">
+      <label for="sconto">Sconto %</label>
+      <input id="scontoInput" type="text" name="sconto" class="form-control" value=<?php echo '"'.$scarpa["sconto"].'"'; ?>></input>
     </div>
     <div class="form-group">
       <label>Marca
@@ -89,7 +94,7 @@
       <input type="text" name="foto" class="form-control"  value=<?php echo '"'.$scarpa["foto"].'"'; ?>></input>
     </div>
 
-    <button class="btn btn-default" onclick="submit()">Inserisci</button>
+    <button id="submitBtn" class="btn btn-default" onclick="submit()">Inserisci</button>
   </form>
 </div>
 
@@ -97,4 +102,14 @@
   submit = function(){
     $("#inserimento-scarpa").submit();
   }
+
+    $("#scontoInput").change(function(){
+    if($(this).val() < 0 || $(this).val() > 100){
+      $("#submitBtn").attr("disabled", "true");
+      alert("La percentuale dev'essere un valore compreso tra 0 e 100!");
+    }
+    else{
+       $("#submitBtn").removeAttr("disabled");
+    }
+  });
 </script>

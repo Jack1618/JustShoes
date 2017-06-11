@@ -19,10 +19,9 @@
           <label for="taglia">Taglia:</label>
           <select class="form-control" id="taglia">
               <?php
-
                 while($taglia = $taglie->fetch_array(MYSQLI_ASSOC)) {
                     if($taglia['quantita']>0){
-                      echo "<option value='{$taglia['id_taglia']}'>$taglia[taglia_eu]</option>";
+                      echo "<option value='{$taglia['id_taglia']}'>$taglia[taglia_eu] (eu) - $taglia[taglia_uk_m] (uk m) - $taglia[taglia_uk_f] (uk f) - $taglia[taglia_us_m] (us m) - $taglia[taglia_us_f] (us f) </option>";
                       $qt ++;
                     }
 
@@ -32,6 +31,7 @@
                 }
               ?>
             </select>
+              
           </label>
         </div>
         <button class="btn btn-default btn-block" onclick=<?php echo "'addWish($id_scarpa)'";?>>AGGIUNGI ALLA WISHLIST</button>

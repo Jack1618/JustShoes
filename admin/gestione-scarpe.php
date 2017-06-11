@@ -11,9 +11,10 @@
     $codice = $_POST['codice'];
     $nome = $_POST['nome'];
     $prezzo = $_POST['prezzo'];
+    $sconto = $_POST['sconto'];
     $marca = $_POST['marca'];
     $foto = $_POST['foto'];
-    $sql_ins = "INSERT INTO Scarpa (id_scarpa, codice, nome, prezzo, id_marca, foto) VALUES (NULL, '".$codice."','".$nome."','".$prezzo."', '".$marca."','ok.png')";
+    $sql_ins = "INSERT INTO Scarpa (id_scarpa, codice, nome, prezzo, sconto, id_marca, foto) VALUES (NULL, '".$codice."','".$nome."','".$prezzo."', '".$sconto."', '".$marca."','ok.png')";
     mysql_query($sql_ins) or die("Ops");
     $id_scarpa = mysql_insert_id();
     $categorie = $_POST['categorie'];
@@ -59,6 +60,12 @@
       <input type="text" name="prezzo" class="form-control"></input>
     </div>
     <div class="form-group">
+     <div class="form-group">
+      <label for="sconto">Sconto %</label>
+      <input id="scontoInput" type="text" name="sconto" class="form-control"></input>
+    </div>
+    <div class="form-group">
+
       <label>Marca
         <select name="marca" class="form-control">
           <?php
@@ -84,7 +91,7 @@
       <input type="text" name="foto" class="form-control"></input>
     </div>
 
-    <button class="btn btn-default" onclick="submit()">Inserisci</button>
+    <button id="submitBtn" class="btn btn-default" onclick="submit()">Inserisci</button>
   </form>
 </div>
 <div class="container">
@@ -106,6 +113,16 @@
       $("#ricerca-codice").val('');
     $("#ricerca-scarpa").submit();
   }
+
+  $("#scontoInput").change(function(){
+    if($(this).val() < 0 || $(this).val() > 100){
+      $("#submitBtn").attr("disabled", "true");
+      alert("La percentuale dev'essere un valore compreso tra 0 e 100!");
+    }
+    else{
+       $("#submitBtn").removeAttr("disabled");
+    }
+  });
 </script>
 <form id="elimina_scarpa" method="post" action="gestione-scarpe.php" class="hidden" >
   <input type="text" name="id_scarpa" id="id_scarpa" class="hidden"></input>
@@ -177,8 +194,6 @@ if(mysql_num_rows($query) > 0) { //Login completato
             $ris["".$key] = $marca["nome"];
           }
           echo "<td>".$ris["".$key]."</td>";
-
-
 
       }
       echo "<td><button class='btn btn-default' onclick='elimina_scarpa(".$ris["id_scarpa"].")'>Elimina</button></td>";
