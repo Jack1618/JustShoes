@@ -15,12 +15,16 @@
       <ul class="nav navbar-nav">
         <li class="cliente"><a href="http://localhost/JustShoes/catalogo.php">Catalogo <span class="sr-only">(current)</span></a></li>
       </ul>
-      <form class="navbar-form navbar-left cliente">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Ricerca Rapida">
-        </div>
-        <button type="submit" class="btn btn-default">Cerca</button>
-      </form>
+      <?php 
+        if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] === "localhost/JustShoes/catalogo.php"){
+          echo '<form class="navbar-form navbar-left cliente" action="catalogo.php" method="POST">'.
+        '<div class="form-group">'.
+          '<input type="text" class="form-control" placeholder="Ricerca Rapida" name="ricercaRapida">'.
+        '</div>'.
+        '<button type="submit" class="btn btn-default">Cerca</button>'.
+      '</form>';
+        }
+        ?>
       <ul class="nav navbar-nav navbar-right">
       <li class="cliente"><a href="#">Carrello</a></li>
         <li class="dropdown">
@@ -49,14 +53,14 @@
   <?php
 
     if(isset($_SESSION['admin']) && $_SESSION['admin']==true){
-      echo '<script type="text/javascript">$("#admin-panel").show();$(".cliente").hide();</script>';
+      echo '<script type="text/javascript">$("#admin-panel").show();$(".cliente").hide();$("#profilo").hide();</script>';
     }
     else{
-      echo '<script type="text/javascript">$("#admin-panel").hide();$(".cliente").show();</script>';
+      echo '<script type="text/javascript">$("#admin-panel").hide();$(".cliente").show();$("#profilo").show();</script>';
     }
 
     if(isset($_SESSION['logged']) && $_SESSION['logged']==true){
-      echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();$("#registrati").hide();$("#profilo").show();</script>';
+      echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();$("#registrati").hide();</script>';
     }
     else{
       echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();$("#registrati").show();$("#profilo").hide();</script>';

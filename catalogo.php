@@ -2,8 +2,21 @@
   include_once("./config.php");
   include_once("./header.php");
 
+  $fastFilter = NULL;
 
-  $scarpe = $mysqli->query("SELECT id_scarpa, Scarpa.nome, prezzo, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca ORDER BY id_scarpa");
+  if(isset($_POST["ricercaRapida"]) && $_POST["ricercaRapida"] != NULL)
+    $fastFilter =  $_POST["ricercaRapida"];
+
+  if($fastFilter != NULL){
+    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca".
+    " WHERE Scarpa.nome LIKE '%".$fastFilter."%' OR Marca.nome LIKE '%".$fastFilter."%' ORDER BY id_scarpa";
+  }
+  else{
+    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca ORDER BY id_scarpa";
+  }
+
+  $scarpe = $mysqli->query($sql);
+
   echo '<div class="row container-fluid" style = "width: 100%; margin: 0; padding: 20px; margin-top: 60px;">';
   while($scarpa = $scarpe->fetch_array(MYSQLI_ASSOC)){
     echo '<div class="col-md-3 col-sm-6" style="cursor: pointer;" onclick="acquistaScarpa('.$scarpa['id_scarpa'].')">
