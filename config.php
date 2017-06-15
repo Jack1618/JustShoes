@@ -2,8 +2,9 @@
 <link href="http://localhost/JustShoes/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 <script src="http://localhost/JustShoes/lib/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://localhost/JustShoes/lib/javascript/paging.js"></script>
-<link href="/JustShoes/css/main.css" rel="stylesheet" type="text/css"/>
-
+<link href="/JustShoes/lib/css/main.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="http://localhost/JustShoes/lib/javascript/bootstrap-multiselect.js"></script>
+<link rel="stylesheet" href="http://localhost/JustShoes/lib/css/bootstrap-multiselect.css" type="text/css"/>
 
 <?php
 	$HOST = "localhost";

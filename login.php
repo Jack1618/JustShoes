@@ -11,6 +11,10 @@ if(isset($_SESSION['logged']) && $_SESSION['logged'] == true) {
 if(isset($_GET["option"])){
   $option = $_GET["option"];
 }
+if(isset($_GET["id"])){
+  $id = $_GET["id"];
+
+}
 
 if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) && $_POST['password'] != "") {
     $email = trim($_POST['email']);
@@ -26,9 +30,12 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
         $_SESSION['email'] = $ris['email'];
         if($ris['id_gruppo_applicativo'] === "1"){
           $_SESSION['admin'] = true;
+          header('Location: http://localhost/JustShoes/admin/gestione-scarpe.php');
+          EXIT;
         }
         else{
           $_SESSION['admin'] = false;
+
         }
         if($option == "default"){
           header("Location: http://localhost/JustShoes/index.php");
@@ -41,26 +48,12 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
         }
         EXIT;
     } else {
-        $_SESSION['error'] = true;
-        $_SESSION['error']['message'] = "Email e/o Password non corretti!";
-        $_SESSION['logged'] = false;
-        header("Location: login.php");
-        EXIT;
+        $_POST = array();
+        echo "<script type='text/javascript'>alert('Email e/o Password errati!')</script>";
     }
 }
-if(isset($_SESSION['error']) && $_SESSION['error'] == true) {?>
-<div >
-    <div >
-        <div class="callout alert">
-            <h5>Errore durante l'autenticazione!</h5>
-            <p><?php echo $_SESSION['error']['message']; $_SESSION['error'] = false; ?></p>
-            <button class="close-button" aria-label="Chiudi" type="button">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    </div>
-</div>
-<?php } ?>
+?>
+
 
 <div >
     <div >
@@ -87,9 +80,3 @@ if(isset($_SESSION['error']) && $_SESSION['error'] == true) {?>
 <?php
 include_once("./footer.php");
 ?>
-<script type="text/javascript">
-console.log("ciao");
-  $(".close-button").click(function() {
-      $(".avvisoErrore").hide();
-  });
-</script>

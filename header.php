@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -15,9 +16,9 @@
       <ul class="nav navbar-nav">
         <li class="cliente"><a href="http://localhost/JustShoes/catalogo.php">Catalogo <span class="sr-only">(current)</span></a></li>
       </ul>
-      <?php 
+      <?php
         if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] === "localhost/JustShoes/catalogo.php"){
-          echo '<form class="navbar-form navbar-left cliente" action="catalogo.php" method="POST">'.
+          echo '<form id="ricerca" class="navbar-form navbar-left cliente" action="catalogo.php" method="POST">'.
         '<div class="form-group">'.
           '<input type="text" class="form-control" placeholder="Ricerca Rapida" name="ricercaRapida">'.
         '</div>'.
@@ -27,6 +28,14 @@
         ?>
       <ul class="nav navbar-nav navbar-right">
       <li class="cliente"><a href="#">Carrello</a></li>
+      <li class="dropdown">
+        <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li ><a href="http://localhost/JustShoes/admin/gestione-categorie.php" >Categorie</a></li>
+          <li ><a href="http://localhost/JustShoes/admin/gestione-marche.php">Marche</a></li>
+          <li ><a href="http://localhost/JustShoes/admin/gestione-scarpe.php">Scarpe</a></li>
+        </ul>
+      </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -37,14 +46,7 @@
             <li id="registrati"><a href="http://localhost/JustShoes/signup.php">Crea Account</a></li>
           </ul>
         </li>
-        <li class="dropdown">
-          <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li ><a href="http://localhost/JustShoes/admin/gestione-categorie.php" >Categorie</a></li>
-            <li ><a href="http://localhost/JustShoes/admin/gestione-marche.php">Marche</a></li>
-            <li ><a href="http://localhost/JustShoes/admin/gestione-scarpe.php">Scarpe</a></li>
-          </ul>
-        </li>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
