@@ -27,7 +27,7 @@
         }
         ?>
       <ul class="nav navbar-nav navbar-right">
-      <li class="cliente"><a href="#">Carrello</a></li>
+      <li class="cliente"><a href="http://localhost/JustShoes/carrello.php">Carrello</a></li>
       <li class="dropdown">
         <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
         <ul class="dropdown-menu">

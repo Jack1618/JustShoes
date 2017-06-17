@@ -44,7 +44,7 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
           header("Location: http://localhost/JustShoes/cliente/wishlist-add.php?id=".$_GET["id"]);
         }
         if($option == "acquisto"){
-          header("Location: http://localhost/JustShoes/cliente/add-wishlist.php?id=".$_GET["id"]);
+          header("Location: http://localhost/JustShoes/shop/acquisto.php");
         }
         EXIT;
     } else {

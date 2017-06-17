@@ -51,7 +51,7 @@
                   <h4 style="text-align : right">'.$scarpa['prezzo'].' €</h4>
                   <p>
                       <a href="http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id='.$scarpa['id_scarpa'].'" class="btn btn-default btn-block" role="button">Aggiungi a Wishlist</a>
-                      <a href="http://localhost/JustShoes/aggiungi-carrello.php?id='.$scarpa['id_scarpa'].'" class="btn btn-primary btn-block " role="button">Acquista</a>
+                      <a href="http://localhost/JustShoes/scarpa.php?id='.$scarpa['id_scarpa'].'" class="btn btn-primary btn-block " role="button">Acquista</a>
                   </p>
                 </div>
               </div>

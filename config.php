@@ -26,5 +26,9 @@
 	if(!isset($_SESSION['admin'])){
 		$_SESSION['admin'] = false;
 	}
+
+	if(!isset($_SESSION['carrello'])){
+		$_SESSION['carrello'] = array();
+	}
 ?>
 <script type="text/javascript"></script>

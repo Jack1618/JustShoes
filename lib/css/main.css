@@ -52,3 +52,7 @@ body{
   height: 15px;
   width: 15px;
 }
+
+.selected-el{
+  background-color: #d6ebfc !important;
+}

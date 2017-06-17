@@ -31,11 +31,11 @@
                 }
               ?>
             </select>
-              
+
           </label>
         </div>
         <button class="btn btn-default btn-block" onclick=<?php echo "'addWish($id_scarpa)'";?>>AGGIUNGI ALLA WISHLIST</button>
-        <button class="btn btn-primary btn-block" onclick="addCarrello()">AGGIUNGI AL CARRELLO</button>
+        <button class="btn btn-primary btn-block" onclick=<?php echo "'addCarrello($id_scarpa)'";?>>AGGIUNGI AL CARRELLO</button>
       </div>
     </div>
   </div>
@@ -44,9 +44,21 @@
   addWish = function(id){
     window.open("http://localhost/JustShoes/cliente/wishlist-add.php?option=scarpa&id="+id,"_self");
   }
+
+  addCarrello = function(id){
+    let taglia = $("#taglia").val();
+    if(taglia != -1){
+      window.open("http://localhost/JustShoes/carrello-add.php?id="+id+"&taglia="+taglia,"_self");
+    }
+    else{
+      alert("Spiacenti!\nScarpa OUT OF STOCK!");
+    }
+  }
 </script>
 
 <?php
+  
+
   if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
     include_once("./cliente/wishlist.php");
   }

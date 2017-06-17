@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Giu 11, 2017 alle 18:22
+-- Creato il: Giu 17, 2017 alle 14:00
 -- Versione del server: 10.1.21-MariaDB
 -- Versione PHP: 5.6.30
 
@@ -35,6 +35,15 @@ CREATE TABLE `Acquisto` (
   `id_indirizzo` int(10) DEFAULT NULL,
   `id_utente` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `Acquisto`
+--
+
+INSERT INTO `Acquisto` (`id_acquisto`, `data`, `totale`, `id_indirizzo`, `id_utente`) VALUES
+(1, '2017-06-16', 25.5, 11, 3),
+(2, '2017-06-16', 25.5, 11, 3),
+(3, '2017-06-16', 25.5, 12, 3);
 
 -- --------------------------------------------------------
 
@@ -87,8 +96,17 @@ INSERT INTO `Categoria` (`id_categoria`, `nome`) VALUES
 
 CREATE TABLE `Dettagli_Acquisto` (
   `id_scarpa` int(10) DEFAULT NULL,
-  `id_acquisto` int(10) DEFAULT NULL
+  `id_taglia` int(10) NOT NULL,
+  `id_acquisto` int(10) DEFAULT NULL,
+  `quantita` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `Dettagli_Acquisto`
+--
+
+INSERT INTO `Dettagli_Acquisto` (`id_scarpa`, `id_taglia`, `id_acquisto`, `quantita`) VALUES
+(15, 5, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -132,7 +150,8 @@ CREATE TABLE `Indirizzo` (
 INSERT INTO `Indirizzo` (`id_indirizzo`, `id_utente`, `nome`, `citta`, `via`, `CAP`, `altro`) VALUES
 (5, 3, 'Mario Rossi', 'Trapani', 'Via Garibaldi', '91100', 'scala B interno 10'),
 (6, 3, 'Maria Rossi', 'Trapani', 'Via Fardella', '91100', ''),
-(11, 3, 'Tizio Bianchi', 'Palermo', 'Via Marino Torre', '90123', '');
+(11, 3, 'Tizio Bianchi', 'Palermo', 'Via Marino Torre', '90123', ''),
+(12, 3, 'Prova Ciao', 'Roma', 'Via Fasulla 123', '00155', 'prova');
 
 -- --------------------------------------------------------
 
@@ -388,6 +407,14 @@ CREATE TABLE `Wishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dump dei dati per la tabella `Wishlist`
+--
+
+INSERT INTO `Wishlist` (`id_utente`, `id_scarpa`) VALUES
+(3, 1),
+(3, 3);
+
+--
 -- Indici per le tabelle scaricate
 --
 
@@ -416,7 +443,8 @@ ALTER TABLE `Categoria`
 --
 ALTER TABLE `Dettagli_Acquisto`
   ADD KEY `FK_Dettagli_Acquisto_0` (`id_scarpa`),
-  ADD KEY `FK_Dettagli_Acquisto_1` (`id_acquisto`);
+  ADD KEY `FK_Dettagli_Acquisto_1` (`id_acquisto`),
+  ADD KEY `FK_Dettagli_Acquisto_2` (`id_taglia`);
 
 --
 -- Indici per le tabelle `Gruppo_Applicativo`
@@ -456,6 +484,7 @@ ALTER TABLE `Scarpa_Categoria`
 -- Indici per le tabelle `Stock_Scarpe`
 --
 ALTER TABLE `Stock_Scarpe`
+  ADD UNIQUE KEY `id_scarpa` (`id_scarpa`,`id_taglia`),
   ADD KEY `FK_Stock_Scarpe_0` (`id_scarpa`),
   ADD KEY `FK_Stock_Scarpe_1` (`id_taglia`);
 
@@ -489,7 +518,7 @@ ALTER TABLE `Wishlist`
 -- AUTO_INCREMENT per la tabella `Acquisto`
 --
 ALTER TABLE `Acquisto`
-  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT per la tabella `Carta_Di_Credito`
 --
@@ -504,7 +533,7 @@ ALTER TABLE `Categoria`
 -- AUTO_INCREMENT per la tabella `Indirizzo`
 --
 ALTER TABLE `Indirizzo`
-  MODIFY `id_indirizzo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_indirizzo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT per la tabella `Marca`
 --
@@ -541,7 +570,8 @@ ALTER TABLE `Acquisto`
 --
 ALTER TABLE `Dettagli_Acquisto`
   ADD CONSTRAINT `FK_Dettagli_Acquisto_0` FOREIGN KEY (`id_scarpa`) REFERENCES `Scarpa` (`id_scarpa`),
-  ADD CONSTRAINT `FK_Dettagli_Acquisto_1` FOREIGN KEY (`id_acquisto`) REFERENCES `Acquisto` (`id_acquisto`);
+  ADD CONSTRAINT `FK_Dettagli_Acquisto_1` FOREIGN KEY (`id_acquisto`) REFERENCES `Acquisto` (`id_acquisto`),
+  ADD CONSTRAINT `FK_Dettagli_Acquisto_2` FOREIGN KEY (`id_taglia`) REFERENCES `Taglia` (`id_taglia`);
 
 --
 -- Limiti per la tabella `Indirizzo`
