@@ -57,12 +57,12 @@
     </div>
     <div class="form-group">
       <label for="prezzo">Prezzo</label>
-      <input type="text" name="prezzo" class="form-control"></input>
+      <input id="prezzoInput" type="text" name="prezzo" class="form-control input-control"></input>
     </div>
     <div class="form-group">
      <div class="form-group">
       <label for="sconto">Sconto %</label>
-      <input id="scontoInput" type="text" name="sconto" class="form-control"></input>
+      <input id="scontoInput" type="text" name="sconto" class="form-control input-control"></input>
     </div>
     <div class="form-group">
 
@@ -105,6 +105,9 @@
   </form>
 </div>
 <script type="text/javascript">
+
+  var btnDisabled = [];
+
   submit = function(){
     $("#inserimento-scarpa").submit();
   }
@@ -114,15 +117,26 @@
     $("#ricerca-scarpa").submit();
   }
 
-  $("#scontoInput").change(function(){
-    if($(this).val() < 0 || $(this).val() > 100){
-      $("#submitBtn").attr("disabled", "true");
+  $(".input-control").change(function(){
+
+
+    if($("#scontoInput").val() < 0 || $("#scontoInput").val() > 100){
       alert("La percentuale dev'essere un valore compreso tra 0 e 100!");
+      $("#submitBtn").attr("disabled", "true");
+    }
+
+
+    else if(isNaN($("#prezzoInput").val())){
+      alert("Inserire un valore numerico!");
+      $("#submitBtn").attr("disabled", "true");
+   
     }
     else{
-       $("#submitBtn").removeAttr("disabled");
+      $("#submitBtn").removeAttr("disabled");
     }
+
   });
+
 </script>
 <form id="elimina_scarpa" method="post" action="gestione-scarpe.php" class="hidden" >
   <input type="text" name="id_scarpa" id="id_scarpa" class="hidden"></input>

@@ -63,7 +63,7 @@
     </div>
     <div class="form-group">
       <label for="cap">CAP</label>
-      <input type="text" name="cap" value=<?php echo "'$cap'" ?>  class="form-control"></input>
+      <input id="capInput" type="text" name="cap" value=<?php echo "'$cap'" ?>  class="form-control input-control"></input>
     </div>
     <div class="form-group">
       <label for="altro">Altro</label>
@@ -71,7 +71,7 @@
     </div>
 
   </form>
-  <button class="btn btn-primary" onclick="salvaIndirizzo()">Salva Indirizzo</button>
+  <button id="submitBtn" class="btn btn-primary" onclick="salvaIndirizzo()">Salva Indirizzo</button>
   <button class="btn btn-danger" onclick=<?php echo "eliminaIndirizzo($id)"?> <?php if($id == "") echo "hiddden";?>>Elimina Indirizzo</button>
 
 
@@ -83,4 +83,18 @@
   eliminaIndirizzo = function(id){
     window.open("http://localhost/JustShoes/cliente/indirizzo-delete.php?id="+id,"_self");
   }
+
+  $(".input-control").change(function(){
+
+    if($("#capInput").val().length != 5 || isNaN($("#capInput").val())){
+      alert("CAP non valido!");
+      $("#submitBtn").attr("disabled", "true");
+    }
+    else{
+       $("#submitBtn").removeAttr("disabled");
+    }
+
+
+
+  });
 </script>

@@ -34,7 +34,7 @@
       }
     }
     else {
-      echo "<script type='text/javascript'>alert('Vecchia Password errata! $old_password');</script>";
+      echo "<script type='text/javascript'>alert('Vecchia Password errata!');</script>";
     }
   }
 ?>
@@ -43,7 +43,7 @@
   <form id="modifica-email" method="post" action="profilo-modifica.php">
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" name="email" value=<?php echo "'$_SESSION[email]'" ?>  class="form-control"></input>
+      <input type="email" name="email" value=<?php echo "'$_SESSION[email]'" ?>  class="form-control"></input>
     </div>
     <button class="btn btn-primary" onclick="salvaEmail()">Salva Email</button>
   </form>
@@ -53,15 +53,15 @@
   <form id="modifica-pwd" method="post" action="profilo-modifica.php">
     <div class="form-group">
       <label for="old-pwd">Vecchia Password</label>
-      <input type="text" name="old-pwd" class="form-control"></input>
+      <input type="password" name="old-pwd" class="form-control"></input>
     </div>
     <div class="form-group">
       <label for="new-pwd">Nuova Password</label>
-      <input type="text" name="new-pwd" id="newPwd" class="form-control"></input>
+      <input type="password" name="new-pwd" id="newPwd" class="form-control"></input>
     </div>
     <div class="form-group">
       <label for="new-pwd">Nuova Password</label>
-      <input type="text" name="new-pwd-r" id="newPwdR" class="form-control"></input>
+      <input type="password" name="new-pwd-r" id="newPwdR" class="form-control"></input>
     </div>
     <button class="btn btn-primary" onclick="salvaPassword()">Salva Password</button>
   </form>

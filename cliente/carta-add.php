@@ -57,7 +57,7 @@
   <form id="carta-add" method="post" action=<?php echo "'carta-add.php?id=$id'";?>>
     <div class="form-group">
       <label for="numero">Numero Carta</label>
-      <input type="text" name="numero" value=<?php echo "'$numero'" ?>  class="form-control"></input>
+      <input id="numeroCartaInput" type="text" name="numero" value=<?php echo "'$numero'" ?>  class="form-control input-control"></input>
     </div>
     <div class="form-group">
       <label for="">Mese</label>
@@ -93,7 +93,7 @@
       </select>
     </div>
   </form>
-  <button class="btn btn-primary" onclick="salvaCarta()">Salva Carta</button>
+  <button id="submitBtn" class="btn btn-primary" onclick="salvaCarta()">Salva Carta</button>
   <button class="btn btn-danger" onclick=<?php echo "eliminaCarta($id)"?> <?php if($id == "") echo "hiddden";?>>Elimina Carta</button>
 </div>
 <script type='text/javascript'>
@@ -104,4 +104,19 @@
   eliminaCarta = function(id){
     window.open("http://localhost/JustShoes/cliente/carta-delete.php?id="+id,"_self");
   }
+
+
+   $(".input-control").change(function(){
+
+    if($("#numeroCartaInput").val().length != 16 || isNaN($("#numeroCartaInput").val())){
+      alert("Numero di carta non valido!");
+      $("#submitBtn").attr("disabled", "true");
+    }
+    else{
+       $("#submitBtn").removeAttr("disabled");
+    }
+
+
+
+  });
 </script>
