@@ -2,6 +2,18 @@
   include_once("../config.php");
   include_once("../header.php");
 
+  if($_SESSION['admin'] == true){
+    header("Location: ../index.php");
+    EXIT;
+  }
+
+  if(!isset($_SESSION['logged']) && $_SESSION['logged'] == false) {
+    header("Location: ../index.php");
+    EXIT;
+  }
+
+  
+
 ?>
 <div class="container" >
   <h1 align="center">Dati Profilo</h1>

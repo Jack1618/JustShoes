@@ -2,6 +2,20 @@
   include_once("../config.php");
   include_once("../header.php");
 
+  
+   if($_SESSION['admin'] == true){
+    header("Location: ../index.php");
+    EXIT;
+  }
+
+  if(!isset($_SESSION['logged']) && $_SESSION['logged'] == false) {
+    header("Location: ../index.php");
+    EXIT;
+  }
+
+  
+
+
   if(isset($_POST["numero"]) && $_POST["numero"] != "" &&
      isset($_POST["mese"]) && $_POST["mese"] != "" &&
      isset($_POST["anno"]) && $_POST["anno"] != ""){
