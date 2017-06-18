@@ -20,9 +20,8 @@
       //echo "quant max $quantita_max";
       $articolo['quantita'] = $_SESSION["carrello"][$key]["quantita"] = $articolo["quantita"] <= $quantita_max ? $articolo["quantita"] : $quantita_max;
       $taglia = $mysqli->query("SELECT * FROM Taglia WHERE id_taglia = $articolo[taglia]")->fetch_array(MYSQLI_ASSOC);
-      if($articolo["quantita"] == $quantita_max){
-        echo "<script>alert('Quantita massima per $articolo[nome] (Taglia: EU $taglia[taglia_eu] / UK_M $taglia[taglia_uk_m] / UK_F $taglia[taglia_uk_f] / US_M $taglia[taglia_us_m] / US_F $taglia[taglia_us_f])')</script>";
-      }
+
+
       echo "<li class='list-group-item'>
               <span class='badge' style='margin-top: 1px;'><img style='width: 70px; height: 70px; margin:-10px;' src='http://localhost/JustShoes/img/scarpe/$articolo[foto]'/></span>
               <h4 class='list-group-item-heading'>$articolo[nome] - <span style='font-size: 14px'>Taglia: EU $taglia[taglia_eu] / UK_M $taglia[taglia_uk_m] / UK_F $taglia[taglia_uk_f] / US_M $taglia[taglia_us_m] / US_F $taglia[taglia_us_f]<span></h4>
@@ -32,8 +31,13 @@
                 <button class='btn btn-default' onclick='addArticolo($articolo[id_scarpa],$articolo[taglia])'>+</button>
                 <button class='btn btn-default' onclick='decreaseArticolo($key)'>-</button>
                 <button class='btn btn-danger' onclick='deleteArticolo($key)'>Elimina</button>
-              </p>
-            </li>";
+              </p>";
+
+        if($articolo["quantita"] == $quantita_max){
+          echo '<p style="color: red;"> Quantita massima raggiunta!</p>';
+        }
+
+           echo "</li>";
             $totale += $articolo["prezzo"]*$articolo["quantita"];
 
     }

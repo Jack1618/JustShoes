@@ -40,6 +40,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li id="profilo" class="cliente"><a href="http://localhost/JustShoes/cliente/profilo.php" >Profilo</a></li>
+            <li id="ordini" class="cliente"><a href="http://localhost/JustShoes/cliente/storico_acquisti.php" >Ordini</a></li>
 
             <li id="accedi"><a href="http://localhost/JustShoes/login.php?option=default&id=0" >Accedi</a></li>
             <li id="esci"><a href="http://localhost/JustShoes/logout.php">Esci</a></li>

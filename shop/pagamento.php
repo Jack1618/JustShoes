@@ -11,8 +11,8 @@
   $id_acquisto = $mysqli->insert_id;
   $carrello = $_SESSION["carrello"];
   foreach ($carrello as $key => $articolo) {
-    $mysqli->query("INSERT INTO Dettagli_Acquisto (id_acquisto, id_scarpa, id_taglia, quantita)
-                    VALUES ('$id_acquisto', '$articolo[id_scarpa]', '$articolo[taglia]', '$articolo[quantita]')");
+    $mysqli->query("INSERT INTO Dettagli_Acquisto (id_acquisto, id_scarpa, id_taglia, quantita, prezzo)
+                    VALUES ('$id_acquisto', '$articolo[id_scarpa]', '$articolo[taglia]', '$articolo[quantita]', '$articolo[prezzo]')");
   }
   $_SESSION["carrello"] = array();
 ?>

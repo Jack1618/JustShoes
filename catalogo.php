@@ -6,11 +6,11 @@
   $fastFilter = NULL;
   if(isset($_POST["ricercaRapida"]) && $_POST["ricercaRapida"] != NULL){
     $fastFilter =  $_POST["ricercaRapida"];
-    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca".
+    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca".
     " WHERE Scarpa.nome LIKE '%".$fastFilter."%' OR Marca.nome LIKE '%".$fastFilter."%' ORDER BY id_scarpa";
   }
   else{
-    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca ORDER BY id_scarpa";
+    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca ORDER BY id_scarpa";
   }
 
   echo '<div class="container">
@@ -48,8 +48,20 @@
                 <img src="http://localhost/JustShoes/img/scarpe/'.$scarpa['foto'].'" alt="prova">
                 <div class="caption">
                   <h4>'.$scarpa['marca'].'</h4><h3 style ="margin-top:0">'.$scarpa['nome'].'</h3>
-                  <h4 style="text-align : right">'.$scarpa['prezzo'].' €</h4>
-                  <p>
+                  <h4 style="text-align : right">';
+                  if($scarpa['sconto'] > 0){
+
+                    echo '<span style = "font-size: 14px;"><del>'.$scarpa['prezzo']. '€ 
+                     </del> </span>'
+                    .($scarpa['prezzo'] - ($scarpa['prezzo']/100 * $scarpa['sconto'])).
+
+                    ' € </h4>';
+                  }
+                  else{
+                    echo $scarpa['prezzo'].' €</h4>';
+                  }
+                  
+     echo             '<p>
                       <a href="http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id='.$scarpa['id_scarpa'].'" class="btn btn-default btn-block" role="button">Aggiungi a Wishlist</a>
                       <a href="http://localhost/JustShoes/scarpa.php?id='.$scarpa['id_scarpa'].'" class="btn btn-primary btn-block " role="button">Acquista</a>
                   </p>

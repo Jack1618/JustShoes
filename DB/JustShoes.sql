@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Giu 17, 2017 alle 14:00
+-- Creato il: Giu 18, 2017 alle 16:04
 -- Versione del server: 10.1.21-MariaDB
 -- Versione PHP: 5.6.30
 
@@ -41,9 +41,10 @@ CREATE TABLE `Acquisto` (
 --
 
 INSERT INTO `Acquisto` (`id_acquisto`, `data`, `totale`, `id_indirizzo`, `id_utente`) VALUES
-(1, '2017-06-16', 25.5, 11, 3),
-(2, '2017-06-16', 25.5, 11, 3),
-(3, '2017-06-16', 25.5, 12, 3);
+(1, '2017-06-18', 61.2, 11, 3),
+(2, '2017-06-18', 8, 11, 3),
+(3, '2017-06-18', 20.4, 12, 3),
+(4, '2017-06-18', 164, 13, 4);
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,8 @@ CREATE TABLE `Carta_Di_Credito` (
 
 INSERT INTO `Carta_Di_Credito` (`id_carta`, `id_utente`, `numero_carta`, `scadenza`) VALUES
 (18, 3, '1234567812345678', '2017-01-30'),
-(30, 3, '1234567812345679', '0000-00-00');
+(30, 3, '1234567812345679', '0000-00-00'),
+(31, 4, '1111111111111111', '2017-11-30');
 
 -- --------------------------------------------------------
 
@@ -98,15 +100,19 @@ CREATE TABLE `Dettagli_Acquisto` (
   `id_scarpa` int(10) DEFAULT NULL,
   `id_taglia` int(10) NOT NULL,
   `id_acquisto` int(10) DEFAULT NULL,
-  `quantita` int(11) NOT NULL
+  `quantita` int(11) NOT NULL,
+  `prezzo` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `Dettagli_Acquisto`
 --
 
-INSERT INTO `Dettagli_Acquisto` (`id_scarpa`, `id_taglia`, `id_acquisto`, `quantita`) VALUES
-(15, 5, 3, 1);
+INSERT INTO `Dettagli_Acquisto` (`id_scarpa`, `id_taglia`, `id_acquisto`, `quantita`, `prezzo`) VALUES
+(15, 5, 1, 3, 20.4),
+(1, 1, 2, 1, 8),
+(15, 10, 3, 1, 20.4),
+(3, 9, 4, 4, 41);
 
 -- --------------------------------------------------------
 
@@ -151,7 +157,8 @@ INSERT INTO `Indirizzo` (`id_indirizzo`, `id_utente`, `nome`, `citta`, `via`, `C
 (5, 3, 'Mario Rossi', 'Trapani', 'Via Garibaldi', '91100', 'scala B interno 10'),
 (6, 3, 'Maria Rossi', 'Trapani', 'Via Fardella', '91100', ''),
 (11, 3, 'Tizio Bianchi', 'Palermo', 'Via Marino Torre', '90123', ''),
-(12, 3, 'Prova Ciao', 'Roma', 'Via Fasulla 123', '00155', 'prova');
+(12, 3, 'Prova Ciao', 'Roma', 'Via Fasulla 123', '00155', 'prova'),
+(13, 4, 'Giacomo Calcara', 'Trapani', 'Via G.ppe La Francesca, 4', '91100', '');
 
 -- --------------------------------------------------------
 
@@ -207,7 +214,7 @@ INSERT INTO `Scarpa` (`id_scarpa`, `codice`, `nome`, `prezzo`, `sconto`, `id_mar
 (12, 'cabuyas', 'ders', 31, 0, 4, 'ok.png', ''),
 (13, 'nk126798345', 'air max 90', 120, 0, 1, 'ok.png', ''),
 (14, 'sdfubufsdy', 'asdds', 25, 0, 4, 'ok.png', ''),
-(15, 'cabuyass', 'cabuyas', 25.5, 0, 1, 'ok.png', '');
+(15, 'cabuyass', 'cabuyas', 25.5, 20, 1, 'ok.png', '');
 
 -- --------------------------------------------------------
 
@@ -407,14 +414,6 @@ CREATE TABLE `Wishlist` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dump dei dati per la tabella `Wishlist`
---
-
-INSERT INTO `Wishlist` (`id_utente`, `id_scarpa`) VALUES
-(3, 1),
-(3, 3);
-
---
 -- Indici per le tabelle scaricate
 --
 
@@ -518,12 +517,12 @@ ALTER TABLE `Wishlist`
 -- AUTO_INCREMENT per la tabella `Acquisto`
 --
 ALTER TABLE `Acquisto`
-  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT per la tabella `Carta_Di_Credito`
 --
 ALTER TABLE `Carta_Di_Credito`
-  MODIFY `id_carta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_carta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT per la tabella `Categoria`
 --
@@ -533,7 +532,7 @@ ALTER TABLE `Categoria`
 -- AUTO_INCREMENT per la tabella `Indirizzo`
 --
 ALTER TABLE `Indirizzo`
-  MODIFY `id_indirizzo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_indirizzo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT per la tabella `Marca`
 --

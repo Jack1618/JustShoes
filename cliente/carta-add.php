@@ -13,8 +13,6 @@
     EXIT;
   }
 
-  
-
 
   if(isset($_POST["numero"]) && $_POST["numero"] != "" &&
      isset($_POST["mese"]) && $_POST["mese"] != "" &&
@@ -112,7 +110,15 @@
 </div>
 <script type='text/javascript'>
   salvaCarta = function(){
-    $("#carta-add").submit();
+
+    date = new Date();
+
+    if((date.getFullYear() == $("#anno").val() && $("#mese").val()  >= date.getMonth()) || ($("#anno").val() >date.getFullYear())){
+      $("#carta-add").submit();
+    }
+
+    else alert("Data di scadenza non valida!");
+ 
   }
 
   eliminaCarta = function(id){

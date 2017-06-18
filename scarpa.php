@@ -14,7 +14,18 @@
         <h3 class="panel-title"><?php echo $scarpa["nome"];?></h3>
       </div>
       <div class="panel-body">
-        <h2><?php echo $scarpa["prezzo"] ?> €</h2>
+      <?php
+       if($scarpa['sconto'] > 0){
+                    echo '<h4><del>'.$scarpa['prezzo']. '€ 
+                     </del></h4><h3>'
+                    .($scarpa['prezzo'] - ($scarpa['prezzo']/100 * $scarpa['sconto'])).
+
+                    '€ <span style="color: red; font-size: 18px;">Sconto del '.$scarpa['sconto'].'%</span></h3>';
+                  }
+                  else{
+                    echo $scarpa['prezzo'].' €';
+                  }
+        ?>   
         <div class="form-group">
           <label for="taglia">Taglia:</label>
           <select class="form-control" id="taglia">

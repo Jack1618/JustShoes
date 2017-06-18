@@ -16,7 +16,7 @@
 			Acquisto.id_acquisto, Acquisto.id_utente, Acquisto.data, Acquisto.id_indirizzo, Acquisto.totale,
 			Dettagli_Acquisto.id_scarpa, Dettagli_Acquisto.id_taglia, Dettagli_Acquisto.quantita,
 			Indirizzo.nome AS 'indirizzo_nome', Indirizzo.via, Indirizzo.CAP, Indirizzo.citta,
-			Scarpa.nome AS 'scarpa_nome', Scarpa.prezzo, Scarpa.foto, Scarpa.id_marca, 
+			Scarpa.nome AS 'scarpa_nome', Dettagli_Acquisto.prezzo, Scarpa.foto, Scarpa.id_marca, 
 			Marca.nome AS 'marca_nome',
 			Taglia.taglia_eu, Taglia.taglia_uk_m, Taglia.taglia_uk_f, Taglia.taglia_us_m, Taglia.taglia_us_f
 
@@ -36,11 +36,11 @@
 
 			JOIN Taglia 
 			ON Dettagli_Acquisto.id_taglia = Taglia.id_taglia
-			WHERE Acquisto.id_utente = ".$_SESSION['id_utente']." ";
+			WHERE Acquisto.id_utente = ".$_SESSION['id_utente']." ORDER BY Acquisto.data DESC";
   
   $acquisti = $mysqli->query($sql);
 
-  if($acquisti->num_rows == 0){
+  if(!$acquisti){
   	echo "<h2>Nessuno acquisto ancora effettuato!</h2>";
   }
 
