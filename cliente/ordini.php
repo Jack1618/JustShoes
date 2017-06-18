@@ -2,21 +2,29 @@
   include_once("../config.php");
   include_once("../header.php");
 
-    if($_SESSION['admin'] == true){
-    header("Location: ../index.php");
-    EXIT;
-  }
-
   if(!isset($_SESSION['logged']) && $_SESSION['logged'] == false) {
     header("Location: ../index.php");
     EXIT;
   }
 
-  $sql = "SELECT 
+  if($_SESSION['admin'] == true){
+    if(isset($_GET["id"])){
+      $id_utente = $_GET["id"];
+    }
+    else{
+      header("Location: ../index.php");
+      EXIT;
+    }
+  }
+  else{
+    $id_utente = $_SESSION["id_utente"];
+  }
+
+  $sql = "SELECT
 			Acquisto.id_acquisto, Acquisto.id_utente, Acquisto.data, Acquisto.id_indirizzo, Acquisto.totale,
 			Dettagli_Acquisto.id_scarpa, Dettagli_Acquisto.id_taglia, Dettagli_Acquisto.quantita,
 			Indirizzo.nome AS 'indirizzo_nome', Indirizzo.via, Indirizzo.CAP, Indirizzo.citta,
-			Scarpa.nome AS 'scarpa_nome', Dettagli_Acquisto.prezzo, Scarpa.foto, Scarpa.id_marca, 
+			Scarpa.nome AS 'scarpa_nome', Dettagli_Acquisto.prezzo, Scarpa.foto, Scarpa.id_marca,
 			Marca.nome AS 'marca_nome',
 			Taglia.taglia_eu, Taglia.taglia_uk_m, Taglia.taglia_uk_f, Taglia.taglia_us_m, Taglia.taglia_us_f
 
@@ -25,19 +33,19 @@
 			JOIN Dettagli_Acquisto
 			ON Acquisto.id_acquisto = Dettagli_Acquisto.id_acquisto
 
-			JOIN Indirizzo 
+			JOIN Indirizzo
 			ON Acquisto.id_indirizzo = Indirizzo.id_indirizzo
 
-			JOIN Scarpa 
+			JOIN Scarpa
 			ON Dettagli_Acquisto.id_scarpa =  Scarpa.id_scarpa
 
-			JOIN Marca 
+			JOIN Marca
 			ON Scarpa.id_marca = Marca.id_marca
 
-			JOIN Taglia 
+			JOIN Taglia
 			ON Dettagli_Acquisto.id_taglia = Taglia.id_taglia
-			WHERE Acquisto.id_utente = ".$_SESSION['id_utente']." ORDER BY Acquisto.data DESC";
-  
+			WHERE Acquisto.id_utente = ".$id_utente." ORDER BY Acquisto.data DESC";
+
   $acquisti = $mysqli->query($sql);
 
   if(!$acquisti){
@@ -47,7 +55,7 @@
   else{
 
   	$idAcquistoPrec = 0;
-  	echo '<div class="container">';	
+  	echo '<div class="container">';
   	echo '	<div class="list-group">';
 
   	while($acquisto = $acquisti->fetch_array(MYSQLI_ASSOC)) {
@@ -72,7 +80,7 @@
           </p>
         </li>";
 
-        $idAcquistoPrec = $acquisto["id_acquisto"];	
+        $idAcquistoPrec = $acquisto["id_acquisto"];
     }
 
     echo "	</div>";

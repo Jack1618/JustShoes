@@ -7,10 +7,10 @@
   if(isset($_POST["ricercaRapida"]) && $_POST["ricercaRapida"] != NULL){
     $fastFilter =  $_POST["ricercaRapida"];
     $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca".
-    " WHERE Scarpa.nome LIKE '%".$fastFilter."%' OR Marca.nome LIKE '%".$fastFilter."%' ORDER BY id_scarpa";
+    " WHERE attivo='1' AND (Scarpa.nome LIKE '%".$fastFilter."%' OR Marca.nome LIKE '%".$fastFilter."%')  ORDER BY id_scarpa";
   }
   else{
-    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca ORDER BY id_scarpa";
+    $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca WHERE attivo='1' ORDER BY id_scarpa";
   }
 
   echo '<div class="container">
@@ -51,7 +51,7 @@
                   <h4 style="text-align : right">';
                   if($scarpa['sconto'] > 0){
 
-                    echo '<span style = "font-size: 14px;"><del>'.$scarpa['prezzo']. '€ 
+                    echo '<span style = "font-size: 14px;"><del>'.$scarpa['prezzo']. '€
                      </del> </span>'
                     .($scarpa['prezzo'] - ($scarpa['prezzo']/100 * $scarpa['sconto'])).
 
@@ -60,7 +60,7 @@
                   else{
                     echo $scarpa['prezzo'].' €</h4>';
                   }
-                  
+
      echo             '<p>
                       <a href="http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id='.$scarpa['id_scarpa'].'" class="btn btn-default btn-block" role="button">Aggiungi a Wishlist</a>
                       <a href="http://localhost/JustShoes/scarpa.php?id='.$scarpa['id_scarpa'].'" class="btn btn-primary btn-block " role="button">Acquista</a>

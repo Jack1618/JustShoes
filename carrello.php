@@ -47,6 +47,9 @@
           </a></div>';
           $_SESSION["totale"] = $totale;
   }
+  else {
+    echo "<h3 align='center'>Non sono presenti articoli nel carrello!</h3>";
+  }
 ?>
 </div>
 <script type="text/javascript">

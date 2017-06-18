@@ -1,5 +1,5 @@
 <?php
-  $wishes = $mysqli->query("SELECT * FROM Wishlist JOIN Scarpa ON Wishlist.id_scarpa = Scarpa.id_scarpa WHERE id_utente = ".$_SESSION["id_utente"]);
+  $wishes = $mysqli->query("SELECT * FROM Wishlist JOIN Scarpa ON Wishlist.id_scarpa = Scarpa.id_scarpa WHERE id_utente = $_SESSION[id_utente] AND attivo = '1'");
 ?>
 <div class="wishlist">
     <div class="wish-label">WISHLIST</div>

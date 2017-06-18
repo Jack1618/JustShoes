@@ -4,7 +4,7 @@
 
   //PROTEZIONE ADMIN
   if(isset($_SESSION['admin']) && $_SESSION['admin'] == false){
-    header("Location: localhost://JustShoes/index.php");
+    header("Location: ../index.php");
     EXIT;
   }
 

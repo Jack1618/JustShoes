@@ -3,7 +3,7 @@
   include_once("../header.php");
   //PROTEZIONE ADMIN
   if(isset($_SESSION['admin']) && $_SESSION['admin'] == false){
-    header("Location: localhost://JustShoes/index.php");
+    header("Location: ../index.php");
     EXIT;
   }
   //INSERIMENTO SCARPA
@@ -28,8 +28,9 @@
   //RIMOZIONE SCARPA
   if(isset($_POST['id_scarpa']) && $_POST['id_scarpa']!=""){
     $id = $_POST['id_scarpa'];
-    $sql_del = "DELETE FROM Scarpa WHERE Scarpa.id_scarpa = ".$id;
-    mysql_query($sql_del) or die(mysql_error());
+    $attivo = $_POST["attivo"];
+    $sql = "UPDATE Scarpa SET attivo=$attivo WHERE Scarpa.id_scarpa = $id";
+    $mysqli->query($sql);
     header("Location: gestione-scarpe.php");
     EXIT;
   }
@@ -129,7 +130,7 @@
     else if(isNaN($("#prezzoInput").val())){
       alert("Inserire un valore numerico!");
       $("#submitBtn").attr("disabled", "true");
-   
+
     }
     else{
       $("#submitBtn").removeAttr("disabled");
@@ -140,10 +141,11 @@
 </script>
 <form id="elimina_scarpa" method="post" action="gestione-scarpe.php" class="hidden" >
   <input type="text" name="id_scarpa" id="id_scarpa" class="hidden"></input>
+  <input type="text" name="attivo" id="attivo" class="hidden"></input>
 </form>
 <script type="text/javascript">
-  elimina_scarpa = function(id){
-
+  elimina_scarpa = function(id,attivo){
+    $("#attivo").val(attivo);
     $("#id_scarpa").val(id);
     $("#elimina_scarpa").submit();
   }
@@ -177,18 +179,18 @@
 
 $query = mysql_query($sql_fetch) or die("meh");
 if(mysql_num_rows($query) > 0) { //Login completato
-    $ris = mysql_fetch_assoc($query);
+    $scarpa = mysql_fetch_assoc($query);
     echo  "<div class='container'><button class='btn btn-default' onclick='toggleTabella()'><span id='mostra-txt' >Mostra Tabella</span><span id='nascondi-txt' style='display: none'>Nascondi Tabella</span></button></div>".
           "<div class='container' id='tabella-scarpe' style='display: none'>".
           "<h2>Scarpe</h2>".
           "<table class='table table-striped'>".
           "<thead>".
             "<tr>";
-    foreach ($ris as $key => $value) {
+    foreach ($scarpa as $key => $value) {
       if($key == "id_marca"){
         echo "<th>MARCA</th>";
       }
-      else{
+      elseif ($key != "attivo" && $key != "descrizione"){
         echo "<th>".strtoupper($key)."</th>";
       }
 
@@ -196,31 +198,38 @@ if(mysql_num_rows($query) > 0) { //Login completato
     echo "    </tr>".
             "</thead>".
             "";
-    while($ris){
+    while($scarpa){
 
       echo "<tr>";
-      foreach ($ris as $key => $value) {
+      foreach ($scarpa as $key => $value) {
 
 
           if($key == "id_marca"){
-            $exec = mysql_query("SELECT nome FROM Marca WHERE id_marca=".$ris["".$key]);
+            $exec = mysql_query("SELECT nome FROM Marca WHERE id_marca=".$scarpa["".$key]);
             $marca = mysql_fetch_assoc($exec);
-            $ris["".$key] = $marca["nome"];
+            $scarpa["".$key] = $marca["nome"];
           }
-          echo "<td>".$ris["".$key]."</td>";
+          if ($key != "attivo" && $key != "descrizione") {
+            echo "<td>".$scarpa["".$key]."</td>";
+          }
 
       }
-      echo "<td><button class='btn btn-default' onclick='elimina_scarpa(".$ris["id_scarpa"].")'>Elimina</button></td>";
-      echo "<td><button class='btn btn-default' onclick='mostraDettagli(".$ris["id_scarpa"].")'>Dettagli</button></td>";
+      if($scarpa['attivo'] == 1){
+        echo "<td><button class='btn btn-default' onclick='elimina_scarpa(".$scarpa["id_scarpa"].",0)'>Escludi</button></td>";
+      }
+      else{
+        echo "<td><button class='btn btn-default' onclick='elimina_scarpa(".$scarpa["id_scarpa"].",1)'>Includi</button></td>";
+      }
+      echo "<td><button class='btn btn-default' onclick='mostraDettagli(".$scarpa["id_scarpa"].")'>Dettagli</button></td>";
       echo "</tr>";
-      echo "<tr id='r1".$ris["id_scarpa"]."' style='display : none'>";
-      $sql_categorie = mysql_query("SELECT nome FROM Scarpa_Categoria JOIN Categoria ON Scarpa_Categoria.id_categoria = Categoria.id_categoria WHERE id_scarpa = ".$ris["id_scarpa"]) or die;
+      echo "<tr id='r1".$scarpa["id_scarpa"]."' style='display : none'>";
+      $sql_categorie = mysql_query("SELECT nome FROM Scarpa_Categoria JOIN Categoria ON Scarpa_Categoria.id_categoria = Categoria.id_categoria WHERE id_scarpa = ".$scarpa["id_scarpa"]) or die;
       while($categoria = mysql_fetch_assoc($sql_categorie)){
         echo "<td>".$categoria["nome"]."</td>";
       }
       echo "</tr>";
-      echo "<tr  style='display : none' id='r2".$ris["id_scarpa"]."'><td></td><td></td><td></td><td></td><td></td><td></td><td><button class='btn btn-default' onclick='modificaScarpa(".$ris["id_scarpa"].")'>Modifica Scarpa</button></td><td><button class='btn btn-default' onclick='modificaQta(".$ris["id_scarpa"].")'>Modifica Q.ta</button></td></tr>";
-      $ris = mysql_fetch_assoc($query);
+      echo "<tr  style='display : none' id='r2".$scarpa["id_scarpa"]."'><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td><button class='btn btn-default' onclick='modificaScarpa(".$scarpa["id_scarpa"].")'>Modifica Scarpa</button></td><td><button class='btn btn-default' onclick='modificaQta(".$scarpa["id_scarpa"].")'>Modifica Q.ta</button></td></tr>";
+      $scarpa = mysql_fetch_assoc($query);
     }
             "</table>".
           "</div>";

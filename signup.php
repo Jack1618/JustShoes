@@ -1,16 +1,16 @@
 <?php
   include_once("./config.php");
   include_once("./header.php");
-  
+
   if(isset($_POST["email"]) && isset($_POST["password"])){
     $email = trim($_POST["email"]);
     $password = md5(trim($_POST["password"]).$SAFEWORD);
     $gruppo_applicativo = "2";
-    $sql = "INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo,id_carta) ".
-           "VALUES(NULL,'".$email."','".$password."',".$gruppo_applicativo.", NULL)";
+    $sql = "INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo) ".
+           "VALUES(NULL,'".$email."','".$password."',".$gruppo_applicativo.")";
 
     //echo $sql;
-    mysql_query($sql) or die ("Inserimento in DB non riuscito");
+    mysql_query($sql) or die (mysql_error());
 
     header("Location: signup.php");
     EXIT;

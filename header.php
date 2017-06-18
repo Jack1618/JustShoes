@@ -27,20 +27,21 @@
         }
         ?>
       <ul class="nav navbar-nav navbar-right">
-      <li class="cliente"><a href="http://localhost/JustShoes/carrello.php">Carrello</a></li>
+      <li class="cliente"><a href="http://localhost/JustShoes/carrello.php">Carrello (<?php echo count($_SESSION["carrello"])?>)</a></li>
       <li class="dropdown">
         <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li ><a href="http://localhost/JustShoes/admin/gestione-categorie.php" >Categorie</a></li>
           <li ><a href="http://localhost/JustShoes/admin/gestione-marche.php">Marche</a></li>
           <li ><a href="http://localhost/JustShoes/admin/gestione-scarpe.php">Scarpe</a></li>
+          <li ><a href="http://localhost/JustShoes/admin/gestione-utenti.php">Utenti</a></li>
         </ul>
       </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li id="profilo" class="cliente"><a href="http://localhost/JustShoes/cliente/profilo.php" >Profilo</a></li>
-            <li id="ordini" class="cliente"><a href="http://localhost/JustShoes/cliente/storico_acquisti.php" >Ordini</a></li>
+            <li id="ordini" class="cliente"><a href="http://localhost/JustShoes/cliente/ordini.php" >Ordini</a></li>
 
             <li id="accedi"><a href="http://localhost/JustShoes/login.php?option=default&id=0" >Accedi</a></li>
             <li id="esci"><a href="http://localhost/JustShoes/logout.php">Esci</a></li>
@@ -56,16 +57,16 @@
   <?php
 
     if(isset($_SESSION['admin']) && $_SESSION['admin']==true){
-      echo '<script type="text/javascript">$("#admin-panel").show();$(".cliente").hide();$("#profilo").hide();</script>';
+      echo '<script type="text/javascript">$("#admin-panel").show();$(".cliente").hide();$("#profilo").hide();$("#ordini").hide();</script>';
     }
     else{
-      echo '<script type="text/javascript">$("#admin-panel").hide();$(".cliente").show();$("#profilo").show();</script>';
+      echo '<script type="text/javascript">$("#admin-panel").hide();$(".cliente").show();$("#profilo").show();$("#ordini").show()</script>';
     }
 
     if(isset($_SESSION['logged']) && $_SESSION['logged']==true){
       echo '<script type="text/javascript">'.'$("#esci").show();$("#accedi").hide();$("#registrati").hide();</script>';
     }
     else{
-      echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();$("#registrati").show();$("#profilo").hide();</script>';
+      echo '<script type="text/javascript">'.'$("#esci").hide();$("#accedi").show();$("#registrati").show();$("#profilo").hide();$("#ordini").hide();</script>';
     }
   ?>
