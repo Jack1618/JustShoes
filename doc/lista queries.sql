@@ -1,5 +1,7 @@
                     LISTA QUERIES
 
+-------------- ADMIN -------------------------------
+
 gestione-categorie.php
 
 //INSERIMENTO CATEGORIA
@@ -158,3 +160,7 @@ WHERE id_categoria
 NOT IN (SELECT id_categoria
        FROM Scarpa_Categoria
        WHERE id_scarpa =$scarpa[id_scarpa])
+
+----------- CLIENTE ------------------------------------
+
+carta-add.php
