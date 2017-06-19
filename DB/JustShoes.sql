@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Giu 18, 2017 alle 16:04
+-- Creato il: Giu 19, 2017 alle 19:16
 -- Versione del server: 10.1.21-MariaDB
 -- Versione PHP: 5.6.30
 
@@ -44,7 +44,8 @@ INSERT INTO `Acquisto` (`id_acquisto`, `data`, `totale`, `id_indirizzo`, `id_ute
 (1, '2017-06-18', 61.2, 11, 3),
 (2, '2017-06-18', 8, 11, 3),
 (3, '2017-06-18', 20.4, 12, 3),
-(4, '2017-06-18', 164, 13, 4);
+(4, '2017-06-18', 164, 13, 4),
+(5, '2017-06-18', 28.4, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -112,7 +113,9 @@ INSERT INTO `Dettagli_Acquisto` (`id_scarpa`, `id_taglia`, `id_acquisto`, `quant
 (15, 5, 1, 3, 20.4),
 (1, 1, 2, 1, 8),
 (15, 10, 3, 1, 20.4),
-(3, 9, 4, 4, 41);
+(3, 9, 4, 4, 41),
+(15, 9, 5, 1, 20.4),
+(1, 4, 5, 1, 8);
 
 -- --------------------------------------------------------
 
@@ -195,26 +198,28 @@ CREATE TABLE `Scarpa` (
   `sconto` float NOT NULL,
   `id_marca` int(10) DEFAULT NULL,
   `foto` varchar(100) DEFAULT NULL,
-  `descrizione` varchar(1000) NOT NULL
+  `descrizione` varchar(1000) NOT NULL,
+  `attivo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `Scarpa`
 --
 
-INSERT INTO `Scarpa` (`id_scarpa`, `codice`, `nome`, `prezzo`, `sconto`, `id_marca`, `foto`, `descrizione`) VALUES
-(1, 'yuwegeryuwgruwey', 'air max', 8, 0, 1, 'ok.png', ''),
-(3, 'ibnvdidvbninusd', 'ehg', 41, 0, 1, 'ok.png', ''),
-(5, 'prova12', 'prova13', 45, 0, 1, 'ok.png', ''),
-(6, 'prova2', 'prova2', 36, 0, 2, 'ok.png', ''),
-(7, 'prova3', 'prova3', 23, 0, 6, 'ok.png', ''),
-(8, 'sdfgoijdfsoui', 'ciao', 24, 0, 6, 'ok.png', ''),
-(9, 'yuegeryuwgruwey', 'air max', 8, 0, 1, 'ok.png', ''),
-(10, 'cabuya', 'ders', 31, 0, 4, 'ok.png', ''),
-(12, 'cabuyas', 'ders', 31, 0, 4, 'ok.png', ''),
-(13, 'nk126798345', 'air max 90', 120, 0, 1, 'ok.png', ''),
-(14, 'sdfubufsdy', 'asdds', 25, 0, 4, 'ok.png', ''),
-(15, 'cabuyass', 'cabuyas', 25.5, 20, 1, 'ok.png', '');
+INSERT INTO `Scarpa` (`id_scarpa`, `codice`, `nome`, `prezzo`, `sconto`, `id_marca`, `foto`, `descrizione`, `attivo`) VALUES
+(1, 'yuwegeryuwgruwey', 'air max', 8, 0, 1, 'ok.png', '', 1),
+(3, 'ibnvdidvbninusd', 'ehg', 41, 0, 1, 'ok.png', '', 1),
+(5, 'prova12', 'prova13', 45, 0, 1, 'ok.png', '', 1),
+(6, 'prova2', 'prova2', 36, 0, 2, 'ok.png', '', 1),
+(7, 'prova3', 'prova3', 23, 0, 6, 'ok.png', '', 1),
+(8, 'sdfgoijdfsoui', 'ciao', 24, 0, 6, 'ok.png', '', 1),
+(9, 'yuegeryuwgruwey', 'air max', 8, 0, 1, 'ok.png', '', 1),
+(10, 'cabuya', 'ders', 31, 0, 4, 'ok.png', '', 1),
+(12, 'cabuyas', 'ders', 31, 0, 4, 'ok.png', '', 1),
+(13, 'nk126798345', 'air max 90', 120, 0, 1, 'ok.png', '', 1),
+(14, 'sdfubufsdy', 'asdds', 25, 0, 4, 'ok.png', '', 1),
+(15, 'cabuyass', 'cabuyas', 25.5, 20, 1, 'ok.png', '<h1>Prova</h1>\r\n<p>Questa Ã¨ una prova</p>', 1),
+(16, 'cabuyal', 'cabuyas 2', 21, 10, 2, 'ok.png', '<h3>Cabuyas 2!</h3>\r\n<p>Ora anche da donna!</p>', 1);
 
 -- --------------------------------------------------------
 
@@ -245,7 +250,9 @@ INSERT INTO `Scarpa_Categoria` (`id_scarpa`, `id_categoria`) VALUES
 (5, 1),
 (5, 3),
 (15, 1),
-(15, 5);
+(15, 5),
+(16, 5),
+(16, 7);
 
 -- --------------------------------------------------------
 
@@ -339,7 +346,22 @@ INSERT INTO `Stock_Scarpe` (`quantita`, `id_scarpa`, `id_taglia`) VALUES
 (0, 3, 13),
 (0, 3, 14),
 (0, 3, 15),
-(0, 3, 16);
+(0, 3, 16),
+(2, 16, 1),
+(23, 16, 2),
+(0, 16, 3),
+(40, 16, 4),
+(0, 16, 5),
+(100, 16, 7),
+(25, 16, 8),
+(30, 16, 9),
+(40, 16, 10),
+(20, 16, 11),
+(0, 16, 12),
+(6, 16, 13),
+(3, 16, 14),
+(1, 16, 15),
+(0, 16, 16);
 
 -- --------------------------------------------------------
 
@@ -388,19 +410,20 @@ CREATE TABLE `Utente` (
   `id_utente` int(10) NOT NULL,
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
-  `id_gruppo_applicativo` int(10) DEFAULT NULL
+  `id_gruppo_applicativo` int(10) DEFAULT NULL,
+  `attivo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dump dei dati per la tabella `Utente`
 --
 
-INSERT INTO `Utente` (`id_utente`, `email`, `password`, `id_gruppo_applicativo`) VALUES
-(1, 'admin@root', '702baf0ab00246bf06bdacd5b1e542b6', 1),
-(3, 'prova@example.com', '920b271ca21afa3b009317115781f296', 2),
-(4, 'prova2@example.com', '920b271ca21afa3b009317115781f296', 2),
-(14, 'prova3@example.com', '920b271ca21afa3b009317115781f296', 2),
-(38, 'prova4@example.com', '920b271ca21afa3b009317115781f296', 2);
+INSERT INTO `Utente` (`id_utente`, `email`, `password`, `id_gruppo_applicativo`, `attivo`) VALUES
+(1, 'admin@root', '702baf0ab00246bf06bdacd5b1e542b6', 1, 1),
+(3, 'prova@example.com', '920b271ca21afa3b009317115781f296', 2, 1),
+(4, 'prova2@example.com', '920b271ca21afa3b009317115781f296', 2, 1),
+(39, 'prova3@example.com', '920b271ca21afa3b009317115781f296', 2, 1),
+(40, 'prova4@example.com', '920b271ca21afa3b009317115781f296', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -412,6 +435,13 @@ CREATE TABLE `Wishlist` (
   `id_utente` int(10) DEFAULT NULL,
   `id_scarpa` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `Wishlist`
+--
+
+INSERT INTO `Wishlist` (`id_utente`, `id_scarpa`) VALUES
+(3, 13);
 
 --
 -- Indici per le tabelle scaricate
@@ -517,7 +547,7 @@ ALTER TABLE `Wishlist`
 -- AUTO_INCREMENT per la tabella `Acquisto`
 --
 ALTER TABLE `Acquisto`
-  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT per la tabella `Carta_Di_Credito`
 --
@@ -542,7 +572,7 @@ ALTER TABLE `Marca`
 -- AUTO_INCREMENT per la tabella `Scarpa`
 --
 ALTER TABLE `Scarpa`
-  MODIFY `id_scarpa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_scarpa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT per la tabella `Taglia`
 --
@@ -552,7 +582,7 @@ ALTER TABLE `Taglia`
 -- AUTO_INCREMENT per la tabella `Utente`
 --
 ALTER TABLE `Utente`
-  MODIFY `id_utente` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_utente` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- Limiti per le tabelle scaricate
 --
