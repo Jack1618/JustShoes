@@ -1,29 +1,41 @@
 <?php
   include_once("../config.php");
   include_once("../header.php");
+
   //PROTEZIONE ADMIN
-  if(isset($_SESSION['admin']) && $_SESSION['admin'] == false){
+  if($_SESSION['admin'] == false){
     header("Location: ../index.php");
     EXIT;
   }
   //INSERIMENTO MARCA
   if(isset($_POST['nome']) && $_POST['nome']!=""){
     $nome = $_POST['nome'];
-    $sql_ins = "INSERT INTO Marca (id_marca, nome) VALUES (NULL, '".$nome."')";
-    mysql_query($sql_ins) or die("Ops");
-    header("Location: gestione-marche.php");
-    EXIT;
+    $sql_ins = "INSERT INTO Marca (id_marca, nome)
+                VALUES (NULL, '$nome')";
+    if($mysqli->query($sql_ins){
+      header("Location: gestione-marche.php");
+      EXIT;
+    }
+    else{
+      echo "Inserimento non riuscito! Controllare connessione al DB!";
+    }
   }
   //RIMOZIONE MARCA
   if(isset($_POST['id_marca']) && $_POST['id_marca']!=""){
     $id = $_POST['id_marca'];
-    $sql_del = "DELETE FROM Marca WHERE Marca.id_marca = ".$id;
-    mysql_query($sql_del) or die(mysql_error());
-    header("Location: gestione-marche.php");
-    EXIT;
+    $sql_del = "DELETE FROM Marca
+                WHERE Marca.id_marca = $id";
+    if($mysqli->query($sql_del))
+      header("Location: gestione-marche.php");
+      EXIT;
+    }
+    else{
+      echo "Eliminazione non riuscita! La categoria è ancora collegata ad almeno una scarpa!";
+    }
   }
 
 ?>
+<!-- FORM PER INSERIMENTO MARCA -->
 <h1>Inserimento Marca</h1>
 <form id="inserimento-marca" method="post" action="gestione-marche.php">
   <label for="nome">Nome</label>
@@ -35,39 +47,45 @@
     $("#inserimento-marca").submit();
   }
 </script>
+<!-------------------------------->
 <?php
-  $sql_fetch = "SELECT * FROM Marca";
-  $query = mysql_query($sql_fetch) or die("meh");
-  if(mysql_num_rows($query) > 0) { //Login completato
-      $ris = mysql_fetch_assoc($query);
+  $sql = "SELECT *
+                FROM Marca";
+
+  //SCRIPT GENERICO PER COSTRUZIONE TABELLA
+  if($marche = $mysqli->query($sql){
+      $marca = $marche->fetch_array(MYSQLI_ASSOC);
       echo "<div class='container'>".
             "<h2>Marche</h2>".
             "<table class='table'>".
             "<thead>".
               "<tr>";
-      foreach ($ris as $key => $value) {
+      foreach ($marca as $key => $value) {
         echo "<th>".strtoupper($key)."</th>";
       }
       echo "    </tr>".
               "</thead>".
               "";
-      while($ris){
+      while($marca){
 
         echo "<tr>";
-        foreach ($ris as $key => $value) {
+        foreach ($marca as $key => $value) {
 
 
 
-            echo "<td>".$ris["".$key]."</td>";
+            echo "<td>$value</td>";
 
 
         }
-        echo "<td><button class='btn btn-default' onclick='elimina_marca(".$ris["id_marca"].")'>Elimina</button></td>";
+        echo "<td><button class='btn btn-default' onclick='elimina_marca($marca[id_marca])'>Elimina</button></td>";
         echo "</tr>";
-        $ris = mysql_fetch_assoc($query);
+        $marca = $marche->fetch_aarray(MYSQLI_ASSOC);
       }
               "</table>".
             "</div>";
+  }
+  else{
+    echo "Errore nella richiesta della tabella!";
   }
 
 

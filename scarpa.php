@@ -16,7 +16,7 @@
       <div class="panel-body">
       <?php
        if($scarpa['sconto'] > 0){
-                    echo '<h4><del>'.$scarpa['prezzo']. '€ 
+                    echo '<h4><del>'.$scarpa['prezzo']. '€
                      </del></h4><h3>'
                     .($scarpa['prezzo'] - ($scarpa['prezzo']/100 * $scarpa['sconto'])).
 
@@ -25,7 +25,7 @@
                   else{
                     echo $scarpa['prezzo'].' €';
                   }
-        ?>   
+        ?>
         <div class="form-group">
           <label for="taglia">Taglia:</label>
           <select class="form-control" id="taglia">
@@ -50,6 +50,15 @@
       </div>
     </div>
   </div>
+  <br/>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Descrizione</h3>
+    </div>
+    <div class="panel-body">
+      <?php echo $scarpa["descrizione"]; ?>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
   addWish = function(id){
@@ -68,7 +77,7 @@
 </script>
 
 <?php
-  
+
 
   if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
     include_once("./cliente/wishlist.php");

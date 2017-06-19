@@ -8,10 +8,7 @@
 		EXIT;
 	}
 
-?>
 
-
-<?php
 	$sqlScontate = "SELECT id_scarpa, Scarpa.nome as 'nome', prezzo, sconto, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca  WHERE sconto > 0 AND attivo = '1' ORDER BY sconto ASC LIMIT 4";
 
 	$sqlTopSeller = "SELECT Scarpa.id_scarpa, Scarpa.nome as 'nome', prezzo, sconto, foto, Marca.nome AS 'marca' FROM Scarpa  JOIN (SELECT id_scarpa, SUM(quantita) as tot FROM Dettagli_Acquisto GROUP BY id_scarpa) AS qtaToT ON Scarpa.id_scarpa = qtaTot.id_scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca WHERE attivo ='1' ORDER BY tot ASC LIMIT 4";
@@ -107,3 +104,8 @@
 	}
 
 ?>
+<script type="text/javascript">
+	acquistaScarpa = function(id){
+		window.open("http://localhost/JustShoes/scarpa.php?id="+id,"_self")
+	}
+</script>
