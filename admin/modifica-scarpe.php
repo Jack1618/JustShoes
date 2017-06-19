@@ -107,31 +107,37 @@
     <div class="form-group">
       <?php
         //CATEGORIE COLLEGATE ALLA SCARPA SELEZIONATE
-        $categorie_si = mysql_query("SELECT Categoria.id_categoria, nome
+        $categorie_si = $mysql->query("SELECT Categoria.id_categoria, nome
                                      FROM Scarpa_Categoria
                                      JOIN Categoria ON Scarpa_Categoria.id_categoria = Categoria.id_categoria
                                      WHERE id_scarpa = $scarpa[id_scarpa]");
 
-        while($categoria = $categorie_si->fetch_array(MYSQLI_ASSOC)) {
-            echo "<label class='checkbox-inline'>
-                  <input type='checkbox' name='categorie[]' value=$categoria[id_categoria] checked></input>
-                    $categoria[nome]
-                  </label>";
+        if($categorie_si){
+          while($categoria = $categorie_si->fetch_array(MYSQLI_ASSOC)) {
+              echo "<label class='checkbox-inline'>
+                    <input type='checkbox' name='categorie[]' value=$categoria[id_categoria] checked></input>
+                      $categoria[nome]
+                    </label>";
+          }
         }
 
         //CATEGORIE NON COLLEGATE ALLA SCARPA NON SELEZIONATE
-        $categorie_no = mysql_query("SELECT id_categoria, nome
+        $categorie_no = $mysqli->query("SELECT id_categoria, nome
                                      FROM Categoria
                                      WHERE id_categoria
                                      NOT IN (SELECT id_categoria
                                              FROM Scarpa_Categoria
                                              WHERE id_scarpa =$scarpa[id_scarpa])");
-        while($categoria = mysql_fetch_assoc($categorie_no)) {
-            echo "<label class='checkbox-inline'>
-                  <input type='checkbox' name='categorie[]' value=$categoria[id_categoria]></input>
-                    $categoria[nome]
-                  </label>";
+
+        if($categorie_no){
+          while($categoria = $categorie_no->fetch_array(MYSQLI_ASSOC)) {
+              echo "<label class='checkbox-inline'>
+                    <input type='checkbox' name='categorie[]' value=$categoria[id_categoria]></input>
+                      $categoria[nome]
+                    </label>";
+          }
         }
+
       ?>
     </div>
 

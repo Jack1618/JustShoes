@@ -16,14 +16,14 @@
       <div class="panel-body">
       <?php
        if($scarpa['sconto'] > 0){
-                    echo '<h4><del>'.$scarpa['prezzo']. '€
-                     </del></h4><h3>'
+                    echo "<h4><del>$scarpa[prezzo] €
+                     </del></h4><h3>"
                     .($scarpa['prezzo'] - ($scarpa['prezzo']/100 * $scarpa['sconto'])).
 
-                    '€ <span style="color: red; font-size: 18px;">Sconto del '.$scarpa['sconto'].'%</span></h3>';
+                    "€ <span style='color: red; font-size: 18px;'>Sconto del $scarpa[sconto]%</span></h3>";
                   }
                   else{
-                    echo $scarpa['prezzo'].' €';
+                    echo $scarpa['prezzo']." €";
                   }
         ?>
         <div class="form-group">

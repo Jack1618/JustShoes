@@ -21,9 +21,11 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
     $password = md5(trim($_POST['password']).$SAFEWORD);
 
     $sql = "SELECT * FROM Utente WHERE email = '$email' AND password = '$password'";
-    $query = mysql_query($sql) or die("Impossibile effettuare il login\n");
-    if(mysql_num_rows($query) > 0) { //Login completato
-        $ris = mysql_fetch_assoc($query);
+    $query = $mysqli->query($sql);
+
+
+    if($query) { //Login completato
+        $ris = $query->fetch_array(MYSQLI_ASSOC);
         $_SESSION['errore'] = false;
         $_SESSION['logged'] = true;
         $_SESSION['id_utente'] = $ris['id_utente'];
@@ -55,28 +57,24 @@ if(isset($_POST['email']) && $_POST['email'] != "" && isset($_POST['password']) 
 ?>
 
 
-<div >
+<div class="container" >
     <div >
         <h1 class="text-center">Accedi</h1>
-        <form action=<?php echo "'login.php?option=".$option."&id=".$_GET["id"]."'";?> method="POST">
-            <div >
+        <form action=<?php echo "'login.php?option=$option&id=$_GET[id]'";?> method="POST">
+            <div class="form-group">
                 <div >
-                    <label>Email:
-                        <input type="email" value="prova@example.com" name="email">
-                    </label>
+                    <label>Email:</label>
+                        <input type="email" value="prova@example.com" name="email" class="form-control"></input>
+
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                        <input type="password" name="password" value="prova" class="form-control"></input>
                 </div>
                 <div >
-                    <label>Password:
-                        <input type="password" name="password" value="prova">
-                    </label>
-                </div>
-                <div >
-                    <button type="submit" class="success button expanded">Login</button>
+                    <button class="btn btn-primary" type="submit" class="success button expanded">Login</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-<?php
-include_once("./footer.php");
-?>

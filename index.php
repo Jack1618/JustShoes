@@ -1,7 +1,7 @@
 <?php
 	include_once("./config.php");
 	include_once("./header.php");
-	include_once("./footer.php");
+
 
 	if(isset($_SESSION['admin']) && $_SESSION['admin']==true){
 		header ("Location: http://localhost/JustShoes/admin/gestione-scarpe.php");
@@ -19,81 +19,89 @@
 	$topSeller = $mysqli->query($sqlTopSeller);
 
 
-	echo '<div class="container-fluid">';
+	echo "<div class='container-fluid'>";
 	echo "<h1>Le nostre promozioni</h1>";
-	echo '<div class="row container-fluid" style = "width: 100%; margin: 0; padding: 20px; margin-top: 60px;">';
-  while($scontata = $scontate->fetch_array(MYSQLI_ASSOC)){
+	echo "<div class='row container-fluid' style = 'width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
 
-    echo '<div class="col-md-3 col-sm-6 thumb" style="cursor: pointer;"
-    		onclick="acquistaScarpa('.$scontata['id_scarpa'].')">';
+  if($scontate){
 
-    echo    '<div class="thumbnail thumb-scarpa ">
-                <img src="http://localhost/JustShoes/img/scarpe/'.$scontata['foto'].'" alt="prova">
-                <div class="caption">
-                  <h4>'.$scontata['marca'].'</h4><h3 style ="margin-top:0">'.$scontata['nome'].'</h3>
-                  <h4 style="text-align : right">';
+    while($scontata = $scontate->fetch_array(MYSQLI_ASSOC)){
+
+    echo "<div class='col-md-3 col-sm-6 thumb' style='cursor: pointer;'
+        onclick='acquistaScarpa($scontata[id_scarpa])'>";
+
+    echo    "<div class='thumbnail thumb-scarpa'>
+                <img src='http://localhost/JustShoes/img/scarpe/$scontata[foto]' alt='prova'>
+                <div class='caption'>
+                  <h4>$scontata[marca]</h4><h3 style ='margin-top:0'>$scontata[nome]</h3>
+                  <h4 style='text-align : right'>";
+
                   if($scontata['sconto'] > 0){
 
-                    echo '<span style = "font-size: 14px;"><del>'.$scontata['prezzo']. '€
-                     </del> </span>'
-                    .($scontata['prezzo'] - ($scontata['prezzo']/100 * $scontata['sconto'])).
-
-                    ' € </h4>';
+                    echo "<span style = 'font-size: 14px;'><del>$scontata[prezzo] €
+                     </del> </span>".
+                    ($scontata['prezzo'] - ($scontata['prezzo']/100 * $scontata['sconto']))
+                     ."€ </h4>";
                   }
                   else{
-                    echo $scontata['prezzo'].' €</h4>';
+                    echo "$scontata[prezzo] €</h4>";
                   }
 
-     echo             '<p>
-                      <a href="http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id='.$scontata['id_scarpa'].'" class="btn btn-default btn-block" role="button">Aggiungi a Wishlist</a>
-                      <a href="http://localhost/JustShoes/scarpa.php?id='.$scontata['id_scarpa'].'" class="btn btn-primary btn-block " role="button">Acquista</a>
+     echo             "<p>
+                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id=$scontata[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
+                      <a href='http://localhost/JustShoes/scarpa.php?id=$scontata[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
               </div>
-            </div>';
+            </div>";
+    }
   }
-  echo '</div>';
-  echo '</div>';
+  
+  echo "</div>";
+  echo "</div>";
 
-  	echo '<div class="container-fluid">';
+  	echo "<div class='container-fluid'>";
   	echo "<h1>Le nostre Top Seller</h1>";
-	echo '<div class="row container-fluid" style = "width: 100%; margin: 0; padding: 20px; margin-top: 60px;">';
-  while($top = $topSeller->fetch_array(MYSQLI_ASSOC)){
+	echo "<div class='row container-fluid' style='width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
 
-    echo '<div class="col-md-3 col-sm-6 thumb" style="cursor: pointer;"
-    		onclick="acquistaScarpa('.$top['id_scarpa'].')">';
+  if($topSeller){
 
-    echo    '<div class="thumbnail thumb-scarpa ">
-                <img src="http://localhost/JustShoes/img/scarpe/'.$top['foto'].'" alt="prova">
-                <div class="caption">
-                  <h4>'.$top['marca'].'</h4><h3 style ="margin-top:0">'.$top['nome'].'</h3>
-                  <h4 style="text-align : right">';
+    while($top = $topSeller->fetch_array(MYSQLI_ASSOC)){
+
+    echo "<div class='col-md-3 col-sm-6 thumb' style='cursor: pointer;'
+        onclick='acquistaScarpa($top[id_scarpa])'>";
+
+    echo    "<div class='thumbnail thumb-scarpa'>
+                <img src='http://localhost/JustShoes/img/scarpe/$top[foto]' alt='prova'>
+                <div class='caption'>
+                  <h4>$top[marca]</h4><h3 style ='margin-top:0'>$top[nome]</h3>
+                  <h4 style='text-align : right'>";
+
                   if($top['sconto'] > 0){
 
-                    echo '<span style = "font-size: 14px;"><del>'.$top['prezzo']. '€
-                     </del> </span>'
+                    echo "<span style='font-size: 14px;'><del>$top[prezzo] €
+                     </del> </span>"
                     .($top['prezzo'] - ($top['prezzo']/100 * $top['sconto'])).
 
-                    ' € </h4>';
+                    " € </h4>";
                   }
                   else{
-                    echo $top['prezzo'].' €</h4>';
+                    echo $top['prezzo']. "€</h4>";
                   }
 
-     echo             '<p>
-                      <a href="http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id='.$top['id_scarpa'].'" class="btn btn-default btn-block" role="button">Aggiungi a Wishlist</a>
-                      <a href="http://localhost/JustShoes/scarpa.php?id='.$top['id_scarpa'].'" class="btn btn-primary btn-block " role="button">Acquista</a>
+     echo             "<p>
+                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id=$top[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
+                      <a href='http://localhost/JustShoes/scarpa.php?id=$top[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
               </div>
-            </div>';
+            </div>";
+    }
+
   }
-  echo '</div>';
-  echo '</div>';
-
-
-
-
+  
+  echo "</div>";
+  echo "</div>";
 
 
 
@@ -104,6 +112,7 @@
 	}
 
 ?>
+
 <script type="text/javascript">
 	acquistaScarpa = function(id){
 		window.open("http://localhost/JustShoes/scarpa.php?id="+id,"_self")

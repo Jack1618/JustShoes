@@ -12,8 +12,6 @@
     EXIT;
   }
 
-  
-
 ?>
 <div class="container" >
   <h1 align="center">Dati Profilo</h1>
@@ -35,11 +33,14 @@
   <div class="list-group">
     <?php
     $indirizzi = $mysqli->query("SELECT * FROM Indirizzo WHERE id_utente=$_SESSION[id_utente]");
-    while($indirizzo = $indirizzi->fetch_array(MYSQLI_ASSOC)){
-      echo '<a href="http://localhost/JustShoes/cliente/indirizzo-add.php?id='.$indirizzo["id_indirizzo"].'" class="list-group-item">
-              <h4 class="list-group-item-heading">'.$indirizzo["nome"].'</h4>
-              <p class="list-group-item-text">'.$indirizzo["citta"].' - '.$indirizzo["via"].', '.$indirizzo["CAP"].'</p>
-            </a>';
+
+    if($indirizzi){
+      while($indirizzo = $indirizzi->fetch_array(MYSQLI_ASSOC)){
+        echo '<a href="http://localhost/JustShoes/cliente/indirizzo-add.php?id='.$indirizzo["id_indirizzo"].'" class="list-group-item">
+                <h4 class="list-group-item-heading">'.$indirizzo["nome"].'</h4>
+                <p class="list-group-item-text">'.$indirizzo["citta"].' - '.$indirizzo["via"].', '.$indirizzo["CAP"].'</p>
+              </a>';
+      }
     }
     ?>
     <a href="http://localhost/JustShoes/cliente/indirizzo-add.php" class="list-group-item active">
@@ -53,12 +54,16 @@
   <div class="list-group">
     <?php
     $carte = $mysqli->query("SELECT * FROM Carta_Di_Credito WHERE id_utente=$_SESSION[id_utente]");
-    while($carta = $carte->fetch_array(MYSQLI_ASSOC)){
-      echo '<a href="http://localhost/JustShoes/cliente/carta-add.php?id='.$carta["id_carta"].'" class="list-group-item">
-              <h4 class="list-group-item-heading">Termina con '.substr($carta["numero_carta"],12).'</h4>
-              <p class="list-group-item-text">Scade il '.substr($carta["scadenza"],0,7).'</p>
-            </a>';
+
+    if($carte){
+      while($carta = $carte->fetch_array(MYSQLI_ASSOC)){
+        echo '<a href="http://localhost/JustShoes/cliente/carta-add.php?id='.$carta["id_carta"].'" class="list-group-item">
+                <h4 class="list-group-item-heading">Termina con '.substr($carta["numero_carta"],12).'</h4>
+                <p class="list-group-item-text">Scade il '.substr($carta["scadenza"],0,7).'</p>
+              </a>';
+      }
     }
+
     ?>
     <a href="http://localhost/JustShoes/cliente/carta-add.php" class="list-group-item active">
       <h4>Aggiungi Carta</h4>

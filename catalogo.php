@@ -35,41 +35,43 @@
 
   $scarpe = $mysqli->query($sql);
 
-  echo '<div class="row container-fluid" style = "width: 100%; margin: 0; padding: 20px; margin-top: 60px;">';
+  echo "<div class='row container-fluid' style='width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
   while($scarpa = $scarpe->fetch_array(MYSQLI_ASSOC)){
     $categorie_scarpa = $mysqli->query("SELECT id_categoria FROM Scarpa_Categoria WHERE id_scarpa=$scarpa[id_scarpa]");
     $categorie_class = "";
     while($categoria_scarpa = $categorie_scarpa->fetch_array(MYSQLI_ASSOC)){
       $categorie_class .= "cat$categoria_scarpa[id_categoria] ";
     }
-    echo '<div class="col-md-3 col-sm-6 thumb '.$categorie_class.'" style="cursor: pointer;" onclick="acquistaScarpa('.$scarpa['id_scarpa'].')">';
+    echo "<div class='col-md-3 col-sm-6 thumb $categorie_class style='cursor: pointer;' onclick='acquistaScarpa($scarpa[id_scarpa])'>";
 
-    echo    '<div class="thumbnail thumb-scarpa ">
-                <img src="http://localhost/JustShoes/img/scarpe/'.$scarpa['foto'].'" alt="prova">
-                <div class="caption">
-                  <h4>'.$scarpa['marca'].'</h4><h3 style ="margin-top:0">'.$scarpa['nome'].'</h3>
-                  <h4 style="text-align : right">';
+    echo    "<div class='thumbnail thumb-scarpa'>
+                <img src='http://localhost/JustShoes/img/scarpe/$scarpa[foto]' alt='prova'>
+                <div class='caption'>
+                  <h4>$scarpa[marca]</h4><h3 style ='margin-top:0'>$scarpa[nome]</h3>
+                  <h4 style='text-align : right'>";
+
                   if($scarpa['sconto'] > 0){
 
-                    echo '<span style = "font-size: 14px;"><del>'.$scarpa['prezzo']. '€
-                     </del> </span>'
+                    echo "<span style = 'font-size: 14px;'><del>$scarpa[prezzo] €
+                     </del> </span>"
                     .($scarpa['prezzo'] - ($scarpa['prezzo']/100 * $scarpa['sconto'])).
 
-                    ' € </h4>';
+                    " € </h4>";
                   }
                   else{
-                    echo $scarpa['prezzo'].' €</h4>';
+                    echo $scarpa['prezzo']." €</h4>";
                   }
 
-     echo             '<p>
-                      <a href="http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id='.$scarpa['id_scarpa'].'" class="btn btn-default btn-block" role="button">Aggiungi a Wishlist</a>
-                      <a href="http://localhost/JustShoes/scarpa.php?id='.$scarpa['id_scarpa'].'" class="btn btn-primary btn-block " role="button">Acquista</a>
+     echo             "<p>
+                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id=$scarpa[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
+                      <a href='http://localhost/JustShoes/scarpa.php?id=$scarpa[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
               </div>
-            </div>';
+            </div>";
   }
-  echo '</div>';
+  echo "</div>";
+  
   if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
 		include_once("./cliente/wishlist.php");
 	}

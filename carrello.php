@@ -10,7 +10,7 @@
 <?php
   if(count($carrello) > 0){
     $totale = 0;
-    echo '<div class="list-group">';
+    echo "<div class='list-group'>";
     foreach ($carrello as $key => $articolo) {
       $quantita_max = $mysqli->query("SELECT quantita
                                       FROM Stock_Scarpe
@@ -34,17 +34,17 @@
               </p>";
 
         if($articolo["quantita"] == $quantita_max){
-          echo '<p style="color: red;"> Quantita massima raggiunta!</p>';
+          echo "<p style='color: red;'> Quantita massima raggiunta!</p>";
         }
 
            echo "</li>";
             $totale += $articolo["prezzo"]*$articolo["quantita"];
 
     }
-    echo '<a href="http://localhost/JustShoes/shop/acquisto.php" class="list-group-item active">
-            <h4 class="list-group-item-heading">Procedi all\'Acquisto</h4>
-            <p class="list-group-item-text">Totale: '.$totale.' €</p>
-          </a></div>';
+    echo "<a href='http://localhost/JustShoes/shop/acquisto.php' class='list-group-item active'>
+            <h4 class='list-group-item-heading'>Procedi all'Acquisto</h4>
+            <p class='list-group-item-text'>Totale: $totale €</p>
+          </a></div>";
           $_SESSION["totale"] = $totale;
   }
   else {

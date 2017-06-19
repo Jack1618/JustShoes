@@ -10,30 +10,33 @@
            "VALUES(NULL,'".$email."','".$password."',".$gruppo_applicativo.")";
 
     //echo $sql;
-    mysql_query($sql) or die (mysql_error());
+    $mysqli->query($sql);
 
     header("Location: signup.php");
     EXIT;
   }
 
 ?>
+<div class="container">
+  <h1 align="center">Registrati</h1>
 <form method="post" id="signup">
-  <div>
+  <div class="form-group">
     <label for="email">Email</label>
-    <input type="email" name="email"></input>
+    <input type="email" name="email" class="form-control"></input>
   </div>
-  <div>
+  <div class="form-group">
     <label for="password">Password</label>
-    <input type="password" name="password" id="pwd"></input>
+    <input type="password" name="password" id="pwd" class="form-control"></input>
   </div>
-  <div>
+  <div class="form-group">
     <label for="r-password">Ripeti Password</label>
-    <input type="password" name="r-password" id="r-pwd"></input>
+    <input type="password" name="r-password" id="r-pwd" class="form-control"></input>
   </div>
   <div>
-    <button onclick="checkPwd()">Registrati</button>
+    <button class="btn btn-primary" onclick="checkPwd()">Registrati</button>
   </div>
 </form>
+</div>
 
 <script type="text/javascript">
   $("#signup").reset();

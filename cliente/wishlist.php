@@ -4,15 +4,17 @@
 <div class="wishlist">
     <div class="wish-label">WISHLIST</div>
     <?php
+    if($wishes){
       while($wish = $wishes->fetch_array(MYSQLI_ASSOC)){
-        echo '<div class="wish-thumb">
-                <a href="./scarpa.php?id='.$wish["id_scarpa"].'">
-                  <img class="wish-img" src="./img/scarpe/'.$wish["foto"].'"/>
+        echo "<div class='wish-thumb'>
+                <a href='./scarpa.php?id=$wish[id_scarpa]'>
+                  <img class='wish-img' src='./img/scarpe/$wish[foto]'/>
                 </a>
-                <a href="./cliente/wishlist-delete.php?id='.$wish["id_scarpa"].'">
-                  <img class="wish-delete"/ src="./img/wish-delete.png">
+                <a href='./cliente/wishlist-delete.php?id=$wish[id_scarpa]'>
+                  <img class='wish-delete'/ src='./img/wish-delete.png'>
                 </a>
-              </div>';
+              </div>";
       }
+    }
     ?>
 </div>
