@@ -25,7 +25,7 @@
     $sconto = $_POST['sconto'] == "" ? '0' : $_POST['sconto'];
     $marca = $_POST['marca'];
     $foto = $_POST['foto']  == "" ? 'nopic.png' : $_POST['foto'];
-    $descrizione = $_POST["descrizione"]  == "" ? 'Nessuna Descrizione!' : $_POST['foto'];;
+    $descrizione = $_POST["descrizione"]  == "" ? 'Nessuna Descrizione!' : $_POST['descrizione'];;
     //AGGIORNO I VALORI DELLA SCARPA
     $sql_ins = "UPDATE Scarpa
                 SET id_scarpa = '$id_scarpa',
@@ -38,18 +38,20 @@
                     descrizione = '$descrizione'
                 WHERE id_scarpa = $id_scarpa" ;
     //AGGIORNO LE CATEGORIE DELLA SCARPA
-    if($mysqli->query($sql_ins){
+    if($mysqli->query($sql_ins)){
       $categorie = $_POST['categorie'];
       $sql_del_cat = "DELETE FROM Scarpa_Categoria
                       WHERE id_scarpa = $id_scarpa";
-      if($mysqli->query($sql_del_cat))
-        foreach ($categorie as $key => $value) {
 
+      if($mysqli->query($sql_del_cat)){
+
+        foreach ($categorie as $key => $value) {
           $sql_ins_cat = "INSERT INTO Scarpa_Categoria (id_scarpa, id_categoria)
                           VALUES ('$id_scarpa', '$value')";
           $mysqli->query($sql_ins_cat);
         }
       }
+
       header("Location: gestione-scarpe.php");
       EXIT;
     }
@@ -63,10 +65,12 @@
                             FROM Scarpa
                             WHERE id_scarpa = $id_scarpa")
                            ->fetch_array(MYSQLI_ASSOC);
+
 ?>
 
 <!-- COME IN gestione-scarpe.php MA CON VALORI INIZIALI RELATIVI ALLA
      SCARPA DA MODIFICARE SELEZIONATA-->
+
 <div class="container">
   <h1 align="center">Inserimento Modello Scarpa</h1>
   <form id="inserimento-scarpa" method="post" action=<?php echo "'modifica-scarpe.php?id=$id_scarpa'"; ?>>
@@ -107,7 +111,7 @@
     <div class="form-group">
       <?php
         //CATEGORIE COLLEGATE ALLA SCARPA SELEZIONATE
-        $categorie_si = $mysql->query("SELECT Categoria.id_categoria, nome
+        $categorie_si = $mysqli->query("SELECT Categoria.id_categoria, nome
                                      FROM Scarpa_Categoria
                                      JOIN Categoria ON Scarpa_Categoria.id_categoria = Categoria.id_categoria
                                      WHERE id_scarpa = $scarpa[id_scarpa]");
@@ -147,7 +151,7 @@
     </div>
     <div class="form-group">
       <label for="foto">Descrizione</label>
-      <textarea name="descrizione" class="form-control" value=<?php echo "'$scarpa[descrizione]'";?>></textarea>
+      <textarea name="descrizione" class="form-control" value=<?php echo "'$scarpa[descrizione]'"; ?>><?php echo $scarpa['descrizione']; ?></textarea>
     </div>
 
     <button id="submitBtn" class="btn btn-default" onclick="submit()">Inserisci</button>

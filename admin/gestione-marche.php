@@ -12,7 +12,7 @@
     $nome = $_POST['nome'];
     $sql_ins = "INSERT INTO Marca (id_marca, nome)
                 VALUES (NULL, '$nome')";
-    if($mysqli->query($sql_ins){
+    if($mysqli->query($sql_ins)){
       header("Location: gestione-marche.php");
       EXIT;
     }
@@ -25,15 +25,14 @@
     $id = $_POST['id_marca'];
     $sql_del = "DELETE FROM Marca
                 WHERE Marca.id_marca = $id";
-    if($mysqli->query($sql_del))
+    if($mysqli->query($sql_del)){
       header("Location: gestione-marche.php");
       EXIT;
     }
     else{
       echo "Eliminazione non riuscita! La categoria è ancora collegata ad almeno una scarpa!";
     }
-  }
-
+}
 ?>
 <!-- FORM PER INSERIMENTO MARCA -->
 <h1>Inserimento Marca</h1>
@@ -53,7 +52,7 @@
                 FROM Marca";
 
   //SCRIPT GENERICO PER COSTRUZIONE TABELLA
-  if($marche = $mysqli->query($sql){
+  if($marche = $mysqli->query($sql)){
       $marca = $marche->fetch_array(MYSQLI_ASSOC);
       echo "<div class='container'>".
             "<h2>Marche</h2>".
@@ -79,7 +78,7 @@
         }
         echo "<td><button class='btn btn-default' onclick='elimina_marca($marca[id_marca])'>Elimina</button></td>";
         echo "</tr>";
-        $marca = $marche->fetch_aarray(MYSQLI_ASSOC);
+        $marca = $marche->fetch_array(MYSQLI_ASSOC);
       }
               "</table>".
             "</div>";

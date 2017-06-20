@@ -53,7 +53,7 @@
             FROM Categoria";
 
   //SCRIPT GENERICO PER COSTRUZIONE TABELLA
-  if($categorie = $mysqli->query($sql_fetch)) {
+  if($categorie = $mysqli->query($query)) {
       $categoria = $categorie->fetch_array(MYSQLI_ASSOC);
       echo "<div class='container'>".
             "<h2>Categorie</h2>".

@@ -24,7 +24,7 @@
     $sconto = $_POST['sconto'] == "" ? '0' : $_POST['sconto'];
     $marca = $_POST['marca'];
     $foto = $_POST['foto']  == "" ? 'nopic.png' : $_POST['foto'];
-    $descrizione = $_POST["descrizione"]  == "" ? 'Nessuna Descrizione!' : $_POST['foto'];
+    $descrizione = $_POST["descrizione"]  == "" ? 'Nessuna Descrizione!' : $_POST['descrizione'];
     $sql_ins = "INSERT INTO Scarpa (id_scarpa, codice, nome, prezzo, sconto, id_marca, foto, descrizione, attivo)
                 VALUES (NULL, '$codice','$nome','$prezzo', '$sconto', '$marca','$foto', '$descrizione', '1')";
     if($mysqli->query($sql_ins)){
@@ -109,7 +109,7 @@
             $marche = $mysqli->query("SELECT *
                                       FROM Marca");
             while($marca = $marche->fetch_array(MYSQLI_ASSOC)) {
-                echo "<option value='$marca[id_marca]'>$marca[nome]}</option>";
+                echo "<option value='$marca[id_marca]'>$marca[nome]</option>";
             }
           ?>
         </select>
@@ -121,7 +121,7 @@
         $categorie = $mysqli->query("SELECT *
                                      FROM Categoria");
         while($categoria = $categorie->fetch_array(MYSQLI_ASSOC)) {
-            echo "<label class='checkbox-inline'><input type='checkbox' name='categorie[]' value='$categoria[id_categoria]'}></input>$categoria[nome]}</label>";
+            echo "<label class='checkbox-inline'><input type='checkbox' name='categorie[]' value='$categoria[id_categoria]'></input>$categoria[nome]</label>";
         }
       ?>
     </div>
@@ -131,7 +131,7 @@
       <input type="text" name="foto" class="form-control"></input>
     </div>
     <div class="form-group">
-      <label for="foto">Descrizione</label>
+      <label for="descrizione">Descrizione</label>
       <textarea name="descrizione" class="form-control"></textarea>
     </div>
 
@@ -230,7 +230,7 @@
 
 //COSTRUZIONE TABELLA SCARPA
 if($scarpe = $mysqli->query($sql_fetch)){
-    $scarpa = $scarpe->fetch_array($query);
+    $scarpa = $scarpe->fetch_array(MYSQLI_ASSOC);
     echo  "<div class='container'><button class='btn btn-default' onclick='toggleTabella()'><span id='mostra-txt' >Mostra Tabella</span><span id='nascondi-txt' style='display: none'>Nascondi Tabella</span></button></div>".
           "<div class='container' id='tabella-scarpe' style='display: none'>".
           "<h2>Scarpe</h2>".
@@ -280,7 +280,7 @@ if($scarpe = $mysqli->query($sql_fetch)){
       echo "</tr>";
       //AGGIUNGO RIGHE DETTAGLI CON ID PER TOGGLE VIA JS
       echo "<tr id='r1$scarpa[id_scarpa]' style='display : none'>";
-      $categorie = $mysqlI->query("SELECT nome
+      $categorie = $mysqli->query("SELECT nome
                                    FROM Scarpa_Categoria
                                    JOIN Categoria
                                    ON Scarpa_Categoria.id_categoria = Categoria.id_categoria

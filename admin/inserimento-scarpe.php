@@ -43,15 +43,15 @@
               "</thead>".
               "<tbody>".
                 "<form id='quantita-scarpe' method='post' action='inserimento-scarpe.php?id=$id_scarpa'>";
-        while($taglia = $mysqli->fetch_aarray($query)){
+        while($taglia = $taglie->fetch_array(MYSQLI_ASSOC)){
             echo  "<tr>".
-                    "<td>$taglie[taglia_eu]</td>".
+                    "<td>$taglia[taglia_eu]</td>".
 
-                    "<td><input form='quantita-scarpe' type='number' name='num$taglie[id_taglia]' value=";
+                    "<td><input form='quantita-scarpe' type='number' name='num$taglia[id_taglia]' value=";
                     $taglia_scarpa = $mysqli->query("SELECT quantita
                                                      FROM Stock_Scarpe
                                                      JOIN Scarpa ON Scarpa.id_scarpa = Stock_Scarpe.id_scarpa
-                                                     WHERE id_taglia = $taglie[id_taglia]
+                                                     WHERE id_taglia = $taglia[id_taglia]
                                                      AND Stock_Scarpe.id_scarpa = $id_scarpa")
                                                      ->fetch_array(MYSQLI_ASSOC);
                     if($taglia_scarpa){

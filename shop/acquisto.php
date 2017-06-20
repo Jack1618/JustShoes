@@ -35,7 +35,7 @@
         echo "<a onclick='scegliCarta($carta[id_carta])' class='list-group-item carta' style='cursor: pointer;'>
                 <h4 class='list-group-item-heading'>Termina con ".substr($carta["numero_carta"],12)."</h4>
                 <p class='list-group-item-text'>Scade il ".substr($carta["scadenza"],0,7)."</p>
-                <input id='card$carta['id_carta']' value='$carta[id_carta]' class='hidden'>
+                <input id='card$carta[id_carta]' value='$carta[id_carta]' class='hidden'>
               </a>";
       }
       ?>
