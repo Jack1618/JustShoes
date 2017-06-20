@@ -16,7 +16,7 @@
       $indirizzi = $mysqli->query("SELECT * FROM Indirizzo WHERE id_utente=$_SESSION[id_utente]");
       while($indirizzo = $indirizzi->fetch_array(MYSQLI_ASSOC)){
         echo "<a onclick='scegliIndirizzo($indirizzo[id_indirizzo])' class='list-group-item indirizzo' style='cursor: pointer;'>
-                <h4 class='list-group-item-heading'>'$indirizzo[nome]</h4>
+                <h4 class='list-group-item-heading'>$indirizzo[nome]</h4>
                 <p class='list-group-item-text'>$indirizzo[citta] - $indirizzo[via], $indirizzo[CAP]</p>
                 <input id='ind$indirizzo[id_indirizzo]' value='$indirizzo[id_indirizzo]' class='hidden'>
               </a>";
