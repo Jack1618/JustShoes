@@ -48,7 +48,7 @@
 
     			JOIN Taglia
     			ON Dettagli_Acquisto.id_taglia = Taglia.id_taglia
-    			WHERE Acquisto.id_utente = ".$id_utente." ORDER BY Acquisto.data DESC";
+    			WHERE Acquisto.id_utente = ".$id_utente." ORDER BY Acquisto.id_acquisto DESC";
 
   $acquisti = $mysqli->query($sql);
 

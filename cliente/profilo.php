@@ -40,7 +40,7 @@
 
     if($indirizzi){
       while($indirizzo = $indirizzi->fetch_array(MYSQLI_ASSOC)){
-        echo "<a href='http://localhost/JustShoes/cliente/indirizzo-add.php?id=$indirizzo[id_indirizzo] class='list-group-item'>
+        echo "<a href='http://localhost/JustShoes/cliente/indirizzo-add.php?id=$indirizzo[id_indirizzo]' class='list-group-item'>
                 <h4 class='list-group-item-heading'>$indirizzo[nome]</h4>
                 <p class='list-group-item-text'>$indirizzo[citta] - $indirizzo[via], $indirizzo[CAP]</p>
               </a>";

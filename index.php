@@ -48,7 +48,7 @@
                   }
 
      echo             "<p>
-                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id=$scontata[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
+                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=index&id=$scontata[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
                       <a href='http://localhost/JustShoes/shop/scarpa.php?id=$scontata[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
@@ -90,7 +90,7 @@
                   }
 
      echo             "<p>
-                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id=$top[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
+                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=index&id=$top[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
                       <a href='http://localhost/JustShoes/shop/scarpa.php?id=$top[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
@@ -108,6 +108,13 @@
 
 	if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
 		include_once("./cliente/wishlist.php");
+
+		if(isset($_GET["wladd"]) && $_GET["wladd"] == 1){
+			echo "<script type='text/javascript'>alert('Aggiunto alla Wishlist!'); window.open('http://localhost/JustShoes/index.php','_self');</script>";
+		}
+		elseif (isset($_GET["wladd"])) {
+			echo "<script type='text/javascript'>alert('Elemento già presente nella Wishlist!'); window.open('http://localhost/JustShoes/index.php','_self')</script>";
+		}
 
 	}
 
