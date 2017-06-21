@@ -317,3 +317,39 @@ AND attivo = '1'
 ------------------- SHOP -----------------------------------------
 
 acquisto.php
+
+//SELEZIONE INDIRIZZI DI SPECIFICO UTENTE
+SELECT *
+FROM Indirizzo
+WHERE id_utente=$_SESSION[id_utente]
+
+//SELEZIONE CARTE DI CREDITO DI SPECIFICO UTENTE
+SELECT *
+FROM Carta_Di_Credito
+WHERE id_utente=$_SESSION[id_utente]
+
+//////////////////////////////////////////////////////////////////////
+
+carrello-add.php
+
+//SELEZIONE DI UNA SCARPA PER ID
+SELECT *
+FROM Scarpa
+WHERE id_scarpa = $id_scarpa
+
+///////////////////////////////////////////////////////////////////////
+
+carrello.php
+
+//SELEZIONE Q.TA DI UN ARTICOLO IN STOCK
+SELECT quantita
+FROM Stock_Scarpe
+WHERE id_scarpa = $articolo[id_scarpa]
+AND id_taglia = $articolo[taglia]
+
+//SELEZIONE TAGLIA PER ID taglia
+SELECT *
+FROM Taglia
+WHERE id_taglia = $articolo[taglia]
+
+catalogo.php

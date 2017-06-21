@@ -8,18 +8,24 @@
 <div class="container">
   <h1 align="center">Carrello</h1>
 <?php
+  //SE CI SONO ELEMENTI NEL CARRELLO COSTRUISCO LA VISTA
   if(count($carrello) > 0){
     $totale = 0;
     echo "<div class='list-group'>";
     foreach ($carrello as $key => $articolo) {
+      //PRENDO LA Q.TA MASSIMA IN STOCK
       $quantita_max = $mysqli->query("SELECT quantita
                                       FROM Stock_Scarpe
                                       WHERE id_scarpa = $articolo[id_scarpa]
                                       AND id_taglia = $articolo[taglia]")
                                       ->fetch_array(MYSQLI_ASSOC)["quantita"];
-      //echo "quant max $quantita_max";
-      $articolo['quantita'] = $_SESSION["carrello"][$key]["quantita"] = $articolo["quantita"] <= $quantita_max ? $articolo["quantita"] : $quantita_max;
-      $taglia = $mysqli->query("SELECT * FROM Taglia WHERE id_taglia = $articolo[taglia]")->fetch_array(MYSQLI_ASSOC);
+
+      //SE LA Q.TA DESIDERATA ECCEDE LA MASSIMA, VIENE LIMITATA ALLA MASSIMA STESSA
+      $articolo['quantita'] = $_SESSION["carrello"][$key]["quantita"] =
+          $articolo["quantita"] <= $quantita_max ? $articolo["quantita"] : $quantita_max;
+      $taglia = $mysqli->query("SELECT *
+                                FROM Taglia
+                                WHERE id_taglia = $articolo[taglia]")->fetch_array(MYSQLI_ASSOC);
 
 
       echo "<li class='list-group-item'>

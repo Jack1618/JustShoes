@@ -2,18 +2,21 @@
   include_once("../config.php");
   include_once("../header.php");
 
+  //CONTROLLO SU LOGIN
   if(!isset($_SESSION["id_utente"])){
     header("Location: ../login.php?option=acquisto&id=0");
     EXIT;
   }
 
 ?>
-
+  <!-- VISTA PER SCELTA INDIRIZZO -->
   <div class="container" >
     <h1 align="center">Scegli Indirizzo di Spedizione</h1>
     <div class="list-group">
       <?php
-      $indirizzi = $mysqli->query("SELECT * FROM Indirizzo WHERE id_utente=$_SESSION[id_utente]");
+      $indirizzi = $mysqli->query("SELECT *
+                                   FROM Indirizzo
+                                   WHERE id_utente=$_SESSION[id_utente]");
       while($indirizzo = $indirizzi->fetch_array(MYSQLI_ASSOC)){
         echo "<a onclick='scegliIndirizzo($indirizzo[id_indirizzo])' class='list-group-item indirizzo' style='cursor: pointer;'>
                 <h4 class='list-group-item-heading'>$indirizzo[nome]</h4>
@@ -26,11 +29,13 @@
         <h4>Aggiungi Indirizzo</h4>
       </a>
     </div>
-
+    <!-- VISTA PER CARTA DI CREDITO -->
     <h1 align="center">Scegli Carta Di Credito</h1>
     <div class="list-group">
       <?php
-      $carte = $mysqli->query("SELECT * FROM Carta_Di_Credito WHERE id_utente=$_SESSION[id_utente]");
+      $carte = $mysqli->query("SELECT *
+                               FROM Carta_Di_Credito
+                               WHERE id_utente=$_SESSION[id_utente]");
       while($carta = $carte->fetch_array(MYSQLI_ASSOC)){
         echo "<a onclick='scegliCarta($carta[id_carta])' class='list-group-item carta' style='cursor: pointer;'>
                 <h4 class='list-group-item-heading'>Termina con ".substr($carta["numero_carta"],12)."</h4>
