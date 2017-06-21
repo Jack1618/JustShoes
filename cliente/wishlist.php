@@ -15,7 +15,7 @@
                 <a href='http://localhost/JustShoes/shop/scarpa.php?id=$wish[id_scarpa]'>
                   <img class='wish-img' src='http://localhost/JustShoes/img/scarpe/$wish[foto]'/>
                 </a>
-                <a href='./cliente/wishlist-delete.php?id=$wish[id_scarpa]'>
+                <a href='http://localhost/JustShoes/cliente/wishlist-delete.php?id=$wish[id_scarpa]'>
                   <img class='wish-delete'/ src='http://localhost/JustShoes/img/wish-delete.png'>
                 </a>
               </div>";
