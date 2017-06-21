@@ -13,10 +13,10 @@
       while($wish = $wishes->fetch_array(MYSQLI_ASSOC)){
         echo "<div class='wish-thumb'>
                 <a href='http://localhost/JustShoes/shop/scarpa.php?id=$wish[id_scarpa]'>
-                  <img class='wish-img' src='./img/scarpe/$wish[foto]'/>
+                  <img class='wish-img' src='http://localhost/JustShoes/img/scarpe/$wish[foto]'/>
                 </a>
                 <a href='./cliente/wishlist-delete.php?id=$wish[id_scarpa]'>
-                  <img class='wish-delete'/ src='./img/wish-delete.png'>
+                  <img class='wish-delete'/ src='http://localhost/JustShoes/img/wish-delete.png'>
                 </a>
               </div>";
       }
