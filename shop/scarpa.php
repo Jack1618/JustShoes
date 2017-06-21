@@ -80,7 +80,7 @@
 
 
   if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
-    include_once("./cliente/wishlist.php");
+    include_once("../cliente/wishlist.php");
   }
   if(isset($_GET["wladd"]) && $_GET["wladd"] == 1){
     echo "<script type='text/javascript'>alert('Aggiunto alla Wishlist!'); window.open('http://localhost/JustShoes/shop/scarpa.php?id=$id_scarpa','_self');</script>";

@@ -7,6 +7,11 @@ body{
   background-color: #d6ebfc;
 }
 
+.thumb-pic{
+  height: 220px !important;
+  width: 100%;
+}
+
 .wishlist{
   background-color: #F8F8F8;
   height :100px;

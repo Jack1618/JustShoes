@@ -31,7 +31,7 @@
         onclick='acquistaScarpa($scontata[id_scarpa])'>";
 
     echo    "<div class='thumbnail thumb-scarpa'>
-                <img src='http://localhost/JustShoes/img/scarpe/$scontata[foto]' alt='prova'>
+                <img src='http://localhost/JustShoes/img/scarpe/$scontata[foto]' class='thumb-pic'>
                 <div class='caption'>
                   <h4>$scontata[marca]</h4><h3 style ='margin-top:0'>$scontata[nome]</h3>
                   <h4 style='text-align : right'>";

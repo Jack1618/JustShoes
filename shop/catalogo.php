@@ -63,7 +63,7 @@
                   }
 
      echo             "<p>
-                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=catalogo&id=$scarpa[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
+                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=cata&id=$scarpa[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
                       <a href='http://localhost/JustShoes/shop/scarpa.php?id=$scarpa[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
@@ -73,7 +73,7 @@
   echo "</div>";
 
   if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
-		include_once("./cliente/wishlist.php");
+		include_once("../cliente/wishlist.php");
 	}
   if(isset($_GET["wladd"]) && $_GET["wladd"] == 1){
     echo "<script type='text/javascript'>alert('Aggiunto alla Wishlist!'); window.open('http://localhost/JustShoes/shop/catalogo.php','_self');</script>";
