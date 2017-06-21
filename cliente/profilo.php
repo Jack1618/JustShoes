@@ -2,17 +2,19 @@
   include_once("../config.php");
   include_once("../header.php");
 
+  //SOLO CLIENTI
   if($_SESSION['admin'] == true){
     header("Location: ../index.php");
     EXIT;
   }
-
+  //CONTROLLO LOGIN
   if(!isset($_SESSION['logged']) && $_SESSION['logged'] == false) {
     header("Location: ../index.php");
     EXIT;
   }
 
 ?>
+<!-- VISTA DATI DEL PROFILO -->
 <div class="container" >
   <h1 align="center">Dati Profilo</h1>
   <div class="list-group">
@@ -32,14 +34,16 @@
   <h1 align="center">Rubrica Indirizzi</h1>
   <div class="list-group">
     <?php
-    $indirizzi = $mysqli->query("SELECT * FROM Indirizzo WHERE id_utente=$_SESSION[id_utente]");
+    $indirizzi = $mysqli->query("SELECT *
+                                 FROM Indirizzo
+                                 WHERE id_utente=$_SESSION[id_utente]");
 
     if($indirizzi){
       while($indirizzo = $indirizzi->fetch_array(MYSQLI_ASSOC)){
-        echo '<a href="http://localhost/JustShoes/cliente/indirizzo-add.php?id='.$indirizzo["id_indirizzo"].'" class="list-group-item">
-                <h4 class="list-group-item-heading">'.$indirizzo["nome"].'</h4>
-                <p class="list-group-item-text">'.$indirizzo["citta"].' - '.$indirizzo["via"].', '.$indirizzo["CAP"].'</p>
-              </a>';
+        echo "<a href='http://localhost/JustShoes/cliente/indirizzo-add.php?id=$indirizzo[id_indirizzo] class='list-group-item'>
+                <h4 class='list-group-item-heading'>$indirizzo[nome]</h4>
+                <p class='list-group-item-text'>$indirizzo[citta] - $indirizzo[via], $indirizzo[CAP]</p>
+              </a>";
       }
     }
     ?>
@@ -53,7 +57,9 @@
   <h1 align="center">Elenco Carte Di Credito</h1>
   <div class="list-group">
     <?php
-    $carte = $mysqli->query("SELECT * FROM Carta_Di_Credito WHERE id_utente=$_SESSION[id_utente]");
+    $carte = $mysqli->query("SELECT *
+                             FROM Carta_Di_Credito
+                             WHERE id_utente=$_SESSION[id_utente]");
 
     if($carte){
       while($carta = $carte->fetch_array(MYSQLI_ASSOC)){

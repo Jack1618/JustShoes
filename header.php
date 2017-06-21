@@ -14,10 +14,10 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="cliente"><a href="http://localhost/JustShoes/catalogo.php">Catalogo <span class="sr-only">(current)</span></a></li>
+        <li class="cliente"><a href="http://localhost/JustShoes/shop/catalogo.php">Catalogo <span class="sr-only">(current)</span></a></li>
       </ul>
       <?php
-        if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] === "localhost/JustShoes/catalogo.php"){
+        if($_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'] === "localhost/JustShoes/shop/catalogo.php"){
           echo '<form id="ricerca" class="navbar-form navbar-left cliente" action="catalogo.php" method="POST">'.
         '<div class="form-group">'.
           '<input type="text" class="form-control" placeholder="Ricerca Rapida" name="ricercaRapida">'.
@@ -27,7 +27,7 @@
         }
         ?>
       <ul class="nav navbar-nav navbar-right">
-      <li class="cliente"><a href="http://localhost/JustShoes/carrello.php">Carrello (<?php echo count($_SESSION["carrello"])?>)</a></li>
+      <li class="cliente"><a href="http://localhost/JustShoes/shop/carrello.php">Carrello (<?php echo count($_SESSION["carrello"])?>)</a></li>
       <li class="dropdown">
         <a id="admin-panel" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Amministrazione<span class="caret"></span></a>
         <ul class="dropdown-menu">

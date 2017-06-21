@@ -164,3 +164,156 @@ NOT IN (SELECT id_categoria
 ----------- CLIENTE ------------------------------------
 
 carta-add.php
+
+//SELEZIONE DI CARTA CON SPECIFICO ID
+SELECT *
+FROM Carta_Di_Credito
+WHERE id_carta = $id
+
+//INSERIMENTO CARTA
+INSERT INTO Carta_Di_Credito (id_carta, id_utente, numero_carta, scadenza)
+VALUES                       (NULL, '$id_utente', '$numero', '$scadenza')
+
+//MODIFICA CARTA CON SPECIFICO ID
+UPDATE Carta_Di_Credito
+SET numero_carta = $numero,
+    scadenza = $scadenza
+WHERE id_carta=$_GET[id]
+
+/////////////////////////////////////////////////////////////////
+
+carta-delete.php
+
+//ELIMINAZIONE CARTA PER ID
+DELETE FROM Carta_Di_Credito
+WHERE id_carta = $id_carta
+
+////////////////////////////////////////////////////////////////
+
+indirizzo-add.php
+
+//SELEZIONE DI INDIRIZZO CON SPECIFICO ID
+SELECT * FROM Indirizzo
+WHERE id_indirizzo = $id
+
+//INSERIMENTO INDIRIZZO
+INSERT INTO Indirizzo (id_indirizzo, id_utente, nome, citta, via, CAP, altro)
+VALUES                (NULL, '$id_utente', '$nome', '$citta', '$via', '$cap', '$altro')
+
+//MODIFICA INDIRIZZO CON SPECIFICO ID
+UPDATE Indirizzo
+SET nome = '$nome',
+    citta = '$citta',
+    via = '$via',
+    CAP = '$cap',
+    altro = '$altro'
+WHERE id_indirizzo = $_GET[id]
+
+///////////////////////////////////////////////////////////////
+
+indirizzo-delete.php
+
+//ELIMINAZIONE INDIRIZZO CON SPECIFICO ID
+DELETE FROM Indirizzo
+WHERE id_indirizzo = $id_indirizzo
+
+///////////////////////////////////////////////////////////////
+
+ordini.php
+
+//SELEZIONE DI TUTTI I DATI NECESSARI PER VISTA ACQUISTI EFFETTUATI
+SELECT Acquisto.id_acquisto, Acquisto.id_utente,
+       Acquisto.data, Acquisto.id_indirizzo,
+       Acquisto.totale, Dettagli_Acquisto.id_scarpa,
+       Dettagli_Acquisto.id_taglia, Dettagli_Acquisto.quantita,
+       Indirizzo.nome AS 'indirizzo_nome',
+       Indirizzo.via, Indirizzo.CAP, Indirizzo.citta,
+       Scarpa.nome AS 'scarpa_nome',
+       Dettagli_Acquisto.prezzo, Scarpa.foto, Scarpa.id_marca,
+       Marca.nome AS 'marca_nome',
+       Taglia.taglia_eu, Taglia.taglia_uk_m, Taglia.taglia_uk_f,
+       Taglia.taglia_us_m, Taglia.taglia_us_f
+
+FROM Acquisto
+
+JOIN Dettagli_Acquisto
+ON Acquisto.id_acquisto = Dettagli_Acquisto.id_acquisto
+
+JOIN Indirizzo
+ON Acquisto.id_indirizzo = Indirizzo.id_indirizzo
+
+JOIN Scarpa
+ON Dettagli_Acquisto.id_scarpa =  Scarpa.id_scarpa
+
+JOIN Marca
+ON Scarpa.id_marca = Marca.id_marca
+
+JOIN Taglia
+ON Dettagli_Acquisto.id_taglia = Taglia.id_taglia
+WHERE Acquisto.id_utente = ".$id_utente." ORDER BY Acquisto.data DESC
+
+////////////////////////////////////////////////////////////////////////
+
+profilo-modifica.php
+
+//MODIFICA EMAIL PER ID UTENTE
+UPDATE Utente
+SET email = '$email'
+WHERE id_utente = $_SESSION[id_utente]
+
+//SELEZIONE PASSWORD DI SPECIFICO UTENTE
+SELECT password
+FROM Utente
+WHERE id_utente=$_SESSION[id_utente]
+
+//AGGIORNAMENTO PASSWORD PER SPECIFICO UTENTE
+UPDATE Utente
+SET password = '$new_password'
+WHERE id_utente = $_SESSION[id_utente]
+
+//////////////////////////////////////////////////////////////////
+
+profilo.php
+
+//SELEZIONE INDIRIZZI DI SPECIFICO UTENTE
+SELECT *
+FROM Indirizzo
+WHERE id_utente=$_SESSION[id_utente]
+
+//SELEZIONE CARTE DI CREDITO DI SPECIFICO UTENTE
+SELECT *
+FROM Carta_Di_Credito
+WHERE id_utente=$_SESSION[id_utente]
+
+//////////////////////////////////////////////////////////////////
+
+wishlist-add.php
+
+//INSERIMENTO IN WISHLIST DI UTENTE
+INSERT INTO Wishlist (id_utente, id_scarpa)
+VALUES ('$id_utente','$id_scarpa')
+
+///////////////////////////////////////////////////////////////////
+
+wishlist-delete.php
+
+//ELIMINAZIONE ELEMENTO DA WISHLIST UTENTE
+DELETE FROM Wishlist
+WHERE id_utente = $_SESSION[id_utente]
+AND id_scarpa = $_GET[id]
+
+//////////////////////////////////////////////////////////////////
+
+wishlist.php
+
+//SELEZIONE ELEMENTI WISHLIST DI SPECIFICO UTENTE
+SELECT *
+FROM Wishlist
+JOIN Scarpa
+ON Wishlist.id_scarpa = Scarpa.id_scarpa
+WHERE id_utente = $_SESSION[id_utente]
+AND attivo = '1'
+
+------------------- SHOP -----------------------------------------
+
+acquisto.php

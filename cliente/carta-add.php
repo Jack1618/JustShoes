@@ -2,18 +2,39 @@
   include_once("../config.php");
   include_once("../header.php");
 
-  
+  //RISERVATO AI CLIENTI
    if($_SESSION['admin'] == true){
     header("Location: ../index.php");
     EXIT;
   }
 
-  if(!isset($_SESSION['logged']) && $_SESSION['logged'] == false) {
+  //CONTROLLO LOGIN
+  if(!isset($_SESSION['logged']) || $_SESSION['logged'] == false) {
     header("Location: ../index.php");
     EXIT;
   }
 
+  //SE HO UN ID CARTA COME PARAMETRO, PRENDO I VALORI PER LA MODIFICA
+  if(isset($_GET["id"])){
+    $id = $_GET["id"];
+    $carta = $mysqli->query("SELECT *
+                             FROM Carta_Di_Credito
+                             WHERE id_carta = $id")->fetch_array(MYSQLI_ASSOC);
+    $numero = $carta["numero_carta"];
+    $scadenza = $carta["scadenza"];
+    $anno = substr($scadenza, 0, 4);
+    $mese = substr($scadenza, 5, 2);
+  }
+  else{//ALTRIMENTI LI SETTO VUOTI PER INSERIRE UNA NUOVA CARTA IN DB
+    $id = "";
+    $carta = "";
+    $numero = "";
+    $scadenza = "";
+    $anno = "";
+    $mese = "";
+  }
 
+  //INSERIMENTO/MODIFICA CARTA DI CREDITO IN DB
   if(isset($_POST["numero"]) && $_POST["numero"] != "" &&
      isset($_POST["mese"]) && $_POST["mese"] != "" &&
      isset($_POST["anno"]) && $_POST["anno"] != ""){
@@ -36,34 +57,26 @@
          $giorno = "31";
        }
        $scadenza = $anno.'-'.$mese.'-'.$giorno;
+       //SE ID E' VUOTO INSERISCO NUOVA CARTA
        if($_GET["id"] == ""){
-         $mysqli->query("INSERT INTO Carta_Di_Credito (id_carta, id_utente, numero_carta, scadenza) VALUES (NULL, '$id_utente', '$numero', '$scadenza')");
+         $mysqli->query("INSERT INTO Carta_Di_Credito (id_carta, id_utente, numero_carta, scadenza)
+                         VALUES (NULL, '$id_utente', '$numero', '$scadenza')");
        }
+       //ALTRIMENTI MODIFICO LA CARTA CON QUELL'ID
        else {
-         $mysqli->query("UPDATE Carta_Di_Credito SET numero_carta = $numero, scadenza = $scadenza WHERE id_carta=$_GET[id]");
+         $mysqli->query("UPDATE Carta_Di_Credito
+                         SET numero_carta = $numero,
+                             scadenza = $scadenza
+                         WHERE id_carta=$_GET[id]");
        }
        header("Location: profilo.php");
        EXIT;
   }
 
-  if(isset($_GET["id"])){
-    $id = $_GET["id"];
-    $carta = $mysqli->query("SELECT * FROM Carta_Di_Credito WHERE id_carta = $id")->fetch_array(MYSQLI_ASSOC);
-    $numero = $carta["numero_carta"];
-    $scadenza = $carta["scadenza"];
-    $anno = substr($scadenza, 0, 4);
-    $mese = substr($scadenza, 5, 2);
-  }
-  else{
-    $id = "";
-    $carta = "";
-    $numero = "";
-    $scadenza = "";
-    $anno = "";
-    $mese = "";
-  }
+
 
 ?>
+<!-- FORM PER INSERIMENTO/MODIFICA CARTA -->
 <div class="container">
   <h1 align="center"><?php if($id == "")echo "Inserisci ";else echo "Modifica ";?>Carta Di Credito</h1>
   <form id="carta-add" method="post" action=<?php echo "'carta-add.php?id=$id'";?>>
@@ -73,6 +86,7 @@
     </div>
     <div class="form-group">
       <label for="">Mese</label>
+      <!-- IN CASO DI MODIFICA SETTO I VALORI DI DEFAULT RELATIVI ALLA CARTA DA MODIFICARE -->
       <select id="mese" name="mese" class="form-control" value=<?php echo "'".substr($scadenza,6)."'";?>>>
         <option value='01' <?php if($mese == '01') echo "selected";?>>01</option>
         <option value='02' <?php if($mese == '02') echo "selected";?>>02</option>
@@ -112,13 +126,13 @@
   salvaCarta = function(){
 
     date = new Date();
-
+    //CONTROLLO VALIDITA DATA DI SCADENZA
     if((date.getFullYear() == $("#anno").val() && $("#mese").val()  >= date.getMonth()) || ($("#anno").val() >date.getFullYear())){
       $("#carta-add").submit();
     }
 
     else alert("Data di scadenza non valida!");
- 
+
   }
 
   eliminaCarta = function(id){

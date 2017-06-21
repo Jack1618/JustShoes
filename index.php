@@ -49,14 +49,14 @@
 
      echo             "<p>
                       <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id=$scontata[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
-                      <a href='http://localhost/JustShoes/scarpa.php?id=$scontata[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
+                      <a href='http://localhost/JustShoes/shop/scarpa.php?id=$scontata[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
               </div>
             </div>";
     }
   }
-  
+
   echo "</div>";
   echo "</div>";
 
@@ -91,7 +91,7 @@
 
      echo             "<p>
                       <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=wishlist&id=$top[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
-                      <a href='http://localhost/JustShoes/scarpa.php?id=$top[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
+                      <a href='http://localhost/JustShoes/shop/scarpa.php?id=$top[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>
               </div>
@@ -99,7 +99,7 @@
     }
 
   }
-  
+
   echo "</div>";
   echo "</div>";
 
@@ -115,6 +115,6 @@
 
 <script type="text/javascript">
 	acquistaScarpa = function(id){
-		window.open("http://localhost/JustShoes/scarpa.php?id="+id,"_self")
+		window.open("http://localhost/JustShoes/shop/scarpa.php?id="+id,"_self")
 	}
 </script>
