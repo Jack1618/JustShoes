@@ -70,11 +70,11 @@ if(isset($_POST['email']) && $_POST['email'] != "" &&
         <form action=<?php echo "'login.php?option=$option&id=$id'";?> method="POST">
             <div class="form-group">
               <label>Email:</label>
-              <input type="email" value="prova@example.com" name="email" class="form-control"></input>
+              <input type="email" value="" name="email" class="form-control"></input>
             </div>
             <div class="form-group">
               <label>Password:</label>
-              <input type="password" name="password" value="prova" class="form-control"></input>
+              <input type="password" name="password" value="" class="form-control"></input>
             </div>
               <div>
                 <button class="btn btn-primary" type="submit" class="success button expanded">Login</button>

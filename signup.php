@@ -7,8 +7,8 @@
     $password = md5(trim($_POST["password"]).$SAFEWORD);
     //IMPOSTO L'UTENTE COME CLIENTE
     $gruppo_applicativo = "2";
-    $sql = "INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo)
-            VALUES (NULL,'$email','$password','$gruppo_applicativo')";
+    $sql = "INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo, attivo)
+            VALUES (NULL,'$email','$password','$gruppo_applicativo', 1)";
 
     $mysqli->query($sql);
 

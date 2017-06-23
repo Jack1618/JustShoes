@@ -12,20 +12,24 @@
 
   //INSERIMENTO QUANTITA SCARPE IN STOCK
   if(isset($_POST["submitted"]) && $_POST["submitted"] == "1"){
+
     $mysqli->query("DELETE FROM Stock_Scarpe
                     WHERE id_scarpa = $id_scarpa");
     $taglie = $mysqli->query("SELECT *
                              FROM Taglia
-                             GROUP BY taglia_eu DESC");
-    while($taglia = $taglie->fetch_array()){
+                             ORDER BY taglia_eu DESC");
+    while($taglia = $taglie->fetch_array(MYSQLI_ASSOC)){
       $id = $taglia["id_taglia"];
       $quantita = (isset($_POST["qt$id"]) && $_POST["qt$id"] != "") ?
                   $_POST["qt$id"] : "0";
+      
       $mysqli->query("INSERT INTO Stock_Scarpe (quantita, id_taglia, id_scarpa)
-                      VALUES ('$_POST[num1]','1','$id_scarpa')");
-      header("Location: gestione-scarpe.php");
-      EXIT;
+                      VALUES ('$quantita','$id','$id_scarpa')");
+      echo $mysqli->error;
+
     }
+    header("Location: gestione-scarpe.php");
+    EXIT;
   }
 
   //COSTRUZIONE TABELLA FORM PER QUANTITA IN STOCK
@@ -47,7 +51,7 @@
             echo  "<tr>".
                     "<td>$taglia[taglia_eu]</td>".
 
-                    "<td><input form='quantita-scarpe' type='number' name='num$taglia[id_taglia]' value=";
+                    "<td><input form='quantita-scarpe' type='number' name='qt$taglia[id_taglia]' value=";
                     $taglia_scarpa = $mysqli->query("SELECT quantita
                                                      FROM Stock_Scarpe
                                                      JOIN Scarpa ON Scarpa.id_scarpa = Stock_Scarpe.id_scarpa

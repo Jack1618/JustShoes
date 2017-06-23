@@ -14,7 +14,7 @@
   }
 
   //SE HO UN ID INDIRIZZO COME PARAMETRO, PRENDO I VALORI PER LA MODIFICA
-  if(isset($_GET["id"])){
+  if(isset($_GET["id"]) && $_GET["id"]!=""){
     $id = $_GET["id"];
     $indirizzo = $mysqli->query("SELECT *
                                  FROM Indirizzo
