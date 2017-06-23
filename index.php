@@ -9,16 +9,34 @@
 	}
 
 
-	$sqlScontate = "SELECT id_scarpa, Scarpa.nome as 'nome', prezzo, sconto, foto, Marca.nome AS 'marca'  FROM Scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca  WHERE sconto > 0 AND attivo = '1' ORDER BY sconto ASC LIMIT 4";
+	$sqlScontate = "SELECT id_scarpa, Scarpa.nome AS 'nome',
+												 prezzo, sconto, foto, Marca.nome AS 'marca'
+									FROM Scarpa
+									JOIN Marca
+									ON Scarpa.id_marca = Marca.id_marca
+									WHERE sconto > 0
+									AND attivo = '1'
+									ORDER BY sconto ASC
+									LIMIT 4";
 
-	$sqlTopSeller = "SELECT Scarpa.id_scarpa, Scarpa.nome as 'nome', prezzo, sconto, foto, Marca.nome AS 'marca' FROM Scarpa  JOIN (SELECT id_scarpa, SUM(quantita) as tot FROM Dettagli_Acquisto GROUP BY id_scarpa) AS qtaToT ON Scarpa.id_scarpa = qtaTot.id_scarpa JOIN Marca ON Scarpa.id_marca = Marca.id_marca WHERE attivo ='1' ORDER BY tot ASC LIMIT 4";
+	$sqlTopSeller = "SELECT Scarpa.id_scarpa, Scarpa.nome AS 'nome',
+													prezzo, sconto, foto, Marca.nome AS 'marca'
+									 FROM Scarpa
+									 JOIN (SELECT id_scarpa, SUM(quantita) AS tot
+									 			 FROM Dettagli_Acquisto
+												 GROUP BY id_scarpa) AS qtaToT
+									 ON Scarpa.id_scarpa = qtaTot.id_scarpa
+									 JOIN Marca
+									 ON Scarpa.id_marca = Marca.id_marca
+									 WHERE attivo ='1'
+									 ORDER BY tot ASC LIMIT 4";
 
 
 	$scontate = $mysqli->query($sqlScontate);
 
 	$topSeller = $mysqli->query($sqlTopSeller);
 
-
+//A SEGUIRE LE 2 VISTE PER LE 2 RISPETTIVE QUERY
 	echo "<div class='container-fluid'>";
 	echo "<h1>Le nostre promozioni</h1>";
 	echo "<div class='row container-fluid' style = 'width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
@@ -105,7 +123,7 @@
 
 
 
-
+	//SCRIPT PER WISHLIST COME IN catalogo.php
 	if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
 		include_once("./cliente/wishlist.php");
 

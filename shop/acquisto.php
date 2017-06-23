@@ -4,6 +4,7 @@
 
   //CONTROLLO SU LOGIN
   if(!isset($_SESSION["id_utente"])){
+    //IN CASO NEGATIVO RIMANDA AL LOGIN
     header("Location: ../login.php?option=acquisto&id=0");
     EXIT;
   }
@@ -35,7 +36,8 @@
       <?php
       $carte = $mysqli->query("SELECT *
                                FROM Carta_Di_Credito
-                               WHERE id_utente=$_SESSION[id_utente]");
+                               WHERE id_utente=$_SESSION[id_utente]
+                               AND scadenza > CURDATE()");
       while($carta = $carte->fetch_array(MYSQLI_ASSOC)){
         echo "<a onclick='scegliCarta($carta[id_carta])' class='list-group-item carta' style='cursor: pointer;'>
                 <h4 class='list-group-item-heading'>Termina con ".substr($carta["numero_carta"],12)."</h4>

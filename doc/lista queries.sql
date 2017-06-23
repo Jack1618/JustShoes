@@ -352,4 +352,96 @@ SELECT *
 FROM Taglia
 WHERE id_taglia = $articolo[taglia]
 
+///////////////////////////////////////////////////////////////////////
+
 catalogo.php
+
+//RICERCA SCARPE (ATTIVE) PER NOME O MARCA
+SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'
+FROM Scarpa
+JOIN Marca
+ON Scarpa.id_marca = Marca.id_marca
+WHERE attivo='1'
+AND (Scarpa.nome LIKE '%$fastFilter%'
+     OR Marca.nome LIKE '%$fastFilter%')
+ORDER BY id_scarpa
+
+//SELEZIONA TUTTE SCARPE (ATTIVE) COMPRESE DI MARCA
+SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'
+FROM Scarpa
+JOIN Marca
+ON Scarpa.id_marca = Marca.id_marca
+WHERE attivo='1'
+ORDER BY id_scarpa
+
+//SELEZIONA TUTTE LE CATEGORIE
+SELECT *
+FROM Categoria
+
+//SELEZIONA GLI ID DI TUTTE LE CATEGORIE DI UNA SPECIFICA Scarpa
+SELECT id_categoria
+FROM Scarpa_Categoria
+WHERE id_scarpa=$scarpa[id_scarpa
+
+///////////////////////////////////////////////////////////////////////
+
+pagamento.php
+
+//INSERIMENTO IN DB DI ACQUISTO COMPLESSIVO
+INSERT INTO Acquisto (id_acquisto, data, totale, id_indirizzo, id_utente)
+VALUES               (NULL, '$data', '$totale', '$indirizzo', '$id_utente')
+
+//INSERIMENTO DI ARTICOLO RELATIVO AD Acquisto
+INSERT INTO Dettagli_Acquisto (id_acquisto, id_scarpa, id_taglia, quantita, prezzo)
+VALUES                        ('$id_acquisto', '$articolo[id_scarpa]', '$articolo[taglia]',
+                               '$articolo[quantita]', '$articolo[prezzo]')
+
+//////////////////////////////////////////////////////////////////////
+
+scarpa.php
+
+//SELEZIONA SPECIFICA SCARPA
+SELECT *
+FROM Scarpa
+WHERE id_scarpa = $id_scarpa
+
+//SELEZIONA TAGLIE DISPONIBILI IN STOCK DI SPECIFICA SCARPA ORDINATE PER TAGLIA
+SELECT *
+FROM Stock_Scarpe
+JOIN Taglia
+ON Stock_Scarpe.id_taglia = Taglia.id_taglia
+WHERE id_scarpa = $id_scarpa
+AND Stock_Scarpe.quantita > 0
+ORDER BY taglia_eu
+
+-------------------------------------------------------------------------------
+
+index.php
+
+//SELEZIONA LE 4 SCARPE MAGGIORMENTE SCONTATE
+SELECT id_scarpa, Scarpa.nome AS 'nome',
+       prezzo, sconto, foto, Marca.nome AS 'marca'
+FROM Scarpa
+JOIN Marca
+ON Scarpa.id_marca = Marca.id_marca
+WHERE sconto > 0
+AND attivo = '1'
+ORDER BY sconto ASC
+LIMIT 4
+
+//SELEZIONA LE 4 SCARPE CON IL MAGGIOR NUMERO DI VENDITE TOTALI
+SELECT Scarpa.id_scarpa, Scarpa.nome AS 'nome',
+       prezzo, sconto, foto, Marca.nome AS 'marca'
+FROM Scarpa
+JOIN (SELECT id_scarpa, SUM(quantita) AS tot
+      FROM Dettagli_Acquisto
+      GROUP BY id_scarpa) AS qtaToT
+ON Scarpa.id_scarpa = qtaTot.id_scarpa
+JOIN Marca
+ON Scarpa.id_marca = Marca.id_marca
+WHERE attivo ='1'
+ORDER BY tot ASC LIMIT 4
+
+///////////////////////////////////////////////////////////////////
+
+login.php

@@ -2,10 +2,20 @@
   include_once("../config.php");
   include_once("../header.php");
   $id_scarpa = $_GET["id"];
-  $scarpa = $mysqli->query("SELECT * FROM Scarpa WHERE id_scarpa = $id_scarpa")->fetch_array(MYSQLI_ASSOC);
-  $taglie = $mysqli->query("SELECT * FROM Stock_Scarpe JOIN Taglia ON Stock_Scarpe.id_taglia = Taglia.id_taglia WHERE id_scarpa = $id_scarpa");
-  $qt = 0;
+  $scarpa = $mysqli->query("SELECT *
+                            FROM Scarpa
+                            WHERE id_scarpa = $id_scarpa")->fetch_array(MYSQLI_ASSOC);
+  $taglie = $mysqli->query("SELECT *
+                            FROM Stock_Scarpe
+                            JOIN Taglia
+                            ON Stock_Scarpe.id_taglia = Taglia.id_taglia
+                            WHERE id_scarpa = $id_scarpa
+                            AND Stock_Scarpe.quantita > 0
+                            ORDER BY taglia_eu");
+
 ?>
+
+<!-- VISTA PER IMMAGINE SCARPA, PANNELLO ACQUISTO E DESCRIZIONE -->
 <div class="container">
   <div class="row">
     <img class="col-md-5" src=<?php echo "'http://localhost/JustShoes/img/scarpe/$scarpa[foto]'";?>/>
@@ -15,29 +25,32 @@
       </div>
       <div class="panel-body">
       <?php
+      //DIVERSE VISTE PER PREZZO SCONTATO O PIENO
        if($scarpa['sconto'] > 0){
+
                     echo "<h4><del>$scarpa[prezzo] €
                      </del></h4><h3>"
                     .($scarpa['prezzo'] - ($scarpa['prezzo']/100 * $scarpa['sconto'])).
-
                     "€ <span style='color: red; font-size: 18px;'>Sconto del $scarpa[sconto]%</span></h3>";
                   }
                   else{
                     echo $scarpa['prezzo']." €";
                   }
         ?>
+        <!-- SELECT PER TAGLIA DA ACQUISTARE -->
         <div class="form-group">
           <label for="taglia">Taglia:</label>
           <select class="form-control" id="taglia">
               <?php
+                $out_of_stock = true;
                 while($taglia = $taglie->fetch_array(MYSQLI_ASSOC)) {
                     if($taglia['quantita']>0){
                       echo "<option value='{$taglia['id_taglia']}'>$taglia[taglia_eu] (eu) - $taglia[taglia_uk_m] (uk m) - $taglia[taglia_uk_f] (uk f) - $taglia[taglia_us_m] (us m) - $taglia[taglia_us_f] (us f) </option>";
-                      $qt ++;
+                      $out_of_stock = false;
                     }
 
                 }
-                if($qt == 0){
+                if($out_of_stock){
                   echo "<option value='-1'>OUT OF STOCK</option>";
                 }
               ?>
@@ -66,6 +79,7 @@
   }
 
   addCarrello = function(id){
+    //INSERISCO IN CARRELLO SOLO SE NON OUT OF STOCK
     let taglia = $("#taglia").val();
     if(taglia != -1){
       window.open("http://localhost/JustShoes/shop/carrello-add.php?id="+id+"&taglia="+taglia,"_self");
@@ -78,7 +92,7 @@
 
 <?php
 
-
+  //SCRIPT PER WISHLIST COME IN catalogo.php
   if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){
     include_once("../cliente/wishlist.php");
   }

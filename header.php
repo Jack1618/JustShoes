@@ -1,4 +1,4 @@
-
+<!-- TEMPLATE BOOTSTRAP PER NAVBAR -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -56,6 +56,8 @@
 
   <?php
 
+    //MOSTRO/NASCONDO ALCUNI ELEMENTI DELLA NAVBAR A SECONDA DELLO STATO DI LOGIN
+    //E DEL GRUPPO APPLICATIVO DELL'UTENTE LOGGATO
     if(isset($_SESSION['admin']) && $_SESSION['admin']==true){
       echo '<script type="text/javascript">$("#admin-panel").show();$(".cliente").hide();$("#profilo").hide();$("#ordini").hide();</script>';
     }
