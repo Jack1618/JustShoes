@@ -445,3 +445,16 @@ ORDER BY tot ASC LIMIT 4
 ///////////////////////////////////////////////////////////////////
 
 login.php
+
+//SELEZIONA UTENTE CON EMAIL E PASSWORD SPECIFICHE
+SELECT *
+FROM Utente
+WHERE email = '$email'
+AND password = '$password'
+
+////////////////////////////////////////////////////////////////////
+
+signup.php
+
+INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo)
+VALUES             (NULL,'$email','$password','$gruppo_applicativo');

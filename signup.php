@@ -5,11 +5,11 @@
   if(isset($_POST["email"]) && isset($_POST["password"])){
     $email = trim($_POST["email"]);
     $password = md5(trim($_POST["password"]).$SAFEWORD);
+    //IMPOSTO L'UTENTE COME CLIENTE
     $gruppo_applicativo = "2";
-    $sql = "INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo) ".
-           "VALUES(NULL,'".$email."','".$password."',".$gruppo_applicativo.")";
+    $sql = "INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo)
+            VALUES (NULL,'$email','$password','$gruppo_applicativo')";
 
-    //echo $sql;
     $mysqli->query($sql);
 
     header("Location: signup.php");
@@ -17,6 +17,7 @@
   }
 
 ?>
+<!-- FORM PER INSERIMENTO DATI REGISTRAZIONE -->
 <div class="container">
   <h1 align="center">Registrati</h1>
 <form method="post" id="signup">
