@@ -72,7 +72,7 @@
                   }
 
      echo             "<p>
-                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=cata&id=$scarpa[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
+                      <a href='http://localhost/JustShoes/cliente/wishlist-add.php?option=catalogo&id=$scarpa[id_scarpa]' class='btn btn-default btn-block' role='button'>Aggiungi a Wishlist</a>
                       <a href='http://localhost/JustShoes/shop/scarpa.php?id=$scarpa[id_scarpa]' class='btn btn-primary btn-block' role='button'>Acquista</a>
                   </p>
                 </div>

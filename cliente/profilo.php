@@ -63,16 +63,25 @@
 
     if($carte){
       while($carta = $carte->fetch_array(MYSQLI_ASSOC)){
-        echo '<a href="http://localhost/JustShoes/cliente/carta-add.php?id='.$carta["id_carta"].'" class="list-group-item">
-                <h4 class="list-group-item-heading">Termina con '.substr($carta["numero_carta"],12).'</h4>
-                <p class="list-group-item-text">Scade il '.substr($carta["scadenza"],0,7).'</p>
-              </a>';
+        echo "<a href='http://localhost/JustShoes/cliente/carta-add.php?id=$carta[id_carta]' class='list-group-item'>
+                <h4 class='list-group-item-heading'>Termina con ".substr($carta["numero_carta"],12)."</h4>
+                <p class='list-group-item-text'>Scade il ".substr($carta["scadenza"],0,7)."</p>
+              </a>";
       }
     }
 
     ?>
     <a href="http://localhost/JustShoes/cliente/carta-add.php" class="list-group-item active">
       <h4>Aggiungi Carta</h4>
+    </a>
+  </div>
+</div>
+
+<div class="container" >
+  <h1 align="center">Elimina Account</h1>
+  <div class="list-group red-bg">
+    <a href="http://localhost/JustShoes/cliente/profilo-elimina.php" class="list-group-item active red-bg">
+      <h4>Elimina Account</h4>
     </a>
   </div>
 </div>

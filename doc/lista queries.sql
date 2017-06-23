@@ -254,6 +254,15 @@ WHERE Acquisto.id_utente = ".$id_utente." ORDER BY Acquisto.data DESC
 
 ////////////////////////////////////////////////////////////////////////
 
+profilo-elimina.php
+
+//SETTA UTENTE SPECIFICO COME INATTIVO
+UPDATE Utente
+SET attivo = '0'
+WHERE id_utente = $id_utente
+
+////////////////////////////////////////////////////////////////////////
+
 profilo-modifica.php
 
 //MODIFICA EMAIL PER ID UTENTE
@@ -446,11 +455,12 @@ ORDER BY tot ASC LIMIT 4
 
 login.php
 
-//SELEZIONA UTENTE CON EMAIL E PASSWORD SPECIFICHE
+//SELEZIONA UTENTE CON EMAIL E PASSWORD SPECIFICHE ATTIVO
 SELECT *
 FROM Utente
 WHERE email = '$email'
 AND password = '$password'
+AND attivo = '1'
 
 ////////////////////////////////////////////////////////////////////
 

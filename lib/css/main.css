@@ -3,6 +3,12 @@ body{
   margin-bottom : 130px;
 }
 
+.red-bg{
+  border-color: #C9302C !important;
+  border-radius: 5px;
+  background-color: #C9302C !important;
+}
+
 .thumb-scarpa:hover{
   background-color: #d6ebfc;
 }

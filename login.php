@@ -30,12 +30,13 @@ if(isset($_POST['email']) && $_POST['email'] != "" &&
     if($utente = $mysqli->query("SELECT *
                                  FROM Utente
                                  WHERE email = '$email'
-                                 AND password = '$password'")
+                                 AND password = '$password'
+                                 AND attivo = '1'")
                                  ->fetch_array(MYSQLI_ASSOC)) {
         $_SESSION['logged'] = true;
-        $_SESSION['id_utente'] = $ris['id_utente'];
-        $_SESSION['email'] = $ris['email'];
-        if($ris['id_gruppo_applicativo'] === "1"){
+        $_SESSION['id_utente'] = $utente['id_utente'];
+        $_SESSION['email'] = $utente['email'];
+        if($utente['id_gruppo_applicativo'] === "1"){
           $_SESSION['admin'] = true;
           header('Location: http://localhost/JustShoes/admin/gestione-scarpe.php');
           EXIT;
