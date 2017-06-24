@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Giu 19, 2017 alle 19:16
+-- Creato il: Giu 24, 2017 alle 19:06
 -- Versione del server: 10.1.21-MariaDB
 -- Versione PHP: 5.6.30
 
@@ -41,11 +41,10 @@ CREATE TABLE `Acquisto` (
 --
 
 INSERT INTO `Acquisto` (`id_acquisto`, `data`, `totale`, `id_indirizzo`, `id_utente`) VALUES
-(1, '2017-06-18', 61.2, 11, 3),
-(2, '2017-06-18', 8, 11, 3),
-(3, '2017-06-18', 20.4, 12, 3),
-(4, '2017-06-18', 164, 13, 4),
-(5, '2017-06-18', 28.4, 5, 3);
+(16, '2017-06-24', 274.6, 14, 42),
+(17, '2017-06-24', 280, 15, 42),
+(18, '2017-06-24', 541.6, 16, 45),
+(19, '2017-06-24', 120, 16, 45);
 
 -- --------------------------------------------------------
 
@@ -65,9 +64,8 @@ CREATE TABLE `Carta_Di_Credito` (
 --
 
 INSERT INTO `Carta_Di_Credito` (`id_carta`, `id_utente`, `numero_carta`, `scadenza`) VALUES
-(18, 3, '1234567812345678', '2017-01-30'),
-(30, 3, '1234567812345679', '0000-00-00'),
-(31, 4, '1111111111111111', '2017-11-30');
+(32, 42, '1234567891234567', '2024-06-30'),
+(33, 45, '1234123412341234', '2025-07-31');
 
 -- --------------------------------------------------------
 
@@ -85,11 +83,16 @@ CREATE TABLE `Categoria` (
 --
 
 INSERT INTO `Categoria` (`id_categoria`, `nome`) VALUES
-(1, 'Uomo'),
-(3, 'Bambino'),
-(5, 'Corsa'),
-(6, 'Passeggio'),
-(7, 'Donna');
+(8, 'Uomo '),
+(9, 'Donna '),
+(10, 'Sneakers '),
+(11, 'Sportive '),
+(12, 'Passeggio '),
+(13, 'Aperte '),
+(14, 'Ballerine '),
+(15, 'Stivaletti '),
+(16, 'Mocassini'),
+(17, 'Tacco ');
 
 -- --------------------------------------------------------
 
@@ -110,12 +113,14 @@ CREATE TABLE `Dettagli_Acquisto` (
 --
 
 INSERT INTO `Dettagli_Acquisto` (`id_scarpa`, `id_taglia`, `id_acquisto`, `quantita`, `prezzo`) VALUES
-(15, 5, 1, 3, 20.4),
-(1, 1, 2, 1, 8),
-(15, 10, 3, 1, 20.4),
-(3, 9, 4, 4, 41),
-(15, 9, 5, 1, 20.4),
-(1, 4, 5, 1, 8);
+(28, 4, 16, 1, 85),
+(29, 1, 16, 3, 63.2),
+(37, 6, 17, 2, 50),
+(35, 5, 17, 4, 45),
+(29, 7, 18, 1, 63.2),
+(29, 15, 18, 7, 63.2),
+(33, 11, 18, 1, 36),
+(40, 10, 19, 3, 40);
 
 -- --------------------------------------------------------
 
@@ -157,11 +162,9 @@ CREATE TABLE `Indirizzo` (
 --
 
 INSERT INTO `Indirizzo` (`id_indirizzo`, `id_utente`, `nome`, `citta`, `via`, `CAP`, `altro`) VALUES
-(5, 3, 'Mario Rossi', 'Trapani', 'Via Garibaldi', '91100', 'scala B interno 10'),
-(6, 3, 'Maria Rossi', 'Trapani', 'Via Fardella', '91100', ''),
-(11, 3, 'Tizio Bianchi', 'Palermo', 'Via Marino Torre', '90123', ''),
-(12, 3, 'Prova Ciao', 'Roma', 'Via Fasulla 123', '00155', 'prova'),
-(13, 4, 'Giacomo Calcara', 'Trapani', 'Via G.ppe La Francesca, 4', '91100', '');
+(14, 42, 'Giacomo Calcara', 'Roma', 'Giuseppe Spataro, 65', '00155', 'Primo piano'),
+(15, 42, 'Giacomo Calcara', 'Trapani', 'Giuseppe La Francesca, 4', '91100', 'Terzo piano'),
+(16, 45, 'Francesco Di Stefano', 'Trapani', 'Vespri, 12', '91100', 'Piano 3');
 
 -- --------------------------------------------------------
 
@@ -182,7 +185,15 @@ INSERT INTO `Marca` (`id_marca`, `nome`) VALUES
 (1, 'Nike'),
 (2, 'Adidas'),
 (4, 'Asics'),
-(6, 'Converse');
+(6, 'Converse'),
+(8, 'Diadora'),
+(9, 'Woman Style'),
+(10, 'Lumberjack'),
+(11, 'Kiomi '),
+(12, 'Timberland'),
+(13, 'Anna Field '),
+(14, 'Aeyde '),
+(15, 'Pier One ');
 
 -- --------------------------------------------------------
 
@@ -207,19 +218,20 @@ CREATE TABLE `Scarpa` (
 --
 
 INSERT INTO `Scarpa` (`id_scarpa`, `codice`, `nome`, `prezzo`, `sconto`, `id_marca`, `foto`, `descrizione`, `attivo`) VALUES
-(1, 'yuwegeryuwgruwey', 'air max', 8, 0, 1, 'ok.png', '', 1),
-(3, 'ibnvdidvbninusd', 'ehg', 41, 0, 1, 'ok.png', '', 1),
-(5, 'prova12', 'prova13', 45, 0, 1, 'ok.png', '', 1),
-(6, 'prova2', 'prova2', 36, 0, 2, 'ok.png', '', 1),
-(7, 'prova3', 'prova3', 23, 0, 6, 'ok.png', '', 1),
-(8, 'sdfgoijdfsoui', 'ciao', 24, 0, 6, 'ok.png', '', 1),
-(9, 'yuegeryuwgruwey', 'air max', 8, 0, 1, 'ok.png', '', 1),
-(10, 'cabuya', 'ders', 31, 0, 4, 'ok.png', '', 1),
-(12, 'cabuyas', 'ders', 31, 0, 4, 'ok.png', '', 1),
-(13, 'nk126798345', 'air max 90', 120, 0, 1, 'ok.png', '', 1),
-(14, 'sdfubufsdy', 'asdds', 25, 0, 4, 'ok.png', '', 1),
-(15, 'cabuyass', 'cabuyas', 25.5, 20, 1, 'ok.png', '<h1>Prova</h1>\r\n<p>Questa Ã¨ una prova</p>', 1),
-(16, 'cabuyal', 'cabuyas 2', 21, 10, 2, 'ok.png', '<h3>Cabuyas 2!</h3>\r\n<p>Ora anche da donna!</p>', 1);
+(27, 'nikeAirHuarache', 'Air Huarache', 120, 0, 1, 'air-huarache.jpg', 'Nuova collezione 2017', 1),
+(28, 'rosheOne', 'Roshe One', 100, 15, 1, 'roshe-one.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(29, 'aceTango', 'Ace Tango', 79, 20, 2, 'ace-tango.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(30, 'stormer', 'Stormer', 50, 0, 4, 'stormer.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(31, 'kiomi', 'Kiomi', 20, 50, 11, 'kiomi.jpg', 'La nostra occasione.', 1),
+(32, 'classic', 'Classic', 70, 0, 12, 'classic.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(33, 'adilette', 'Adilette', 45, 20, 2, 'adilette.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(34, 'annaField', 'Anna Field', 30, 0, 13, 'ballerine.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(35, 'stivalettiAeyde', 'Stivaletti', 50, 10, 14, 'stivaletti.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(36, 'premium', 'Premium', 120, 20, 12, 'premium.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(37, 'camel', 'Camel', 50, 0, 15, 'camel.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(38, 'lightBlue', 'Light Blue', 35, 0, 15, 'light-blue.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(39, 'nude', 'Nude', 69, 0, 13, 'nude.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1),
+(40, 'sienna', 'Sienna', 50, 20, 14, 'sienna.jpg', 'Lorem ipsum dolor sit amet, consectetur adipisci elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.', 1);
 
 -- --------------------------------------------------------
 
@@ -237,22 +249,36 @@ CREATE TABLE `Scarpa_Categoria` (
 --
 
 INSERT INTO `Scarpa_Categoria` (`id_scarpa`, `id_categoria`) VALUES
-(9, 1),
-(9, 5),
-(10, 1),
-(10, 5),
-(12, 1),
-(12, 5),
-(13, 1),
-(13, 5),
-(14, 1),
-(14, 6),
-(5, 1),
-(5, 3),
-(15, 1),
-(15, 5),
-(16, 5),
-(16, 7);
+(31, 8),
+(31, 12),
+(32, 9),
+(32, 12),
+(33, 8),
+(33, 13),
+(35, 9),
+(35, 15),
+(36, 9),
+(36, 15),
+(37, 8),
+(37, 16),
+(39, 9),
+(39, 17),
+(40, 9),
+(40, 17),
+(27, 8),
+(27, 9),
+(27, 10),
+(28, 8),
+(28, 9),
+(28, 10),
+(29, 8),
+(29, 11),
+(30, 8),
+(30, 11),
+(34, 9),
+(34, 14),
+(38, 8),
+(38, 16);
 
 -- --------------------------------------------------------
 
@@ -271,97 +297,230 @@ CREATE TABLE `Stock_Scarpe` (
 --
 
 INSERT INTO `Stock_Scarpe` (`quantita`, `id_scarpa`, `id_taglia`) VALUES
-(1, 13, 1),
-(2, 13, 2),
-(3, 13, 3),
-(2, 13, 4),
-(5, 13, 5),
-(2, 13, 6),
-(5, 13, 7),
-(4, 13, 8),
-(10, 13, 9),
-(20, 13, 10),
-(20, 13, 11),
-(20, 13, 12),
-(0, 13, 13),
-(5, 13, 14),
-(1, 13, 15),
-(0, 13, 16),
-(1, 14, 1),
-(2, 14, 2),
-(4, 14, 3),
-(6, 14, 4),
-(3, 14, 5),
-(5, 14, 7),
-(7, 14, 8),
-(10, 14, 9),
-(12, 14, 10),
-(13, 14, 11),
-(10, 14, 12),
-(4, 14, 13),
-(5, 14, 14),
-(0, 14, 15),
-(0, 14, 16),
-(0, 15, 1),
-(0, 15, 2),
-(0, 15, 3),
-(0, 15, 4),
-(20, 15, 5),
-(10, 15, 7),
-(0, 15, 8),
-(5, 15, 9),
-(17, 15, 10),
-(10, 15, 11),
-(0, 15, 12),
-(0, 15, 13),
-(0, 15, 14),
-(0, 15, 15),
-(0, 15, 16),
-(1, 1, 1),
-(0, 1, 2),
-(0, 1, 3),
-(3, 1, 4),
-(0, 1, 5),
-(5, 1, 7),
-(0, 1, 8),
-(0, 1, 9),
-(3, 1, 10),
-(0, 1, 11),
-(3, 1, 12),
-(0, 1, 13),
-(0, 1, 14),
-(0, 1, 15),
-(0, 1, 16),
-(0, 3, 1),
-(0, 3, 2),
-(0, 3, 3),
-(0, 3, 4),
-(0, 3, 5),
-(0, 3, 7),
-(0, 3, 8),
-(4, 3, 9),
-(0, 3, 10),
-(0, 3, 11),
-(0, 3, 12),
-(0, 3, 13),
-(0, 3, 14),
-(0, 3, 15),
-(0, 3, 16),
-(2, 16, 1),
-(23, 16, 2),
-(0, 16, 3),
-(40, 16, 4),
-(0, 16, 5),
-(100, 16, 7),
-(25, 16, 8),
-(30, 16, 9),
-(40, 16, 10),
-(20, 16, 11),
-(0, 16, 12),
-(6, 16, 13),
-(3, 16, 14),
-(1, 16, 15),
-(0, 16, 16);
+(3, 27, 16),
+(0, 27, 15),
+(73, 27, 14),
+(0, 27, 13),
+(8, 27, 12),
+(0, 27, 11),
+(31, 27, 10),
+(12, 27, 9),
+(11, 27, 8),
+(4, 27, 7),
+(5, 27, 6),
+(8, 27, 5),
+(22, 27, 4),
+(8, 27, 3),
+(7, 27, 2),
+(5, 27, 1),
+(0, 28, 16),
+(5, 28, 15),
+(5, 28, 14),
+(5, 28, 13),
+(5, 28, 12),
+(5, 28, 11),
+(5, 28, 10),
+(5, 28, 9),
+(5, 28, 8),
+(5, 28, 7),
+(5, 28, 6),
+(5, 28, 5),
+(5, 28, 4),
+(5, 28, 3),
+(5, 28, 2),
+(5, 28, 1),
+(0, 29, 16),
+(7, 29, 15),
+(0, 29, 14),
+(7, 29, 13),
+(0, 29, 12),
+(7, 29, 11),
+(0, 29, 10),
+(7, 29, 9),
+(0, 29, 8),
+(7, 29, 7),
+(0, 29, 6),
+(7, 29, 5),
+(0, 29, 4),
+(7, 29, 3),
+(0, 29, 2),
+(7, 29, 1),
+(10, 30, 16),
+(10, 30, 15),
+(9, 30, 14),
+(9, 30, 13),
+(9, 30, 12),
+(8, 30, 11),
+(8, 30, 10),
+(8, 30, 9),
+(7, 30, 8),
+(7, 30, 7),
+(6, 30, 6),
+(5, 30, 5),
+(4, 30, 4),
+(3, 30, 3),
+(2, 30, 2),
+(1, 30, 1),
+(5, 31, 16),
+(7, 31, 15),
+(4, 31, 14),
+(36, 31, 13),
+(5, 31, 12),
+(5, 31, 11),
+(5, 31, 10),
+(0, 31, 9),
+(5, 31, 8),
+(2, 31, 7),
+(2, 31, 6),
+(2, 31, 5),
+(2, 31, 4),
+(2, 31, 3),
+(12, 31, 2),
+(12, 31, 1),
+(0, 32, 16),
+(4, 32, 15),
+(0, 32, 14),
+(0, 32, 13),
+(30, 32, 12),
+(3, 32, 11),
+(3, 32, 10),
+(9, 32, 9),
+(9, 32, 8),
+(12, 32, 7),
+(0, 32, 6),
+(0, 32, 5),
+(20, 32, 4),
+(29, 32, 3),
+(19, 32, 2),
+(19, 32, 1),
+(9, 33, 16),
+(2, 33, 15),
+(2, 33, 14),
+(41, 33, 13),
+(4, 33, 12),
+(4, 33, 11),
+(48, 33, 10),
+(9, 33, 9),
+(8, 33, 8),
+(4, 33, 7),
+(9, 33, 6),
+(8, 33, 5),
+(4, 33, 4),
+(0, 33, 3),
+(0, 33, 2),
+(0, 33, 1),
+(0, 34, 16),
+(8, 34, 15),
+(8, 34, 14),
+(0, 34, 13),
+(4, 34, 12),
+(4, 34, 11),
+(4, 34, 10),
+(4, 34, 9),
+(4, 34, 8),
+(4, 34, 7),
+(4, 34, 6),
+(48, 34, 5),
+(33, 34, 4),
+(5, 34, 3),
+(9, 34, 2),
+(48, 34, 1),
+(55, 35, 16),
+(5, 35, 15),
+(5, 35, 14),
+(5, 35, 13),
+(0, 35, 12),
+(5, 35, 11),
+(5, 35, 10),
+(5, 35, 9),
+(5, 35, 8),
+(5, 35, 7),
+(5, 35, 6),
+(5, 35, 5),
+(5, 35, 4),
+(5, 35, 3),
+(5, 35, 2),
+(0, 35, 1),
+(6, 36, 16),
+(6, 36, 15),
+(6, 36, 14),
+(6, 36, 13),
+(6, 36, 12),
+(6, 36, 11),
+(6, 36, 10),
+(0, 36, 9),
+(6, 36, 8),
+(6, 36, 7),
+(6, 36, 6),
+(6, 36, 5),
+(6, 36, 4),
+(6, 36, 3),
+(6, 36, 2),
+(6, 36, 1),
+(3, 37, 16),
+(0, 37, 15),
+(3, 37, 14),
+(0, 37, 13),
+(3, 37, 12),
+(0, 37, 11),
+(0, 37, 10),
+(3, 37, 9),
+(0, 37, 8),
+(0, 37, 7),
+(3, 37, 6),
+(3, 37, 5),
+(3, 37, 4),
+(3, 37, 3),
+(3, 37, 2),
+(3, 37, 1),
+(0, 38, 16),
+(8, 38, 15),
+(0, 38, 14),
+(8, 38, 13),
+(8, 38, 12),
+(0, 38, 11),
+(8, 38, 10),
+(9, 38, 9),
+(9, 38, 8),
+(9, 38, 7),
+(0, 38, 6),
+(69, 38, 5),
+(6, 38, 4),
+(6, 38, 3),
+(6, 38, 2),
+(6, 38, 1),
+(9, 39, 16),
+(6, 39, 15),
+(9, 39, 14),
+(6, 39, 13),
+(9, 39, 12),
+(6, 39, 11),
+(9, 39, 10),
+(6, 39, 9),
+(9, 39, 8),
+(6, 39, 7),
+(9, 39, 6),
+(6, 39, 5),
+(9, 39, 4),
+(6, 39, 3),
+(9, 39, 2),
+(6, 39, 1),
+(3, 40, 16),
+(5, 40, 15),
+(4, 40, 14),
+(3, 40, 13),
+(5, 40, 12),
+(4, 40, 11),
+(0, 40, 10),
+(5, 40, 9),
+(4, 40, 8),
+(3, 40, 7),
+(5, 40, 6),
+(4, 40, 5),
+(3, 40, 4),
+(5, 40, 3),
+(4, 40, 2),
+(3, 40, 1);
 
 -- --------------------------------------------------------
 
@@ -420,10 +579,8 @@ CREATE TABLE `Utente` (
 
 INSERT INTO `Utente` (`id_utente`, `email`, `password`, `id_gruppo_applicativo`, `attivo`) VALUES
 (1, 'admin@root', '702baf0ab00246bf06bdacd5b1e542b6', 1, 1),
-(3, 'prova@example.com', '920b271ca21afa3b009317115781f296', 2, 1),
-(4, 'prova2@example.com', '920b271ca21afa3b009317115781f296', 2, 1),
-(39, 'prova3@example.com', '920b271ca21afa3b009317115781f296', 2, 1),
-(40, 'prova4@example.com', '920b271ca21afa3b009317115781f296', 2, 1);
+(42, 'cliente1@cliente', 'ba8c69bf0c7ffc3348df34ac7ccf9860', 2, 1),
+(45, 'cliente2@cliente', '2355f637d9e7a7df8e674bca681f86dc', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -435,13 +592,6 @@ CREATE TABLE `Wishlist` (
   `id_utente` int(10) DEFAULT NULL,
   `id_scarpa` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dump dei dati per la tabella `Wishlist`
---
-
-INSERT INTO `Wishlist` (`id_utente`, `id_scarpa`) VALUES
-(3, 13);
 
 --
 -- Indici per le tabelle scaricate
@@ -547,32 +697,32 @@ ALTER TABLE `Wishlist`
 -- AUTO_INCREMENT per la tabella `Acquisto`
 --
 ALTER TABLE `Acquisto`
-  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_acquisto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT per la tabella `Carta_Di_Credito`
 --
 ALTER TABLE `Carta_Di_Credito`
-  MODIFY `id_carta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_carta` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT per la tabella `Categoria`
 --
 ALTER TABLE `Categoria`
-  MODIFY `id_categoria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_categoria` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT per la tabella `Indirizzo`
 --
 ALTER TABLE `Indirizzo`
-  MODIFY `id_indirizzo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_indirizzo` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT per la tabella `Marca`
 --
 ALTER TABLE `Marca`
-  MODIFY `id_marca` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_marca` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT per la tabella `Scarpa`
 --
 ALTER TABLE `Scarpa`
-  MODIFY `id_scarpa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_scarpa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 --
 -- AUTO_INCREMENT per la tabella `Taglia`
 --
@@ -582,7 +732,7 @@ ALTER TABLE `Taglia`
 -- AUTO_INCREMENT per la tabella `Utente`
 --
 ALTER TABLE `Utente`
-  MODIFY `id_utente` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_utente` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- Limiti per le tabelle scaricate
 --

@@ -61,7 +61,9 @@
     echo "<div class='col-md-3 col-sm-6 thumb $categorie_class' style='cursor: pointer;' onclick='acquistaScarpa($scarpa[id_scarpa])'>";
 
     echo    "<div class='thumbnail thumb-scarpa'>
+                <div class='crop'>
                 <img src='http://localhost/JustShoes/img/scarpe/$scarpa[foto]' class='thumb-pic'>
+                </div>
                 <div class='caption'>
                   <h4>$scarpa[marca]</h4><h3 style ='margin-top:0'>$scarpa[nome]</h3>
                   <h4 style='text-align : right'>";

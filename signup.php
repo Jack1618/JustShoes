@@ -13,11 +13,18 @@
 
     $stmt->bind_param('ss',$email,$password);
 
-    $stmt->execute();
+    if($stmt->execute()){
+      $id_utente = $mysqli->insert_id;
+      $_SESSION['logged'] = true;
+      $_SESSION['id_utente'] = $id_utente;
+      $_SESSION['email'] = $email;
+      $_SESSION['admin'] = false;
+    }
+    else echo "<script>alert('Email gia\' in uso!');</script>";
 
 
 
-    header("Location: signup.php");
+    header("Location: index.php");
     EXIT;
   }
 
@@ -25,7 +32,7 @@
 <!-- FORM PER INSERIMENTO DATI REGISTRAZIONE -->
 <div class="container">
   <h1 align="center">Registrati</h1>
-<form method="post" id="signup">
+<form method="post" id="signup" action="signup.php">
   <div class="form-group">
     <label for="email">Email</label>
     <input type="email" name="email" class="form-control"></input>
@@ -38,21 +45,21 @@
     <label for="r-password">Ripeti Password</label>
     <input type="password" name="r-password" id="r-pwd" class="form-control"></input>
   </div>
-  <div>
-    <button class="btn btn-primary" onclick="checkPwd()">Registrati</button>
-  </div>
+
 </form>
+<div>
+  <button class="btn btn-primary" onclick="checkPwd()">Registrati</button>
+</div>
 </div>
 
 <script type="text/javascript">
-  $("#signup").reset();
   checkPwd = function(){
     if($("#pwd").val().trim() !== $("#r-pwd").val().trim()){
       alert("Le Password non corrispondono");
     }
     else {
-      $("signup").submit();
-      Window.go("./signup.php");
+      $("#signup").submit();
+      //Window.go("./signup.php");
     }
   }
 </script>

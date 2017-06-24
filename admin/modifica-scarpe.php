@@ -51,7 +51,7 @@
       $stmt->bind_param("s",$id_scarpa);
       if($stmt->execute()){
 
-        foreach ($categorie as $key => $value) {
+        foreach ($categorie as $key => $categoria) {
           //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
           $sql_ins_cat = "INSERT INTO Scarpa_Categoria (id_scarpa, id_categoria)
                           VALUES (?, ?)";
@@ -107,7 +107,7 @@
                                       FROM Marca");
             while($marca = $marche->fetch_array(MYSQLI_ASSOC)) {
               if($scarpa["id_marca"] == $marca["id_marca"]){
-                echo "<option value='$marca[id_marca]' checked>$marca[nome]</option>";
+                echo "<option value='$marca[id_marca]' selected>$marca[nome]</option>";
               }
               else {
                 echo "<option value='$marca[id_marca]' >$marca[nome]</option>";

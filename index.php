@@ -49,7 +49,9 @@
         onclick='acquistaScarpa($scontata[id_scarpa])'>";
 
     echo    "<div class='thumbnail thumb-scarpa'>
+								<div class='crop'>
                 <img src='http://localhost/JustShoes/img/scarpe/$scontata[foto]' class='thumb-pic'>
+								</div>
                 <div class='caption'>
                   <h4>$scontata[marca]</h4><h3 style ='margin-top:0'>$scontata[nome]</h3>
                   <h4 style='text-align : right'>";
@@ -90,7 +92,9 @@
         onclick='acquistaScarpa($top[id_scarpa])'>";
 
     echo    "<div class='thumbnail thumb-scarpa'>
-                <img src='http://localhost/JustShoes/img/scarpe/$top[foto]' alt='prova'>
+								<div class='crop'>
+                <img  class='thumb-pic' src='http://localhost/JustShoes/img/scarpe/$top[foto]' alt='prova'>
+								</div>
                 <div class='caption'>
                   <h4>$top[marca]</h4><h3 style ='margin-top:0'>$top[nome]</h3>
                   <h4 style='text-align : right'>";

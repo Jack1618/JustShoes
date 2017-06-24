@@ -405,6 +405,18 @@ INSERT INTO Dettagli_Acquisto (id_acquisto, id_scarpa, id_taglia, quantita, prez
 VALUES                        ('$id_acquisto', '$articolo[id_scarpa]', '$articolo[taglia]',
                                '$articolo[quantita]', '$articolo[prezzo]')
 
+//SELEZIONA LA QUANTITA DI SPECIFICA SCARPA E TAGLIA
+SELECT quantita
+FROM Stock_Scarpe
+WHERE id_scarpa = $articolo[id_scarpa]
+AND id_taglia = $articolo[taglia];
+
+//AGGIORNA LA QUANTITA DI SPECIFICA SCARPA E TAGLIA                          
+UPDATE Stock_Scarpe
+SET quantita = $quantita
+WHERE id_scarpa = $articolo[id_scarpa]
+AND id_taglia = $articolo[taglia];
+
 //////////////////////////////////////////////////////////////////////
 
 scarpa.php

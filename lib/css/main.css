@@ -14,8 +14,16 @@ body{
 }
 
 .thumb-pic{
-  height: 220px !important;
+  max-width: 100%;
+  position: relative;
+  top: -60px;
+
+}
+
+.crop{
+  height: 300px !important;
   width: 100%;
+  overflow: hidden;
 }
 
 .wishlist{
