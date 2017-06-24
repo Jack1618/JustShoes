@@ -89,14 +89,14 @@ body{
 }
 
 .scarpa{
-  max-width: 90%;
+  max-width: 70%;
   position: relative;
-  top: -75px;
-  left: 5%;
+  top: -70px;
+  left: 15%;
 }
 
 .container-scarpa{
   height: 350px !important;
   overflow: hidden;
-  
+
 }

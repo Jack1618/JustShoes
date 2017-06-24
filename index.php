@@ -39,13 +39,14 @@
 //A SEGUIRE LE 2 VISTE PER LE 2 RISPETTIVE QUERY
 	echo "<div class='container-fluid'>";
 	echo "<h1>Le nostre promozioni</h1>";
-	echo "<div class='row container-fluid' style = 'width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
+	echo "<div class='container-fluid' style = 'width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>
+				<div class='container-flex'>";
 
   if($scontate){
 
     while($scontata = $scontate->fetch_array(MYSQLI_ASSOC)){
 
-    echo "<div class='col-md-3 col-sm-6 thumb' style='cursor: pointer;'
+    echo "<div class='thumb' style='cursor: pointer;'
         onclick='acquistaScarpa($scontata[id_scarpa])'>";
 
     echo    "<div class='thumbnail thumb-scarpa'>
@@ -78,17 +79,18 @@
   }
 
   echo "</div>";
-  echo "</div>";
+  echo "</div></div>";
 
   	echo "<div class='container-fluid'>";
   	echo "<h1>Le nostre Top Seller</h1>";
-	echo "<div class='row container-fluid' style='width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
+	echo "<div class='container-fluid' style='width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>
+				<div class='container-flex'>";
 
   if($topSeller){
 
     while($top = $topSeller->fetch_array(MYSQLI_ASSOC)){
 
-    echo "<div class='col-md-3 col-sm-6 thumb' style='cursor: pointer;'
+    echo "<div class='thumb' style='cursor: pointer;'
         onclick='acquistaScarpa($top[id_scarpa])'>";
 
     echo    "<div class='thumbnail thumb-scarpa'>
@@ -123,7 +125,7 @@
   }
 
   echo "</div>";
-  echo "</div>";
+  echo "</div></div>";
 
 
 
