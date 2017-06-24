@@ -59,15 +59,21 @@
        $scadenza = $anno.'-'.$mese.'-'.$giorno;
        //SE ID E' VUOTO INSERISCO NUOVA CARTA
        if($_GET["id"] == ""){
-         $mysqli->query("INSERT INTO Carta_Di_Credito (id_carta, id_utente, numero_carta, scadenza)
-                         VALUES (NULL, '$id_utente', '$numero', '$scadenza')");
+         //PREPARO LO STATEMENT PER GESTIRE CARATTERI SPECIALI E INJECTIONS
+         $stmt = $mysqli->prepare("INSERT INTO Carta_Di_Credito (id_carta, id_utente, numero_carta, scadenza)
+                                   VALUES (NULL, ?, ?, ?)");
+         $stmt->bind_param("sss",$id_utente,$numero,$scadenza);
+         $stmt->execute();
        }
        //ALTRIMENTI MODIFICO LA CARTA CON QUELL'ID
        else {
-         $mysqli->query("UPDATE Carta_Di_Credito
-                         SET numero_carta = $numero,
-                             scadenza = $scadenza
-                         WHERE id_carta=$_GET[id]");
+         //PREPARO LO STATEMENT PER GESTIRE CARATTERI SPECIALI E INJECTIONS
+         $stmt = $mysqli->prepare("UPDATE Carta_Di_Credito
+                                   SET numero_carta = ?,
+                                       scadenza = ?
+                                   WHERE id_carta=?");
+         $stmt->bind_param("sss",$numero,$scadenza,$_GET["id"]);
+         $stmt->execute();
        }
        header("Location: profilo.php");
        EXIT;
