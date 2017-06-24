@@ -18,7 +18,9 @@
 <!-- VISTA PER IMMAGINE SCARPA, PANNELLO ACQUISTO E DESCRIZIONE -->
 <div class="container">
   <div class="row">
-    <img class="col-md-5" src=<?php echo "'http://localhost/JustShoes/img/scarpe/$scarpa[foto]'";?>/>
+    <div class="col-md-5 container-scarpa" >
+    <img class="scarpa" src=<?php echo "'http://localhost/JustShoes/img/scarpe/$scarpa[foto]'";?>/>
+    </div>
     <div class="panel panel-primary col-md-6" style="padding: 0">
       <div class="panel-heading">
         <h3 class="panel-title"><?php echo $scarpa["nome"];?></h3>

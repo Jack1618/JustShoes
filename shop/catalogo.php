@@ -47,7 +47,8 @@
 
   if($scarpe = $stmt->get_result()){
 
-  echo "<div class='row container-fluid' style='width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
+  echo "<div class='container-fluid' style='width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>
+        <div class='container-flex'>";
   while($scarpa = $scarpe->fetch_array(MYSQLI_ASSOC)){
     $categorie_scarpa = $mysqli->query("SELECT id_categoria
                                         FROM Scarpa_Categoria
@@ -58,7 +59,7 @@
     while($categoria_scarpa = $categorie_scarpa->fetch_array(MYSQLI_ASSOC)){
       $categorie_class .= "cat$categoria_scarpa[id_categoria] ";
     }
-    echo "<div class='col-md-3 col-sm-6 thumb $categorie_class' style='cursor: pointer;' onclick='acquistaScarpa($scarpa[id_scarpa])'>";
+    echo "<div class='thumb $categorie_class' style='cursor: pointer;' onclick='acquistaScarpa($scarpa[id_scarpa])'>";
 
     echo    "<div class='thumbnail thumb-scarpa'>
                 <div class='crop'>
@@ -88,7 +89,7 @@
               </div>
             </div>";
   }
-  echo "</div>";
+  echo "</div></div>";
 }
 else{
   echo "<h2>Nessuna scarpa trovata nel Catalogo.</h2>";

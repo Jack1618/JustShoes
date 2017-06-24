@@ -9,8 +9,20 @@ body{
   background-color: #C9302C !important;
 }
 
+.container-flex{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.thumb-scarpa{
+  width: 300px;
+  margin: 10px;
+}
+
 .thumb-scarpa:hover{
   background-color: #d6ebfc;
+
 }
 
 .thumb-pic{
@@ -74,4 +86,17 @@ body{
 
 .selected-el{
   background-color: #d6ebfc !important;
+}
+
+.scarpa{
+  max-width: 90%;
+  position: relative;
+  top: -75px;
+  left: 5%;
+}
+
+.container-scarpa{
+  height: 350px !important;
+  overflow: hidden;
+  
 }
