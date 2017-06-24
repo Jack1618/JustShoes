@@ -6,13 +6,21 @@
   $data = date("Y-m-d H:i:s");
   $totale = $_SESSION["totale"];
   $id_utente = $_SESSION["id_utente"];
-  $mysqli->query("INSERT INTO Acquisto (id_acquisto, data, totale, id_indirizzo, id_utente)
-                  VALUES(NULL, '$data', '$totale', '$indirizzo', '$id_utente')");
+  $stmt = $mysqli->prepare("INSERT INTO Acquisto (id_acquisto, data, totale, id_indirizzo, id_utente)
+                  VALUES(NULL, ?, ?, ?, ?)");
+  $stmt->bind_param('ssss',$data, $totale, $indirizzo, $id_utente);
+
+  $stmt->execute();
+
+
   $id_acquisto = $mysqli->insert_id;
   $carrello = $_SESSION["carrello"];
   foreach ($carrello as $key => $articolo) {
-    $mysqli->query("INSERT INTO Dettagli_Acquisto (id_acquisto, id_scarpa, id_taglia, quantita, prezzo)
-                    VALUES ('$id_acquisto', '$articolo[id_scarpa]', '$articolo[taglia]', '$articolo[quantita]', '$articolo[prezzo]')");
+  $stmt = $mysqli->prepare("INSERT INTO Dettagli_Acquisto (id_acquisto, id_scarpa, id_taglia, quantita, prezzo)
+                    VALUES (?,?,?,?,?)");
+  $stmt->bind_param('sssss', $id_acquisto, $articolo["id_scarpa"], $articolo["taglia"], $articolo["quantita"], $articolo["prezzo"]);
+  $stmt->execute();
+
   }
   $_SESSION["carrello"] = array();
 ?>

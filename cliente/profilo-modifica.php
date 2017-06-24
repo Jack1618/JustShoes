@@ -16,9 +16,13 @@
   //MODIFICA EMAIL
   if(isset($_POST["email"]) && $_POST["email"] != ""){
     $email = $_POST["email"];
-    if($mysqli->query("UPDATE Utente
-                       SET email = '$email'
-                       WHERE id_utente = $_SESSION[id_utente]")){
+    $stmt = $mysqli->prepare("UPDATE Utente
+                       SET email = ?
+                       WHERE id_utente = $_SESSION[id_utente]");
+
+    $stmt->bind_param('s',$email);
+
+    if($stmt->execute()){
       $_SESSION["email"] = $email;
       header("Location: profilo.php");
       EXIT;
@@ -39,9 +43,13 @@
     if($_POST["old-pwd"] == $old_password){
       if($new_password == $_POST["new-pwd-r"]){
         $new_password = md5($new_password.$SAFEWORD);
-        if($mysqli->query("UPDATE Utente
-                           SET password = '$new_password'
-                           WHERE id_utente = $_SESSION[id_utente]")){
+        $stmt = $mysqli->prepare("UPDATE Utente
+                           SET password = ?
+                           WHERE id_utente = $_SESSION[id_utente]");
+        $stmt->bind_param('s',$new_password);
+
+
+        if($stmt->execute()){
 
           header("Location: profilo.php");
           EXIT;

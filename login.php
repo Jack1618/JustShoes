@@ -27,16 +27,23 @@ if(isset($_POST['email']) && $_POST['email'] != "" &&
     $password = md5(trim($_POST['password']).$SAFEWORD);
 
     //SE IL LOGIN HA SUCCESSO SETTO LE VARIABILI DI SESSIONE
-    if($utente = $mysqli->query("SELECT *
+    $stmt = $mysqli->prepare("SELECT *
                                  FROM Utente
-                                 WHERE email = '$email'
-                                 AND password = '$password'
-                                 AND attivo = '1'")
-                                 ->fetch_array(MYSQLI_ASSOC)) {
+                                 WHERE email = ?
+                                 AND password = ?
+                                 AND attivo = '1'");
+    $stmt->bind_param('ss',$email,$password);
+
+    $stmt->execute();
+
+    $utente = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
+
+    if($utente){
+
         $_SESSION['logged'] = true;
         $_SESSION['id_utente'] = $utente['id_utente'];
         $_SESSION['email'] = $utente['email'];
-        if($utente['id_gruppo_applicativo'] === "1"){
+        if($utente['id_gruppo_applicativo'] == "1"){
           $_SESSION['admin'] = true;
           header('Location: http://localhost/JustShoes/admin/gestione-scarpe.php');
           EXIT;

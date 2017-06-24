@@ -5,15 +5,19 @@
   //SPROCEDO A RICERCA O SELEZIONE DI TUTTE LE SCARPE
   $fastFilter = NULL;
   if(isset($_POST["ricercaRapida"]) && $_POST["ricercaRapida"] != NULL){
-    $fastFilter =  $_POST["ricercaRapida"];
+    $fastFilter =  "%$_POST[ricercaRapida]%";
     $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'
             FROM Scarpa
             JOIN Marca
             ON Scarpa.id_marca = Marca.id_marca
             WHERE attivo='1'
-            AND (Scarpa.nome LIKE '%$fastFilter%'
-                 OR Marca.nome LIKE '%$fastFilter%')
+            AND (Scarpa.nome LIKE ?
+                 OR Marca.nome LIKE ?)
             ORDER BY id_scarpa";
+    $stmt = $mysqli->prepare($sql);
+
+    $stmt->bind_param('ss',$fastFilter, $fastFilter);
+
   }
   else{
     $sql = "SELECT id_scarpa, Scarpa.nome, prezzo, sconto, foto, Marca.nome AS 'marca'
@@ -22,6 +26,7 @@
             ON Scarpa.id_marca = Marca.id_marca
             WHERE attivo='1'
             ORDER BY id_scarpa";
+   $stmt = $mysqli->prepare($sql);
   }
 
 //SELEZIONE MULTIPLA DI CATEGORIE PER FILTRARE ARTICOLI NEL CATALOGO
@@ -38,7 +43,9 @@
         </div>';
 
   //SEMPLICE VISTA DI TUTTE LE SCARPE
-  $scarpe = $mysqli->query($sql);
+  $stmt->execute();
+
+  if($scarpe = $stmt->get_result()){
 
   echo "<div class='row container-fluid' style='width: 100%; margin: 0; padding: 20px; margin-top: 60px;'>";
   while($scarpa = $scarpe->fetch_array(MYSQLI_ASSOC)){
@@ -80,6 +87,10 @@
             </div>";
   }
   echo "</div>";
+}
+else{
+  echo "<h2>Nessuna scarpa trovata nel Catalogo.</h2>";
+}
 
   //SE LOGGATO MOSTRO LA WISHLIST
   if(isset($_SESSION["logged"]) && $_SESSION["logged"] == true){

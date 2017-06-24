@@ -13,8 +13,14 @@
     header("Location: http://localhost/JustShoes/login.php?option=wishlist&id=$id_scarpa");
     EXIT;
   }
-  if($mysqli->query("INSERT INTO Wishlist (id_utente, id_scarpa)
-                     VALUES ('$id_utente','$id_scarpa')")){
+
+
+  $stmt = $mysqli->prepare("INSERT INTO Wishlist (id_utente, id_scarpa)
+                            VALUES (?,?)");
+
+  $stmt->bind_param('ss',$id_utente,$id_scarpa);
+
+  if($stmt->execute()){
     if($option == "catalogo"){
       header("Location: http://localhost/JustShoes/shop/catalogo.php?wladd=1");
     }

@@ -38,12 +38,16 @@
 }
 ?>
 <!-- FORM PER INSERIMENTO MARCA -->
-<h1>Inserimento Marca</h1>
+<div class="container">
+<h1 align="center">Inserimento Marca</h1>
 <form id="inserimento-marca" method="post" action="gestione-marche.php">
+  <div class="form-group">
   <label for="nome">Nome</label>
-  <input type="text" name="nome"></input>
+  <input type="text" name="nome" class="form-control"></input>
   <button class="btn btn-default" onclick="submit()">Inserisci</button>
+</div>
 </form>
+</div>
 <script type="text/javascript">
   submit = function(){
     $("#inserimento-marca").submit();

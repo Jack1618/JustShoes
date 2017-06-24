@@ -38,12 +38,16 @@
 
 ?>
 <!-- FORM PER INSERIMENTO CATEGORIA -->
-<h1>Inserimento Categoria</h1>
+<div class="container">
+<h1 align="center">Inserimento Categoria</h1>
+<div class="form-group">
 <form id="inserimento-categoria" method="post" action="gestione-categorie.php">
   <label for="nome">Nome</label>
-  <input type="text" name="nome"></input>
+  <input type="text" name="nome" class="form-control"></input>
   <button class="btn btn-default" onclick="submit()">Inserisci</button>
 </form>
+</div>
+</div>
 <script type="text/javascript">
   submit = function(){
     $("#inserimento-categoria").submit();

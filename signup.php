@@ -8,9 +8,14 @@
     //IMPOSTO L'UTENTE COME CLIENTE
     $gruppo_applicativo = "2";
     $sql = "INSERT INTO Utente (id_utente, email, password, id_gruppo_applicativo, attivo)
-            VALUES (NULL,'$email','$password','$gruppo_applicativo', 1)";
+            VALUES (NULL,?, ?, '$gruppo_applicativo', 1)";
+    $stmt = $mysqli->prepare($sql);
 
-    $mysqli->query($sql);
+    $stmt->bind_param('ss',$email,$password);
+
+    $stmt->execute();
+
+
 
     header("Location: signup.php");
     EXIT;

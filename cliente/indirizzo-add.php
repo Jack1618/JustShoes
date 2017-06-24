@@ -53,18 +53,26 @@
        }
        //SE ID NON E' SETTATO CREO NUOVO INDIRIZZO
        if($_GET["id"] == ""){
-         $mysqli->query("INSERT INTO Indirizzo (id_indirizzo, id_utente, nome, citta, via, CAP, altro)
-                         VALUES (NULL, '$id_utente', '$nome', '$citta', '$via', '$cap', '$altro')");
+        $stmt = $mysqli->prepare("INSERT INTO Indirizzo (id_indirizzo, id_utente, nome, citta, via, CAP, altro)
+                         VALUES (NULL, ?, ?, ?, ?, ?, ?)");
+
+        $stmt->bind_param('ssssss',$id_utente, $nome,$citta,$via,$cap,$altro);
+
+        $stmt->execute();
        }
        //ALTRIMENTI MODIFICO QUELLO GIA' ESISTENTE
        else {
-         $mysqli->query("UPDATE Indirizzo
+         $stmt = $mysqli->prepare("UPDATE Indirizzo
                          SET nome = '$nome',
                              citta = '$citta',
                              via = '$via',
                              CAP = '$cap',
                              altro = '$altro'
                          WHERE id_indirizzo = $_GET[id]");
+
+        $stmt->bind_param('ssssss',$nome,$citta,$via,$cap,$altro,$_GET["id"]);
+        $stmt->execute();
+
        }
        header("Location: profilo.php");
        EXIT;
