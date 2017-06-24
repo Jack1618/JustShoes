@@ -27,28 +27,37 @@
     $foto = $_POST['foto']  == "" ? 'nopic.png' : $_POST['foto'];
     $descrizione = $_POST["descrizione"]  == "" ? 'Nessuna Descrizione!' : $_POST['descrizione'];;
     //AGGIORNO I VALORI DELLA SCARPA
+    //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
     $sql_ins = "UPDATE Scarpa
-                SET id_scarpa = '$id_scarpa',
-                    codice = '$codice',
-                    nome = '$nome',
-                    prezzo = '$prezzo',
-                    sconto = '$sconto',
-                    id_marca = '$marca',
-                    foto = '$foto',
-                    descrizione = '$descrizione'
-                WHERE id_scarpa = $id_scarpa" ;
-    //AGGIORNO LE CATEGORIE DELLA SCARPA
-    if($mysqli->query($sql_ins)){
-      $categorie = $_POST['categorie'];
-      $sql_del_cat = "DELETE FROM Scarpa_Categoria
-                      WHERE id_scarpa = $id_scarpa";
+                SET id_scarpa = ?,
+                    codice = ?,
+                    nome = ?,
+                    prezzo = ?,
+                    sconto = ?,
+                    id_marca = ?,
+                    foto = ?,
+                    descrizione = ?
+                WHERE id_scarpa = ?" ;
+    $stmt = $mysqli->prepare($sql_ins);
+    $stmt->bind_param("sssdissss",$id_scarpa,$codice,$nome,$prezzo,$sconto,$marca,$foto,$descrizione,$id_scarpa);
 
-      if($mysqli->query($sql_del_cat)){
+    //AGGIORNO LE CATEGORIE DELLA SCARPA
+    if($stmt->execute()){
+      $categorie = $_POST['categorie'];
+      //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
+      $sql_del_cat = "DELETE FROM Scarpa_Categoria
+                      WHERE id_scarpa = ?";
+      $stmt = $mysqli->prepare($sql_del_cat);
+      $stmt->bind_param("s",$id_scarpa);
+      if($stmt->execute()){
 
         foreach ($categorie as $key => $value) {
+          //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
           $sql_ins_cat = "INSERT INTO Scarpa_Categoria (id_scarpa, id_categoria)
-                          VALUES ('$id_scarpa', '$value')";
-          $mysqli->query($sql_ins_cat);
+                          VALUES (?, ?)";
+          $stmt = $mysqli->prepare($sql_ins_cat);
+          $stmt->bind_param("ss",$id_scarpa,$categoria);
+          $stmt->execute();
         }
       }
 
@@ -127,11 +136,11 @@
 
         //CATEGORIE NON COLLEGATE ALLA SCARPA NON SELEZIONATE
         $categorie_no = $mysqli->query("SELECT id_categoria, nome
-                                     FROM Categoria
-                                     WHERE id_categoria
-                                     NOT IN (SELECT id_categoria
-                                             FROM Scarpa_Categoria
-                                             WHERE id_scarpa =$scarpa[id_scarpa])");
+                                        FROM Categoria
+                                        WHERE id_categoria
+                                        NOT IN (SELECT id_categoria
+                                                FROM Scarpa_Categoria
+                                                WHERE id_scarpa =$scarpa[id_scarpa])");
 
         if($categorie_no){
           while($categoria = $categorie_no->fetch_array(MYSQLI_ASSOC)) {

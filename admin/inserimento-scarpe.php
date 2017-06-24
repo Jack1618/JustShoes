@@ -22,10 +22,11 @@
       $id = $taglia["id_taglia"];
       $quantita = (isset($_POST["qt$id"]) && $_POST["qt$id"] != "") ?
                   $_POST["qt$id"] : "0";
-      
-      $mysqli->query("INSERT INTO Stock_Scarpe (quantita, id_taglia, id_scarpa)
-                      VALUES ('$quantita','$id','$id_scarpa')");
-      echo $mysqli->error;
+      //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
+      $stmt = $mysqli->prepare("INSERT INTO Stock_Scarpe (quantita, id_taglia, id_scarpa)
+                      VALUES (?,?,?)");
+      $stmt->bind_param("iss",$quantita,$id,$id_scarpa);
+      $stmt->execute();
 
     }
     header("Location: gestione-scarpe.php");

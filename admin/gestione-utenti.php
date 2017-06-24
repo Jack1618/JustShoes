@@ -26,12 +26,15 @@
 
   //PREPARO QUERY DI RICERCA
   if(isset($_POST["cerca"])){
-    $nome = $_POST["cerca"];
-    $utenti = $mysqli->query("SELECT *
+    $nome = "%$_POST[cerca]%";
+    //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
+    $stmt = $mysqli->prepare("SELECT *
                               FROM Utente
                               WHERE id_gruppo_applicativo = 2
-                              AND email LIKE '%$nome%'");
-
+                              AND email LIKE ?");
+    $stmt->bind_param("s",$nome);
+    $stmt->execute();
+    $utenti = $stmt->get_result();
   }
   else{
     $utenti = $mysqli->query("SELECT *

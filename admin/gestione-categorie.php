@@ -10,9 +10,11 @@
   if(isset($_POST['nome']) && $_POST['nome']!=""){
     $nome = $_POST['nome'];
     $sql_ins = "INSERT INTO Categoria (id_categoria, nome)
-                VALUES (NULL, '$nome')";
-
-    if($mysqli->query($sql_ins)){
+                VALUES (NULL, ?)";
+    //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
+    $stmt = $mysqli->prepare($sql_ins);
+    $stmt->bind_param("s", $nome);
+    if($stmt->execute()){
       header("Location: gestione-categorie.php");
       EXIT;
     }

@@ -26,15 +26,21 @@
     $foto = $_POST['foto']  == "" ? 'nopic.png' : $_POST['foto'];
     $descrizione = $_POST["descrizione"]  == "" ? 'Nessuna Descrizione!' : $_POST['descrizione'];
     $sql_ins = "INSERT INTO Scarpa (id_scarpa, codice, nome, prezzo, sconto, id_marca, foto, descrizione, attivo)
-                VALUES (NULL, '$codice','$nome','$prezzo', '$sconto', '$marca','$foto', '$descrizione', '1')";
-    if($mysqli->query($sql_ins)){
+                VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, '1')";
+    //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
+    $stmt = $mysqli->prepare($sql_ins);
+    $stmt->bind_param("ssdisss",$codice,$nome,$prezzo,$sconto,$marca,$foto,$descrizione);
+    if($stmt->execute()){
       $id_scarpa = $mysqli->insert_id;
       $categorie = $_POST['categorie'];
       //INSERISCO LE CATEGORIE PER LA SCARPA APPENA INSERITA
       foreach ($categorie as $key => $categoria) {
+        //PREPARO STATEMENT PER EVITARE CARATTERI SPECIALI E INJECTIONS
         $sql_ins_cat = "INSERT INTO Scarpa_Categoria (id_scarpa, id_categoria)
-                        VALUES ('$id_scarpa', '$categoria')";
-        $mysqli->query($sql_ins_cat);
+                        VALUES (?, ?)";
+        $stmt = $mysqli->prepare($sql_ins_cat);
+        $stmt->bind_param("ss",$id_scarpa,$categoria);
+        $stmt->execute();
       }
       //ISERITO IL MODELLO VADO ALL'INSERIMENTO IN STOCK PER TAGLIA
       header("Location: inserimento-scarpe.php?id=$id_scarpa");
