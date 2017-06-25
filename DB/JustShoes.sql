@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Creato il: Giu 24, 2017 alle 19:06
+-- Creato il: Giu 25, 2017 alle 11:26
 -- Versione del server: 10.1.21-MariaDB
 -- Versione PHP: 5.6.30
 
@@ -609,7 +609,8 @@ ALTER TABLE `Acquisto`
 -- Indici per le tabelle `Carta_Di_Credito`
 --
 ALTER TABLE `Carta_Di_Credito`
-  ADD PRIMARY KEY (`id_carta`,`id_utente`);
+  ADD PRIMARY KEY (`id_carta`,`id_utente`),
+  ADD KEY `id_utente` (`id_utente`);
 
 --
 -- Indici per le tabelle `Categoria`
@@ -743,6 +744,12 @@ ALTER TABLE `Utente`
 ALTER TABLE `Acquisto`
   ADD CONSTRAINT `FK_Acquisto_0` FOREIGN KEY (`id_indirizzo`) REFERENCES `Indirizzo` (`id_indirizzo`),
   ADD CONSTRAINT `FK_Acquisto_1` FOREIGN KEY (`id_utente`) REFERENCES `Utente` (`id_utente`);
+
+--
+-- Limiti per la tabella `Carta_Di_Credito`
+--
+ALTER TABLE `Carta_Di_Credito`
+  ADD CONSTRAINT `carta_di_credito_ibfk_1` FOREIGN KEY (`id_utente`) REFERENCES `Utente` (`id_utente`);
 
 --
 -- Limiti per la tabella `Dettagli_Acquisto`
