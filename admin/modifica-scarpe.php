@@ -70,10 +70,13 @@
   }
 
 
-  $scarpa = $mysqli->query("SELECT *
+  $stmt = $mysqli->prepare("SELECT *
                             FROM Scarpa
-                            WHERE id_scarpa = $id_scarpa")
-                           ->fetch_array(MYSQLI_ASSOC);
+                            WHERE id_scarpa = ?");
+
+  $stmt->bind_param("s",$id_scarpa);
+  $stmt->execute();
+  $scarpa = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
 
 ?>
 
@@ -120,11 +123,13 @@
     <div class="form-group">
       <?php
         //CATEGORIE COLLEGATE ALLA SCARPA SELEZIONATE
-        $categorie_si = $mysqli->query("SELECT Categoria.id_categoria, nome
-                                     FROM Scarpa_Categoria
-                                     JOIN Categoria ON Scarpa_Categoria.id_categoria = Categoria.id_categoria
-                                     WHERE id_scarpa = $scarpa[id_scarpa]");
-
+        $stmt = $mysqli->prepare("SELECT Categoria.id_categoria, nome
+                                FROM Scarpa_Categoria
+                                JOIN Categoria ON Scarpa_Categoria.id_categoria = Categoria.id_categoria
+                                WHERE id_scarpa = ?");
+        $stmt->bind_param("s", $scarpa["id_scarpa"]);
+        $stmt->execute();
+        $categorie_si = $stmt->get_result();
         if($categorie_si){
           while($categoria = $categorie_si->fetch_array(MYSQLI_ASSOC)) {
               echo "<label class='checkbox-inline'>
@@ -135,12 +140,16 @@
         }
 
         //CATEGORIE NON COLLEGATE ALLA SCARPA NON SELEZIONATE
-        $categorie_no = $mysqli->query("SELECT id_categoria, nome
-                                        FROM Categoria
-                                        WHERE id_categoria
-                                        NOT IN (SELECT id_categoria
-                                                FROM Scarpa_Categoria
-                                                WHERE id_scarpa =$scarpa[id_scarpa])");
+
+        $stmt = $mysqli->prepare("SELECT id_categoria, nome
+                                  FROM Categoria
+                                  WHERE id_categoria
+                                  NOT IN (SELECT id_categoria
+                                          FROM Scarpa_Categoria
+                                          WHERE id_scarpa =?)");
+        $stmt->bind_param("s", $scarpa["id_scarpa"]);
+        $stmt->execute();
+        $categorie_no = $stmt->get_result();
 
         if($categorie_no){
           while($categoria = $categorie_no->fetch_array(MYSQLI_ASSOC)) {

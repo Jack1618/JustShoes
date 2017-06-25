@@ -32,7 +32,7 @@
               <span class='badge' style='margin-top: 1px;'><img style='width: 70px; height: 70px; margin:-10px;' src='http://localhost/JustShoes/img/scarpe/$articolo[foto]'/></span>
               <h4 class='list-group-item-heading'>$articolo[nome] - <span style='font-size: 14px'>Taglia: EU $taglia[taglia_eu] / UK_M $taglia[taglia_uk_m] / UK_F $taglia[taglia_uk_f] / US_M $taglia[taglia_us_m] / US_F $taglia[taglia_us_f]<span></h4>
               <p class='list-group-item-text'>
-                Prezzo: <b>$articolo[prezzo] €</b> -
+                Prezzo: <b>".$articolo['prezzo']*$articolo['quantita']." €</b> -
                 Quantita: <b>$articolo[quantita]</b>
                 <button class='btn btn-default' onclick='addArticolo($articolo[id_scarpa],$articolo[taglia])'>+</button>
                 <button class='btn btn-default' onclick='decreaseArticolo($key)'>-</button>

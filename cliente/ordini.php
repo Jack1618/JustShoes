@@ -84,7 +84,7 @@
           <h4 class='list-group-item-heading'><b>$acquisto[marca_nome]</b> - $acquisto[scarpa_nome] - <span style='font-size: 14px'>
           Taglia: EU $acquisto[taglia_eu] / UK_M $acquisto[taglia_uk_m] / UK_F $acquisto[taglia_uk_f] / US_M $acquisto[taglia_us_m] / US_F $acquisto[taglia_us_f]<span></h4>
           <p class='list-group-item-text'>
-            Prezzo: <b>$acquisto[prezzo] €</b> -
+            Prezzo: <b>".$acquisto['prezzo']*$acquisto['quantita']."€</b> -
             Quantita: <b>$acquisto[quantita]</b>
           </p>
         </li>";

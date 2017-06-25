@@ -2,7 +2,7 @@
   include_once("./config.php");
   include_once("./header.php");
 
-  if(isset($_POST["email"]) && isset($_POST["password"])){
+  if(isset($_POST["email"]) && isset($_POST["password"]) && $_POST["email"]!="" && $_POST["password"]!=""){
     $email = trim($_POST["email"]);
     $password = md5(trim($_POST["password"]).$SAFEWORD);
     //IMPOSTO L'UTENTE COME CLIENTE
@@ -27,6 +27,9 @@
     header("Location: index.php");
     EXIT;
   }
+  else{
+    echo "<script>alert('Inserire una password!);</script>";
+  }
 
 ?>
 <!-- FORM PER INSERIMENTO DATI REGISTRAZIONE -->
@@ -34,8 +37,8 @@
   <h1 align="center">Registrati</h1>
 <form method="post" id="signup" action="signup.php">
   <div class="form-group">
-    <label for="email">Email</label>
-    <input type="email" name="email" class="form-control"></input>
+    <label>Email:</label>
+    <input type="email" value="" name="email" class="form-control"></input>
   </div>
   <div class="form-group">
     <label for="password">Password</label>
@@ -56,6 +59,9 @@
   checkPwd = function(){
     if($("#pwd").val().trim() !== $("#r-pwd").val().trim()){
       alert("Le Password non corrispondono");
+    }
+    else if($("#pwd").val().length < 4){
+      alert("La password deve contenere almeno 4 caratteri");
     }
     else {
       $("#signup").submit();
