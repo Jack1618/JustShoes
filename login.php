@@ -80,7 +80,7 @@ if(isset($_POST['email']) && $_POST['email'] != "" &&
               <input type="email" value="" name="email" class="form-control"></input>
             </div>
             <div class="form-group">
-              <label>Password:</label>
+              <label>Password:</label><a href="recupero-pass.php">  Password dimenticata?</a>
               <input type="password" name="password" value="" class="form-control"></input>
             </div>
               <div>
