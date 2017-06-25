@@ -16,9 +16,7 @@
 	$SAFEWORD = "JuS75h03$";
 
 	//CREAZIONE CONNESSIONE CON DB E RIFERIMENTO PER USO DI QUERY MYSQL
-	$con = mysql_connect($HOST, $USER, $PASS) or die("Connessione a mysql non riuscita\n");
-	$db = mysql_select_db($DB, $con) or die("Impossibile selezionare il database\n");
-	$mysqli = new mysqli("localhost", "root", "root", "JustShoes");
+	$mysqli = new mysqli($HOST, $USER, $PASS, $DB);
 
 
 	//INIZIO SESSIONE

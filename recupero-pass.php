@@ -21,7 +21,27 @@ if(isset($_POST['email']) && $_POST['email'] != "") {
     $utente = $stmt->get_result()->fetch_array(MYSQLI_ASSOC);
 
     if($utente){
-        echo "<script type='text/javascript'>alert('Ti abbiamo inviato una mail con una password temporanea!')</script>";
+
+        $newPass = md5(str_shuffle($utente['password']));
+        $message = "La tua nuova Password: \r\n$newPass\r\n";
+
+        // In case any of our lines are larger than 70 characters, we should use wordwrap()
+        $message = wordwrap($message, 70, "\r\n");
+        // Send
+        mail('giacomocalcara94@gmail.com', 'My Subject', $message);
+
+        $newPass = md5($newPass.$SAFEWORD);
+
+        $stmt = $mysqli->prepare("UPDATE  Utente
+                                  SET password = ?
+                                  WHERE id_utente = $utente[id_utente]");
+        $stmt->bind_param('s',$newPass);
+
+        if($stmt->execute()){
+          echo "<script type='text/javascript'>alert('Ti abbiamo inviato una mail con una password temporanea!')</script>";
+        }
+
+
     }
     //ALTRIMENTI INFORMO L'UTENTE DELLA NON RIUSCITA
     else {
